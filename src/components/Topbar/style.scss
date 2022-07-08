@@ -34,13 +34,13 @@
   display: grid;
   grid-auto-flow: column;
   justify-content: flex-start;
-  column-gap: 20px;
+  column-gap: 10px;
   align-items: center;
   font-size: 24px;
   height: 100%;
 
   button {
-    font-size: 24px;
+    font-size: 16px;
   }
 }
 .topbar__right {

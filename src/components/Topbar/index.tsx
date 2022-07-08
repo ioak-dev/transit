@@ -7,6 +7,7 @@ import './style.scss';
 
 interface Props {
   title: string;
+  left?: any;
   children?: any;
   fixed?: boolean;
   isContextExpanded?: boolean;
@@ -39,6 +40,7 @@ const Topbar = (props: Props) => {
     >
       <div className="topbar__left">
         <div>{props.title}</div>
+        {props.left && <div>{props.left}</div>}
       </div>
       <div className="topbar__right">{props.children}</div>
     </div>

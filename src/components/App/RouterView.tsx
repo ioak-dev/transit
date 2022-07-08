@@ -17,6 +17,7 @@ import Permissions from '../Page/SettingsPage/Permissions';
 import BackupAndRestore from '../Page/SettingsPage/BackupAndRestore';
 import EventListPage from '../Page/EventListPage';
 import EditEventPage from '../Page/EditEventPage';
+import EditTrackPage from '../Page/EditTrackPage';
 import TrackListPage from '../Page/TrackListPage';
 
 interface Props {
@@ -97,6 +98,18 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={EditEventPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/track"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={EditTrackPage}
             middleware={['authenticate']}
           />
         )}
