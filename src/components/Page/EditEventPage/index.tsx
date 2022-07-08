@@ -24,13 +24,30 @@ const EventListPage = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [id, setId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const query = queryString.parse(props.location.search);
+    setId(query.id);
+  }, [props.location.search]);
+
   const authorization = useSelector((state: any) => state.authorization);
-  const companyList = useSelector((state: any) => state.company.items);
+  const eventList = useSelector((state: any) => state.event.items);
 
   const [state, setState] = useState<EventModel>({
     name: '',
     description: '',
   });
+
+  useEffect(() => {
+    console.log(id, eventList);
+    if (id && eventList) {
+      const event = eventList.find((item: EventModel) => item._id === id);
+      if (event) {
+        setState({ ...event });
+      }
+    }
+  }, [id, eventList]);
 
   const goToCreateEventPage = () => {
     history.push(`/${props.space}/event/new`);
@@ -49,12 +66,13 @@ const EventListPage = (props: Props) => {
 
   const save = (event: any) => {
     event.preventDefault();
-    console.log(state);
     saveEvent(props.space, state, authorization).then((response: any) => {
       dispatch(fetchAndSetEventItems(props.space, authorization));
       history.goBack();
     });
   };
+
+  const cancel = () => history.goBack();
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
@@ -86,7 +104,7 @@ const EventListPage = (props: Props) => {
             <FontAwesomeIcon icon={faCheck} />
             Save
           </button>
-          <button className="button default-button">
+          <button className="button default-button" onClick={cancel}>
             <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>

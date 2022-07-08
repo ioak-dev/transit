@@ -27,6 +27,10 @@ const EditEventPage = (props: Props) => {
     history.push(`/${props.space}/event`);
   };
 
+  const goToEditEventPage = (event: EventModel) => {
+    history.push(`/${props.space}/event?id=${event._id}`);
+  };
+
   const goToCompanyPage = (eventId: string) => {
     history.push(`/${props.space}/event/${eventId}`);
   };
@@ -44,7 +48,16 @@ const EditEventPage = (props: Props) => {
       </Topbar>
       <div className="event-list-page__main">
         {eventList.map((item: EventModel) => (
-          <div key={item._id}>{item.name}</div>
+          <div
+            className="event-list-page__main__item"
+            key={item._id}
+            onClick={() => goToEditEventPage(item)}
+          >
+            <div className="event-list-page__main__item__name">{item.name}</div>
+            <div className="event-list-page__main__item__description">
+              {item.description}
+            </div>
+          </div>
         ))}
       </div>
     </div>
