@@ -8,6 +8,7 @@ import CompanyReducer from './CompanyReducer';
 import EventReducer from './EventReducer';
 import NoteReducer from './NoteReducer';
 import TagReducer from './TagReducer';
+import TrackReducer from './TrackReducer';
 
 export default combineReducers({
   authorization: AuthReducer,
@@ -17,6 +18,6 @@ export default combineReducers({
   company: CompanyReducer,
   space: SpaceReducer,
   event: EventReducer,
-  note: NoteReducer,
+  track: TrackReducer,
   tag: TagReducer,
 });

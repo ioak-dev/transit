@@ -185,7 +185,8 @@
   animation: page-animate 250ms forwards ease-in-out;
 }
 
-input, textarea {
+input,
+textarea {
   border: 1px solid rgb(184, 184, 184);
   border-radius: 4px;
   &:hover:not(:focus) {
@@ -193,14 +194,16 @@ input, textarea {
   }
 }
 
-.dark input, .dark textarea {
+.dark input,
+.dark textarea {
   border: 1px solid rgb(83, 83, 83);
   &:hover:not(:focus) {
     border-color: rgb(124, 124, 124);
   }
 }
 
-input, textarea {
+input,
+textarea {
   background-color: inherit;
   color: inherit;
   padding: 6px 12px;

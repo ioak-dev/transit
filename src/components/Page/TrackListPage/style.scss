@@ -1,6 +1,6 @@
-.event-list-page {
+.track-list-page {
 }
-.event-list-page__main {
+.track-list-page__main {
   padding: 20px 20px;
   display: grid;
   // grid-template-columns: 1fr 1fr;
@@ -8,7 +8,7 @@
   // column-gap: 20px;
 }
 
-.event-list-page__main__item {
+.track-list-page__main__item {
   // background-color: var(--color-base-200);
   padding: 10px 20px;
   // border-radius: 4px;
@@ -24,11 +24,11 @@
   }
 }
 
-.event-list-page__main__item__name {
+.track-list-page__main__item__name {
   font-weight: 600;
   // font-size: 20px;
 }
-.event-list-page__main__item__description {
+.track-list-page__main__item__description {
   // font-weight: 400;
   font-size: 12px;
 }

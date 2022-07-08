@@ -31,6 +31,10 @@ const EditEventPage = (props: Props) => {
     history.push(`/${props.space}/event?id=${event._id}`);
   };
 
+  const goToTrackListPage = (event: EventModel) => {
+    history.push(`/${props.space}/tracklist?eventId=${event._id}`);
+  };
+
   const goToCompanyPage = (eventId: string) => {
     history.push(`/${props.space}/event/${eventId}`);
   };
@@ -42,22 +46,22 @@ const EditEventPage = (props: Props) => {
   return (
     <div className="event-list-page">
       <Topbar title="Event list">
-        <button className="button" onClick={goToCreateEventPage}>
+        <button className="button default-button" onClick={goToCreateEventPage}>
           New event
         </button>
       </Topbar>
       <div className="event-list-page__main">
         {eventList.map((item: EventModel) => (
-          <div
-            className="event-list-page__main__item"
+          <button
+            className="button event-list-page__main__item"
             key={item._id}
-            onClick={() => goToEditEventPage(item)}
+            onClick={() => goToTrackListPage(item)}
           >
             <div className="event-list-page__main__item__name">{item.name}</div>
             <div className="event-list-page__main__item__description">
               {item.description}
             </div>
-          </div>
+          </button>
         ))}
       </div>
     </div>

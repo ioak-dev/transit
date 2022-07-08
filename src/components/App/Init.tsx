@@ -8,6 +8,7 @@ import IncomeStateActions from '../../simplestates/IncomeStateActions';
 import { fetchAndSetEventItems } from '../../actions/EventActions';
 import { fetchAndSetNoteItems } from '../../actions/NoteActions';
 import { fetchAndSetTagItems } from '../../actions/TagActions';
+import { fetchAndSetTrackItems } from '../../actions/TrackActions';
 
 const Init = () => {
   const authorization = useSelector((state: any) => state.authorization);
@@ -24,7 +25,7 @@ const Init = () => {
       initialize();
       dispatch(fetchAndSetUserItems(space, authorization));
       dispatch(fetchAndSetEventItems(space, authorization));
-      dispatch(fetchAndSetNoteItems(space, authorization));
+      dispatch(fetchAndSetTrackItems(space, authorization));
       dispatch(fetchAndSetTagItems(space, authorization));
     }
   }, [authorization, space]);

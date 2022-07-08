@@ -17,6 +17,7 @@ import Permissions from '../Page/SettingsPage/Permissions';
 import BackupAndRestore from '../Page/SettingsPage/BackupAndRestore';
 import EventListPage from '../Page/EventListPage';
 import EditEventPage from '../Page/EditEventPage';
+import TrackListPage from '../Page/TrackListPage';
 
 interface Props {
   cookies: any;
@@ -101,13 +102,13 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
-        path="/:space/event/:id"
+        path="/:space/tracklist"
         exact
         render={(propsLocal) => (
           <OakRouteApp
             {...propsLocal}
             {...props}
-            component={EditEventPage}
+            component={TrackListPage}
             middleware={['authenticate']}
           />
         )}

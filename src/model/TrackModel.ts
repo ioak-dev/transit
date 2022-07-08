@@ -1,4 +1,4 @@
-export default interface ProgramModel {
+export default interface TrackModel {
   _id?: string;
   eventId: string;
   name: string;
