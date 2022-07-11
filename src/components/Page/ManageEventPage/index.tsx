@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { addDays, format } from 'date-fns';
-import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendar,
+  faCheck,
+  faPen,
+  faPlus,
+  faTimes,
+  faUser,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
 import ReceiptModel from '../../../model/ReceiptModel';
@@ -10,9 +18,10 @@ import EventModel from '../../../model/EventModel';
 import Topbar from '../../../components/Topbar';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import Footer from '../../../components/Footer';
-import { saveEvent } from './service';
 import { fetchAndSetEventItems } from '../../../actions/EventActions';
+import EditEventPage from '../EditEventPage';
 import EditEvent from '../../../components/EditEvent';
+import TrackList from '../../../components/TrackList';
 
 const queryString = require('query-string');
 
@@ -21,15 +30,21 @@ interface Props {
   location: any;
 }
 
-const EventListPage = (props: Props) => {
+const ManageEventPage = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [id, setId] = useState<string | null>(null);
+  const [view, setView] = useState<'details' | 'tracklist' | 'users'>(
+    'details'
+  );
+  const params: { id: string } = useParams();
+  useEffect(() => {
+    console.log(params);
+  }, [params]);
 
   useEffect(() => {
     const query = queryString.parse(props.location.search);
-    setId(query.id);
+    setView(query.view || 'details');
   }, [props.location.search]);
 
   const authorization = useSelector((state: any) => state.authorization);
@@ -41,14 +56,16 @@ const EventListPage = (props: Props) => {
   });
 
   useEffect(() => {
-    console.log(id, eventList);
-    if (id && eventList) {
-      const event = eventList.find((item: EventModel) => item._id === id);
+    console.log(params.id, eventList);
+    if (params.id && eventList) {
+      const event = eventList.find(
+        (item: EventModel) => item._id === params.id
+      );
       if (event) {
         setState({ ...event });
       }
     }
-  }, [id, eventList]);
+  }, [params.id, eventList]);
 
   const goToCreateEventPage = () => {
     history.push(`/${props.space}/event/new`);
@@ -58,21 +75,6 @@ const EventListPage = (props: Props) => {
     history.push(`/${props.space}/event/${eventId}`);
   };
 
-  const handleChange = (event: any) => {
-    setState({
-      ...state,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  };
-
-  const save = (event: any) => {
-    event.preventDefault();
-    saveEvent(props.space, state, authorization).then((response: any) => {
-      dispatch(fetchAndSetEventItems(props.space, authorization));
-      history.goBack();
-    });
-  };
-
   const cancel = () => history.goBack();
 
   useEffect(() => {
@@ -80,27 +82,27 @@ const EventListPage = (props: Props) => {
   }, []);
 
   return (
-    <div className="edit-event-page">
-      <Topbar title="Edit event" />
-      <EditEvent id={id} space={props.space} />
-      <div className="edit-event-page__main">
-        <form className="form" onSubmit={save}>
-          <div>
-            <label>Name</label>
-            <input name="name" onInput={handleChange} value={state.name} />
-          </div>
-          <div>
-            <label>Description</label>
-            <textarea
-              name="description"
-              onInput={handleChange}
-              value={state.description}
-            />
-          </div>
-          <input type="submit" hidden />
-        </form>
+    <div className="manage-event-page">
+      <Topbar title="Manage event">
+        <div>
+          <button className="button" onClick={() => setView('details')}>
+            <FontAwesomeIcon icon={faPen} />
+          </button>
+          <button className="button" onClick={() => setView('tracklist')}>
+            <FontAwesomeIcon icon={faCalendar} />
+          </button>
+          <button className="button" onClick={() => setView('users')}>
+            <FontAwesomeIcon icon={faUsers} />
+          </button>
+        </div>
+      </Topbar>
+      <div className="manage-event-page__main">
+        {view === 'details' && <EditEvent space={props.space} id={params.id} />}
+        {view === 'tracklist' && (
+          <TrackList eventId={params.id} space={props.space} />
+        )}
       </div>
-      <Footer>
+      {/* <Footer>
         <div className="footer-action">
           <button className="button primary-button" onClick={save}>
             <FontAwesomeIcon icon={faCheck} />
@@ -110,9 +112,9 @@ const EventListPage = (props: Props) => {
             <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>
-      </Footer>
+      </Footer> */}
     </div>
   );
 };
 
-export default EventListPage;
+export default ManageEventPage;

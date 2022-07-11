@@ -1,6 +1,6 @@
-.track-list-page {
+.track-list {
 }
-.track-list-page__main {
+.track-list__main {
   padding: 20px 20px;
   display: grid;
   // grid-template-columns: 1fr 1fr;
@@ -8,7 +8,7 @@
   // column-gap: 20px;
 }
 
-.track-list-page__main__item {
+.track-list__main__item {
   // background-color: var(--color-base-200);
   padding: 10px 20px;
   // border-radius: 4px;
@@ -24,11 +24,11 @@
   }
 }
 
-.track-list-page__main__item__name {
+.track-list__main__item__name {
   font-weight: 600;
   // font-size: 20px;
 }
-.track-list-page__main__item__description {
+.track-list__main__item__description {
   // font-weight: 400;
   font-size: 12px;
 }

@@ -84,12 +84,14 @@ const TrackListPage = (props: Props) => {
 
   const save = (event: any) => {
     event.preventDefault();
-    saveTrack(props.space, { ...state, eventId }, authorization).then(
-      (response: any) => {
-        dispatch(fetchAndSetTrackItems(props.space, authorization));
-        history.goBack();
-      }
-    );
+    console.log(state);
+    console.log(new Date(state.from));
+    // saveTrack(props.space, { ...state, eventId }, authorization).then(
+    //   (response: any) => {
+    //     dispatch(fetchAndSetTrackItems(props.space, authorization));
+    //     history.goBack();
+    //   }
+    // );
   };
 
   const cancel = () => history.goBack();
@@ -113,6 +115,15 @@ const TrackListPage = (props: Props) => {
               name="description"
               onInput={handleChange}
               value={state.description}
+            />
+          </div>
+          <div>
+            <label>From</label>
+            <input
+              type="datetime-local"
+              name="from"
+              onInput={handleChange}
+              value={state.from}
             />
           </div>
           <input type="submit" hidden />

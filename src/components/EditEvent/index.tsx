@@ -5,32 +5,24 @@ import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
-import ReceiptModel from '../../../model/ReceiptModel';
-import EventModel from '../../../model/EventModel';
-import Topbar from '../../../components/Topbar';
-import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
-import Footer from '../../../components/Footer';
+import ReceiptModel from '../../model/ReceiptModel';
+import EventModel from '../../model/EventModel';
+import Topbar from '../../components/Topbar';
+import DisableContextBarCommand from '../../events/DisableContextBarCommand';
+import Footer from '../../components/Footer';
 import { saveEvent } from './service';
-import { fetchAndSetEventItems } from '../../../actions/EventActions';
-import EditEvent from '../../../components/EditEvent';
+import { fetchAndSetEventItems } from '../../actions/EventActions';
 
 const queryString = require('query-string');
 
 interface Props {
   space: string;
-  location: any;
+  id?: string | null;
 }
 
-const EventListPage = (props: Props) => {
+const EditEvent = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const [id, setId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setId(query.id);
-  }, [props.location.search]);
 
   const authorization = useSelector((state: any) => state.authorization);
   const eventList = useSelector((state: any) => state.event.items);
@@ -41,22 +33,13 @@ const EventListPage = (props: Props) => {
   });
 
   useEffect(() => {
-    console.log(id, eventList);
-    if (id && eventList) {
-      const event = eventList.find((item: EventModel) => item._id === id);
+    if (props.id && eventList) {
+      const event = eventList.find((item: EventModel) => item._id === props.id);
       if (event) {
         setState({ ...event });
       }
     }
-  }, [id, eventList]);
-
-  const goToCreateEventPage = () => {
-    history.push(`/${props.space}/event/new`);
-  };
-
-  const goToCompanyPage = (eventId: string) => {
-    history.push(`/${props.space}/event/${eventId}`);
-  };
+  }, [props.id, eventList]);
 
   const handleChange = (event: any) => {
     setState({
@@ -80,10 +63,8 @@ const EventListPage = (props: Props) => {
   }, []);
 
   return (
-    <div className="edit-event-page">
-      <Topbar title="Edit event" />
-      <EditEvent id={id} space={props.space} />
-      <div className="edit-event-page__main">
+    <div className="edit-event">
+      <div className="edit-event__main">
         <form className="form" onSubmit={save}>
           <div>
             <label>Name</label>
@@ -115,4 +96,4 @@ const EventListPage = (props: Props) => {
   );
 };
 
-export default EventListPage;
+export default EditEvent;

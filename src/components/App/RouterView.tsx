@@ -18,7 +18,7 @@ import BackupAndRestore from '../Page/SettingsPage/BackupAndRestore';
 import EventListPage from '../Page/EventListPage';
 import EditEventPage from '../Page/EditEventPage';
 import EditTrackPage from '../Page/EditTrackPage';
-import TrackListPage from '../Page/TrackListPage';
+import ManageEventPage from '../Page/ManageEventPage';
 
 interface Props {
   cookies: any;
@@ -91,13 +91,13 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
-        path="/:space/event"
+        path="/:space/event/:id"
         exact
         render={(propsLocal) => (
           <OakRouteApp
             {...propsLocal}
             {...props}
-            component={EditEventPage}
+            component={ManageEventPage}
             middleware={['authenticate']}
           />
         )}
@@ -110,18 +110,6 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={EditTrackPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/tracklist"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={TrackListPage}
             middleware={['authenticate']}
           />
         )}
