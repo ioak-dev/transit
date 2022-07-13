@@ -12,7 +12,7 @@ import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import Footer from '../../../components/Footer';
 import { saveTrack } from './service';
 import { fetchAndSetTrackItems } from '../../../actions/TrackActions';
-import EventModel from 'src/model/EventModel';
+import EventModel from '../../../model/EventModel';
 
 const queryString = require('query-string');
 
@@ -39,20 +39,29 @@ const TrackListPage = (props: Props) => {
   const eventList = useSelector((state: any) => state.event.items);
   const trackList = useSelector((state: any) => state.track.items);
 
+  const getDateTimeString = (_date: Date) => {
+    console.log(_date);
+    return format(_date, "yyyy-MM-dd'T'HH:mm");
+  };
+
   const [state, setState] = useState<TrackModel>({
     name: '',
     description: '',
     eventId: '',
-    from: '',
+    from: getDateTimeString(new Date()),
     icon: '',
-    to: '',
+    to: getDateTimeString(new Date()),
   });
 
   useEffect(() => {
     if (id && trackList) {
-      const track = trackList.find((item: TrackModel) => item._id === id);
+      const track: TrackModel = trackList.find(
+        (item: TrackModel) => item._id === id
+      );
       if (track) {
-        setState({ ...track });
+        const from = getDateTimeString(new Date(track.from || new Date()));
+        const to = getDateTimeString(new Date(track.to || new Date()));
+        setState({ ...track, from, to });
       }
     }
   }, [id, trackList]);
@@ -86,12 +95,13 @@ const TrackListPage = (props: Props) => {
     event.preventDefault();
     console.log(state);
     console.log(new Date(state.from));
-    // saveTrack(props.space, { ...state, eventId }, authorization).then(
-    //   (response: any) => {
-    //     dispatch(fetchAndSetTrackItems(props.space, authorization));
-    //     history.goBack();
-    //   }
-    // );
+    saveTrack(props.space, { ...state, eventId }, authorization).then(
+      (response: any) => {
+        console.log(response);
+        dispatch(fetchAndSetTrackItems(props.space, authorization));
+        history.goBack();
+      }
+    );
   };
 
   const cancel = () => history.goBack();
@@ -117,14 +127,25 @@ const TrackListPage = (props: Props) => {
               value={state.description}
             />
           </div>
-          <div>
-            <label>From</label>
-            <input
-              type="datetime-local"
-              name="from"
-              onInput={handleChange}
-              value={state.from}
-            />
+          <div className="form-two-column">
+            <div>
+              <label>From</label>
+              <input
+                type="datetime-local"
+                name="from"
+                onInput={handleChange}
+                value={state.from}
+              />
+            </div>
+            <div>
+              <label>To</label>
+              <input
+                type="datetime-local"
+                name="to"
+                onInput={handleChange}
+                value={state.to}
+              />
+            </div>
           </div>
           <input type="submit" hidden />
         </form>

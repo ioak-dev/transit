@@ -77,9 +77,22 @@ const TrackList = (props: Props) => {
             key={item._id}
             onClick={() => goToEditTrackPage(item)}
           >
-            <div className="track-list__main__item__name">{item.name}</div>
-            <div className="track-list__main__item__description">
-              {item.description}
+            <div className="track-list__main__item__left">
+              <div className="track-list__main__item__left__name">
+                {item.name}
+              </div>
+              <div className="track-list__main__item__left__description">
+                {item.description}
+              </div>
+            </div>
+            <div className="track-list__main__item__right">
+              {`${format(
+                new Date(item.from || new Date()),
+                'yyyy-MM-dd HH:mm'
+              )} to ${format(
+                new Date(item.to || new Date()),
+                'yyyy-MM-dd HH:mm'
+              )}`}
             </div>
           </button>
         ))}

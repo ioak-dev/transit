@@ -83,15 +83,24 @@ const ManageEventPage = (props: Props) => {
 
   return (
     <div className="manage-event-page">
-      <Topbar title="Manage event">
-        <div>
-          <button className="button" onClick={() => setView('details')}>
+      <Topbar title={`Manage event > ${view}`}>
+        <div className="topbar-action-group">
+          <button
+            className={`button ${view === 'details' ? 'active' : ''}`}
+            onClick={() => setView('details')}
+          >
             <FontAwesomeIcon icon={faPen} />
           </button>
-          <button className="button" onClick={() => setView('tracklist')}>
+          <button
+            className={`button ${view === 'tracklist' ? 'active' : ''}`}
+            onClick={() => setView('tracklist')}
+          >
             <FontAwesomeIcon icon={faCalendar} />
           </button>
-          <button className="button" onClick={() => setView('users')}>
+          <button
+            className={`button ${view === 'users' ? 'active' : ''}`}
+            onClick={() => setView('users')}
+          >
             <FontAwesomeIcon icon={faUsers} />
           </button>
         </div>

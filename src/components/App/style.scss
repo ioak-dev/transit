@@ -221,6 +221,25 @@ label {
   margin-bottom: 2px;
 }
 
+.topbar-action-group {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  justify-items: center;
+  // column-gap: 20px;
+  button {
+    width: var(--oak-app-layout-topbar-height);
+    border-bottom: 4px solid transparent;
+    height: var(--oak-app-layout-topbar-height);
+  }
+  button:hover {
+    border-color: var(--color-base-100);
+  }
+  button.active {
+    border-color: var(--color-primary-100);
+  }
+}
+
 @-webkit-keyframes page-animate {
   0% {
     opacity: 0.75;
