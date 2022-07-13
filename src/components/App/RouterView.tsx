@@ -19,6 +19,8 @@ import EventListPage from '../Page/EventListPage';
 import EditEventPage from '../Page/EditEventPage';
 import EditTrackPage from '../Page/EditTrackPage';
 import ManageEventPage from '../Page/ManageEventPage';
+import EditParticipantPage from '../Page/EditParticipantPage';
+import CheckinPage from '../Page/CheckinPage';
 
 interface Props {
   cookies: any;
@@ -111,6 +113,30 @@ const RouterView = (props: Props) => {
             {...props}
             component={EditTrackPage}
             middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/participant"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={EditParticipantPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/checkin/:eventId/:participantId"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={CheckinPage}
+            middleware={[]}
           />
         )}
       />

@@ -1,0 +1,23 @@
+.checkin-tile {
+  padding: 20px 20px;
+  background-color: var(--color-primary-100);
+  border-radius: 6px;
+  color: var(--color-primary-i);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 20px;
+}
+.checkin-tile__left__name {
+  font-size: 18px;
+}
+.checkin-tile__left__description {
+  font-size: 12px;
+}
+
+.checkin-tile__right__action {
+  font-size: 40px;
+  &:hover {
+    color: var(--color-primary-i);
+  }
+}

@@ -22,6 +22,7 @@ import { fetchAndSetEventItems } from '../../../actions/EventActions';
 import EditEventPage from '../EditEventPage';
 import EditEvent from '../../../components/EditEvent';
 import TrackList from '../../../components/TrackList';
+import ParticipantList from '../../../components/ParticipantList';
 
 const queryString = require('query-string');
 
@@ -109,6 +110,9 @@ const ManageEventPage = (props: Props) => {
         {view === 'details' && <EditEvent space={props.space} id={params.id} />}
         {view === 'tracklist' && (
           <TrackList eventId={params.id} space={props.space} />
+        )}
+        {view === 'users' && (
+          <ParticipantList eventId={params.id} space={props.space} />
         )}
       </div>
       {/* <Footer>

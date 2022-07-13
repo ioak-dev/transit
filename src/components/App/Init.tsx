@@ -9,6 +9,7 @@ import { fetchAndSetEventItems } from '../../actions/EventActions';
 import { fetchAndSetNoteItems } from '../../actions/NoteActions';
 import { fetchAndSetTagItems } from '../../actions/TagActions';
 import { fetchAndSetTrackItems } from '../../actions/TrackActions';
+import { fetchAndSetParticipantItems } from '../../actions/ParticipantActions';
 
 const Init = () => {
   const authorization = useSelector((state: any) => state.authorization);
@@ -26,7 +27,7 @@ const Init = () => {
       dispatch(fetchAndSetUserItems(space, authorization));
       dispatch(fetchAndSetEventItems(space, authorization));
       dispatch(fetchAndSetTrackItems(space, authorization));
-      dispatch(fetchAndSetTagItems(space, authorization));
+      dispatch(fetchAndSetParticipantItems(space, authorization));
     }
   }, [authorization, space]);
 
