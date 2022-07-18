@@ -16,7 +16,7 @@ import ParticipantModel from '../../../model/ParticipantModel';
 import Topbar from '../../../components/Topbar';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import Footer from '../../../components/Footer';
-import { getAvailableTracks, registerIn, saveParticipant } from './service';
+import { getAvailableTracks, registerIn, registerOut } from './service';
 import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions';
 import EventModel from '../../../model/EventModel';
 import TrackModel from '../../../model/TrackModel';
@@ -25,7 +25,8 @@ const queryString = require('query-string');
 
 interface Props {
   space: string;
-  track: TrackModel;
+  track: any;
+  handleChange: any;
 }
 
 const CheckinTile = (props: Props) => {
@@ -71,6 +72,19 @@ const CheckinTile = (props: Props) => {
       props.track._id || ''
     ).then((response: any) => {
       console.log(response);
+      props.handleChange();
+    });
+  };
+
+  const handleCheckOut = () => {
+    registerOut(
+      props.space,
+      params.eventId,
+      params.participantId,
+      props.track._id || ''
+    ).then((response: any) => {
+      console.log(response);
+      props.handleChange();
     });
   };
 
@@ -87,13 +101,22 @@ const CheckinTile = (props: Props) => {
         </div>
       </div>
       <div className="checkin-tile__right">
-        <button
-          className="button checkin-tile__right__action"
-          onClick={handleCheckIn}
-        >
-          <FontAwesomeIcon icon={faPersonWalkingDashedLineArrowRight} />
-          {/* <FontAwesomeIcon icon={faArrowRightFromBracket} /> */}
-        </button>
+        {['new', 'closed'].includes(props.track.status) && (
+          <button
+            className="button checkin-tile__right__action"
+            onClick={handleCheckIn}
+          >
+            <FontAwesomeIcon icon={faPersonWalkingDashedLineArrowRight} />
+          </button>
+        )}
+        {props.track.status === 'active' && (
+          <button
+            className="button checkin-tile__right__action"
+            onClick={handleCheckOut}
+          >
+            <FontAwesomeIcon icon={faArrowRightFromBracket} />
+          </button>
+        )}
       </div>
     </div>
   );

@@ -10,10 +10,10 @@ import ParticipantModel from '../../../model/ParticipantModel';
 import Topbar from '../../../components/Topbar';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import Footer from '../../../components/Footer';
-import { getAvailableTracks, saveParticipant } from './service';
+import { getAvailableTracks } from './service';
 import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions';
 import EventModel from '../../../model/EventModel';
-import TrackModel from 'src/model/TrackModel';
+import TrackModel from '../../../model/TrackModel';
 import CheckinTile from './CheckinTile';
 
 const queryString = require('query-string');
@@ -37,15 +37,17 @@ const CheckinPage = (props: Props) => {
   useEffect(() => {
     console.log(params);
     if (params.eventId && params.participantId) {
-      getAvailableTracks(
-        props.space,
-        params.eventId,
-        params.participantId
-      ).then((response: TrackModel[]) => {
-        setAvailableTracks(response);
-      });
+      refreshData();
     }
   }, [params]);
+
+  const refreshData = () => {
+    getAvailableTracks(props.space, params.eventId, params.participantId).then(
+      (response: any[]) => {
+        setAvailableTracks(response);
+      }
+    );
+  };
 
   // useEffect(() => {
   //   const query = queryString.parse(props.location.search);
@@ -89,7 +91,12 @@ const CheckinPage = (props: Props) => {
       <Topbar title="Check in" />
       <div className="checkin-page__main">
         {availableTracks.map((item) => (
-          <CheckinTile key={item._id} space={props.space} track={item} />
+          <CheckinTile
+            key={item._id}
+            space={props.space}
+            track={item}
+            handleChange={refreshData}
+          />
         ))}
       </div>
     </div>
