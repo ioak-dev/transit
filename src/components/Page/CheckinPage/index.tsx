@@ -10,7 +10,11 @@ import ParticipantModel from '../../../model/ParticipantModel';
 import Topbar from '../../../components/Topbar';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import Footer from '../../../components/Footer';
-import { getAvailableTracks } from './service';
+import {
+  getAvailableTracks,
+  getEventById,
+  getParticipantById,
+} from './service';
 import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions';
 import EventModel from '../../../model/EventModel';
 import TrackModel from '../../../model/TrackModel';
@@ -30,13 +34,17 @@ const CheckinPage = (props: Props) => {
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [eventId, setEventId] = useState<string | null>(null);
 
-  const [availableTracks, setAvailableTracks] = useState<TrackModel[]>([]);
+  const [availableTracks, setAvailableTracks] = useState<any[]>([]);
+  const [event, setEvent] = useState<EventModel>();
+  const [participant, setParticipant] = useState<ParticipantModel>();
 
   const params: { eventId: string; participantId: string } = useParams();
 
   useEffect(() => {
     console.log(params);
     if (params.eventId && params.participantId) {
+      fetchParticipantData();
+      fetchEventData();
       refreshData();
     }
   }, [params]);
@@ -47,6 +55,22 @@ const CheckinPage = (props: Props) => {
         setAvailableTracks(response);
       }
     );
+  };
+
+  const fetchParticipantData = () => {
+    getParticipantById(props.space, params.participantId).then(
+      (response: ParticipantModel) => {
+        setParticipant(response);
+        // setAvailableTracks(response);
+      }
+    );
+  };
+
+  const fetchEventData = () => {
+    getEventById(props.space, params.eventId).then((response: EventModel) => {
+      setEvent(response);
+      // setAvailableTracks(response);
+    });
   };
 
   // useEffect(() => {
@@ -88,7 +112,9 @@ const CheckinPage = (props: Props) => {
 
   return (
     <div className="checkin-page">
-      <Topbar title="Check in" />
+      <Topbar
+        title={event?.name || ''}
+      >{`${participant?.firstName} ${participant?.lastName}`}</Topbar>
       <div className="checkin-page__main">
         {availableTracks.map((item) => (
           <CheckinTile

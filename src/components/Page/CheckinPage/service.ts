@@ -64,3 +64,31 @@ export const getAvailableTracks = (
       return Promise.resolve({});
     });
 };
+
+export const getParticipantById = (space: string, participantId: string) => {
+  return httpGet(`/participant/${space}/${participantId}`, {
+    headers: {},
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+    })
+    .catch((error) => {
+      return Promise.resolve({});
+    });
+};
+
+export const getEventById = (space: string, eventId: string) => {
+  return httpGet(`/event/${space}/${eventId}`, {
+    headers: {},
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+    })
+    .catch((error) => {
+      return Promise.resolve({});
+    });
+};
