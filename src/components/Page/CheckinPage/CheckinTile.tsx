@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import { QrReader } from 'react-qr-reader';
@@ -37,6 +37,7 @@ interface Props {
 const CheckinTile = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const qrRef = useRef<any>(null);
 
   const [qrData, setQrData] = useState('');
   const [showQrReader, setShowQrReader] = useState(false);
@@ -70,16 +71,16 @@ const CheckinTile = (props: Props) => {
   const cancel = () => history.goBack();
 
   const handleCheckIn = () => {
-    // registerIn(
-    //   props.space,
-    //   params.eventId,
-    //   params.participantId,
-    //   props.track._id || ''
-    // ).then((response: any) => {
-    //   console.log(response);
-    //   props.handleChange();
-    // });
-    setShowQrReader(true);
+    registerIn(
+      props.space,
+      params.eventId,
+      params.participantId,
+      props.track._id || ''
+    ).then((response: any) => {
+      console.log(response);
+      props.handleChange();
+    });
+    // setShowQrReader(true);
   };
 
   const handleCheckOut = () => {
@@ -98,24 +99,19 @@ const CheckinTile = (props: Props) => {
     DisableContextBarCommand.next(true);
   }, []);
 
+  const handleQrResult = (event: any) => {
+    console.log(event);
+    setQrData(event);
+  };
+
   return (
     <>
-      {showQrReader && (
+      {/* {showQrReader && (
         <div className="qr-scan">
-          <QrReader
-            onResult={(result, error) => {
-              if (result) {
-                setQrData(result?.text);
-              }
-
-              if (error) {
-                console.info(error);
-              }
-            }}
-            style={{ width: '100%' }}
-          />
+          <QrReader constraints={{}} onResult={handleQrResult} />
+          <div>{qrData}</div>
         </div>
-      )}
+      )} */}
       <div
         className={`checkin-tile checkin-tile--status-${props.track.status} ${
           props.track.isLocked ? 'checkin-tile--locked' : ''
