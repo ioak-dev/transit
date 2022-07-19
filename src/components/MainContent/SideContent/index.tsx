@@ -23,6 +23,7 @@ import {
   faMoneyBillWave,
   faMoneyBillWaveAlt,
   faReceipt,
+  faRunning,
   faShoppingBag,
   faShoppingCart,
   faSignOutAlt,
@@ -148,7 +149,8 @@ const SideContent = (props: Props) => {
     >
       <div className="side-content__header">
         <div className="side-content__header__logo">
-          <Logo variant={profile.sidebar ? 'full' : 'short'} />
+          {/* <Logo variant={profile.sidebar ? 'full' : 'short'} /> */}
+          {/* <FontAwesomeIcon icon={faRunning} /> */}
         </div>
         {profile.sidebar && (
           <div className="side-content__header__button">
@@ -187,38 +189,30 @@ const SideContent = (props: Props) => {
               icon={faCogs}
               label="Company setting"
             />
-            <SideNavLink
-              link={`/${props.space}/settings/user`}
-              icon={faUserShield}
-              label="User"
-            />
-            <SideNavLink
-              link={`/${props.space}/settings/backup`}
-              icon={faDatabase}
-              label="Backup and restore"
-            />
           </>
         )}
       </div>
       <div className="side-content__footer">
         <div className="side-content__footer__left">
-          {authorization.isAuth && (
-            <button className="button" onClick={logout}>
-              <FontAwesomeIcon icon={faSignOutAlt} />
-            </button>
-          )}
-          {!authorization.isAuth && (
-            <button className="button" onClick={() => login('signin')}>
-              <FontAwesomeIcon icon={faFingerprint} />
-            </button>
-          )}
-          {profile.sidebar && (
-            <div>{`${authorization.given_name} ${authorization.family_name}`}</div>
-          )}
+          <div className="side-content__footer__right">
+            <DarkModeIcon />
+          </div>
         </div>
         {profile.sidebar && (
           <div className="side-content__footer__right">
-            <DarkModeIcon />
+            {profile.sidebar && (
+              <div>{`${authorization.given_name} ${authorization.family_name}`}</div>
+            )}
+            {authorization.isAuth && (
+              <button className="button" onClick={logout}>
+                <FontAwesomeIcon icon={faSignOutAlt} />
+              </button>
+            )}
+            {!authorization.isAuth && (
+              <button className="button" onClick={() => login('signin')}>
+                <FontAwesomeIcon icon={faFingerprint} />
+              </button>
+            )}
           </div>
         )}
         {/* <NavAccountIcon logout={logout} login={login} /> */}

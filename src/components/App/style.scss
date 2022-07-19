@@ -143,6 +143,14 @@
     background-color: var(--color-base-200);
   }
 }
+.light .default-button {
+  background-color: var(--color-base-400);
+  color: var(--color-base-i);
+  &:hover,
+  &:focus {
+    background-color: var(--color-base-500);
+  }
+}
 
 .footer-action {
   display: grid;

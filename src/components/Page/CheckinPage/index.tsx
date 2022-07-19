@@ -40,6 +40,8 @@ const CheckinPage = (props: Props) => {
 
   const params: { eventId: string; participantId: string } = useParams();
 
+  const [showAllTracks, setShowAllTracks] = useState(false);
+
   useEffect(() => {
     console.log(params);
     if (params.eventId && params.participantId) {
@@ -104,7 +106,9 @@ const CheckinPage = (props: Props) => {
     console.log(state);
   };
 
-  const cancel = () => history.goBack();
+  const toggleShowAllTracks = () => {
+    setShowAllTracks(!showAllTracks);
+  };
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
@@ -116,14 +120,24 @@ const CheckinPage = (props: Props) => {
         title={event?.name || ''}
       >{`${participant?.firstName} ${participant?.lastName}`}</Topbar>
       <div className="checkin-page__main">
-        {availableTracks.map((item) => (
-          <CheckinTile
-            key={item._id}
-            space={props.space}
-            track={item}
-            handleChange={refreshData}
-          />
-        ))}
+        <div className="checkin-page__main__action">
+          <button
+            className="button default-button"
+            onClick={toggleShowAllTracks}
+          >
+            {showAllTracks ? 'Show current events only' : 'Show all events'}
+          </button>
+        </div>
+        {availableTracks
+          .filter((item) => showAllTracks || !item.isLocked)
+          .map((item) => (
+            <CheckinTile
+              key={item._id}
+              space={props.space}
+              track={item}
+              handleChange={refreshData}
+            />
+          ))}
       </div>
     </div>
   );

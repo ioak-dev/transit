@@ -81,7 +81,7 @@
   color: #fff;
 }
 
-.side-content__footer__left {
+.side-content__footer__right {
   display: grid;
   grid-auto-flow: column;
   justify-content: flex-start;
@@ -96,7 +96,7 @@
   }
 }
 
-.side-content__footer__right {
+.side-content__footer__left {
   width: 60px;
   display: flex;
   justify-content: center;

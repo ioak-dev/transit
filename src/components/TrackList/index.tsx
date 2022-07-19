@@ -15,6 +15,7 @@ import TrackModel from '../../model/TrackModel';
 import Topbar from '../../components/Topbar';
 import DisableContextBarCommand from '../../events/DisableContextBarCommand';
 import EventModel from '../../model/EventModel';
+import { formatDateTimeText } from '../Lib/DateUtils';
 
 const queryString = require('query-string');
 
@@ -86,13 +87,9 @@ const TrackList = (props: Props) => {
               </div>
             </div>
             <div className="track-list__main__item__right">
-              {`${format(
-                new Date(item.from || new Date()),
-                'yyyy-MM-dd HH:mm'
-              )} to ${format(
-                new Date(item.to || new Date()),
-                'yyyy-MM-dd HH:mm'
-              )}`}
+              {`${formatDateTimeText(
+                new Date(item.from || new Date())
+              )} to ${formatDateTimeText(new Date(item.to || new Date()))}`}
             </div>
           </button>
         ))}

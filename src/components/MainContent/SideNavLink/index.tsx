@@ -76,7 +76,7 @@ const SideNavLink = (props: Props) => {
       {!props.children && (
         <NavLink
           to={props.link}
-          className="side-navbar-link__action dark:text-gray-200 text-gray-900"
+          className="side-navbar-link__action text-gray-200"
           activeClassName="side-navbar-link__action--active"
         >
           <div className="side-navbar-link__action__icon">

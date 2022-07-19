@@ -1,7 +1,8 @@
 .participant-list {
+  padding: 20px 20px;
 }
 .participant-list__main {
-  padding: 20px 20px;
+  padding: 20px 0;
   display: grid;
   // grid-template-columns: 1fr 1fr;
   // row-gap: 20px;
@@ -21,6 +22,14 @@
   &:hover,
   &:focus {
     background-color: var(--color-base-200);
+  }
+}
+
+.light .participant-list__main__item {
+  border-bottom: 1px solid var(--color-base-400);
+  &:hover,
+  &:focus {
+    background-color: var(--color-base-400);
   }
 }
 
