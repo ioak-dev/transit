@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
-import { QrReader } from 'react-qr-reader';
+import QrReader from 'react-qr-scanner';
 import { addDays, format } from 'date-fns';
 import {
   faArrowRightFromBracket,
@@ -104,6 +104,16 @@ const CheckinTile = (props: Props) => {
     setQrData(event);
   };
 
+  const handleScan = (data: any) => {
+    setState({
+      result: data
+    });
+  };
+
+  const handleError = (err: any) => {
+    console.error(err);
+  };
+
   return (
     <>
       {/* {showQrReader && (
@@ -112,6 +122,15 @@ const CheckinTile = (props: Props) => {
           <div>{qrData}</div>
         </div>
       )} */}
+      <div>
+        <QrReader
+          delay={state.delay}
+          // style={previewStyle}
+          onError={handleError}
+          onScan={handleScan}
+          />
+        <p>{state.result}</p>
+      </div>
       <div
         className={`checkin-tile checkin-tile--status-${props.track.status} ${
           props.track.isLocked ? 'checkin-tile--locked' : ''
