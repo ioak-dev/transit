@@ -79,6 +79,20 @@ export const getParticipantById = (space: string, participantId: string) => {
     });
 };
 
+export const getParticipantByReferenceId = (space: string, participantReferenceId: string) => {
+  return httpGet(`/participant/${space}/reference/${participantReferenceId}`, {
+    headers: {},
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+    })
+    .catch((error) => {
+      return Promise.resolve({});
+    });
+};
+
 export const getEventById = (space: string, eventId: string) => {
   return httpGet(`/event/${space}/${eventId}`, {
     headers: {},

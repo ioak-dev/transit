@@ -6,4 +6,5 @@ export default interface ParticipantModel {
   email: string;
   telephone: string;
   birthDate: any;
+  referenceId: string;
 }

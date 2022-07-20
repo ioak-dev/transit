@@ -14,6 +14,7 @@ import {
   getAvailableTracks,
   getEventById,
   getParticipantById,
+  getParticipantByReferenceId,
 } from './service';
 import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions';
 import EventModel from '../../../model/EventModel';
@@ -38,21 +39,27 @@ const CheckinPage = (props: Props) => {
   const [event, setEvent] = useState<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
 
-  const params: { eventId: string; participantId: string } = useParams();
+  const params: { eventId: string; participantReferenceId: string } = useParams();
 
   const [showAllTracks, setShowAllTracks] = useState(false);
 
   useEffect(() => {
     console.log(params);
-    if (params.eventId && params.participantId) {
+    if (params.eventId && params.participantReferenceId) {
       fetchParticipantData();
       fetchEventData();
-      refreshData();
     }
   }, [params]);
 
+  useEffect(() => {
+    console.log(params);
+    if (params.eventId && participant?._id) {
+      refreshData();
+    }
+  }, [params, participant]);
+
   const refreshData = () => {
-    getAvailableTracks(props.space, params.eventId, params.participantId).then(
+    getAvailableTracks(props.space, params.eventId, participant?._id || '').then(
       (response: any[]) => {
         setAvailableTracks(response);
       }
@@ -60,7 +67,7 @@ const CheckinPage = (props: Props) => {
   };
 
   const fetchParticipantData = () => {
-    getParticipantById(props.space, params.participantId).then(
+    getParticipantByReferenceId(props.space, params.participantReferenceId).then(
       (response: ParticipantModel) => {
         setParticipant(response);
         // setAvailableTracks(response);
@@ -135,6 +142,8 @@ const CheckinPage = (props: Props) => {
               key={item._id}
               space={props.space}
               track={item}
+              eventId={event?._id}
+              participantId={participant?._id}
               handleChange={refreshData}
             />
           ))}

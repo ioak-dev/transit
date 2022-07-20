@@ -32,6 +32,8 @@ interface Props {
   space: string;
   track: any;
   handleChange: any;
+  eventId: any;
+  participantId: any;
 }
 
 const CheckinTile = (props: Props) => {
@@ -43,8 +45,6 @@ const CheckinTile = (props: Props) => {
   const [showQrReader, setShowQrReader] = useState(false);
 
   const [availableTracks, setAvailableTracks] = useState<TrackModel[]>([]);
-
-  const params: { eventId: string; participantId: string } = useParams();
 
   const [state, setState] = useState<any>({});
 
@@ -73,8 +73,8 @@ const CheckinTile = (props: Props) => {
   const handleCheckIn = () => {
     registerIn(
       props.space,
-      params.eventId,
-      params.participantId,
+      props.eventId,
+      props.participantId,
       props.track._id || ''
     ).then((response: any) => {
       console.log(response);
@@ -86,8 +86,8 @@ const CheckinTile = (props: Props) => {
   const handleCheckOut = () => {
     registerOut(
       props.space,
-      params.eventId,
-      params.participantId,
+      props.eventId,
+      props.participantId,
       props.track._id || ''
     ).then((response: any) => {
       console.log(response);

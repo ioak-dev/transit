@@ -55,6 +55,7 @@ const EditParticipantPage = (props: Props) => {
     email: '',
     telephone: '',
     birthDate: getDateString(new Date()),
+    referenceId: ''
   });
 
   useEffect(() => {
@@ -153,14 +154,24 @@ const EditParticipantPage = (props: Props) => {
               />
             </div>
           </div>
-          <div>
-            <label>Birth date</label>
-            <input
-              name="birthDate"
-              type="date"
-              onInput={handleChange}
-              value={state.birthDate}
-            />
+          <div className="form-two-column">
+            <div>
+              <label>Birth date</label>
+              <input
+                name="birthDate"
+                type="date"
+                onInput={handleChange}
+                value={state.birthDate}
+              />
+            </div>
+            <div>
+              <label>Id</label>
+              <input
+                name="referenceId"
+                onInput={handleChange}
+                value={state.referenceId}
+              />
+            </div>
           </div>
           {/* <div className="form-two-column">
             <div>
