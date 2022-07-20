@@ -103,7 +103,11 @@ const CheckinTile = (props: Props) => {
     console.log(event);
     setQrData(event);
   };
-
+  const previewStyle = {
+    height: 240,
+    width: 320,
+  }
+  
   const handleScan = (data: any) => {
     setState({
       result: data
@@ -125,7 +129,7 @@ const CheckinTile = (props: Props) => {
       <div>
         <QrReader
           delay={state.delay}
-          // style={previewStyle}
+          style={previewStyle}
           onError={handleError}
           onScan={handleScan}
           />
