@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
-import QrReader from 'react-qr-scanner';
 import { addDays, format } from 'date-fns';
 import {
   faArrowRightFromBracket,
@@ -25,6 +24,7 @@ import {
   formatDateText,
   formatDateTimeText,
 } from '../../../components/Lib/DateUtils';
+import QrScanner from '../../QrScanner';
 
 const queryString = require('query-string');
 
@@ -71,15 +71,16 @@ const CheckinTile = (props: Props) => {
   const cancel = () => history.goBack();
 
   const handleCheckIn = () => {
-    registerIn(
-      props.space,
-      props.eventId,
-      props.participantId,
-      props.track._id || ''
-    ).then((response: any) => {
-      console.log(response);
-      props.handleChange();
-    });
+    setShowQrReader(true);
+    // registerIn(
+    //   props.space,
+    //   props.eventId,
+    //   props.participantId,
+    //   props.track._id || ''
+    // ).then((response: any) => {
+    //   console.log(response);
+    //   props.handleChange();
+    // });
     // setShowQrReader(true);
   };
 
@@ -99,23 +100,19 @@ const CheckinTile = (props: Props) => {
     DisableContextBarCommand.next(true);
   }, []);
 
-  const handleQrResult = (event: any) => {
-    console.log(event);
-    setQrData(event);
-  };
-  const previewStyle = {
-    height: 240,
-    width: 320,
-  }
-  
-  const handleScan = (data: any) => {
-    setState({
-      result: data
+  const handleQrData = (text: any) => {
+    console.log(text);
+    setShowQrReader(false);
+    registerIn(
+      props.space,
+      props.eventId,
+      props.participantId,
+      props.track._id || '',
+      text
+    ).then((response: any) => {
+      console.log(response);
+      props.handleChange();
     });
-  };
-
-  const handleError = (err: any) => {
-    console.error(err);
   };
 
   return (
@@ -126,15 +123,12 @@ const CheckinTile = (props: Props) => {
           <div>{qrData}</div>
         </div>
       )} */}
-      <div>
-        <QrReader
-          delay={state.delay}
-          style={previewStyle}
-          onError={handleError}
-          onScan={handleScan}
-          />
-        <p>{state.result}</p>
-      </div>
+      {showQrReader && (
+        <QrScanner
+          handleChange={handleQrData}
+          handleClose={() => setShowQrReader(false)}
+        ></QrScanner>
+      )}
       <div
         className={`checkin-tile checkin-tile--status-${props.track.status} ${
           props.track.isLocked ? 'checkin-tile--locked' : ''

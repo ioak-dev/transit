@@ -5,10 +5,11 @@ export const registerIn = (
   space: string,
   eventId: string,
   participantId: string,
-  trackId: string
+  trackId: string,
+  code: string
 ) => {
   return httpPost(
-    `/checkin/${space}/${eventId}/${participantId}/${trackId}/in`,
+    `/checkin/${space}/${eventId}/${participantId}/${trackId}/in?code=${code}`,
     {},
     {
       headers: {},
