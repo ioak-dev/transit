@@ -39,7 +39,8 @@ const CheckinPage = (props: Props) => {
   const [event, setEvent] = useState<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
 
-  const params: { eventId: string; participantReferenceId: string } = useParams();
+  const params: { eventId: string; participantReferenceId: string } =
+    useParams();
 
   const [showAllTracks, setShowAllTracks] = useState(false);
 
@@ -59,20 +60,23 @@ const CheckinPage = (props: Props) => {
   }, [params, participant]);
 
   const refreshData = () => {
-    getAvailableTracks(props.space, params.eventId, participant?._id || '').then(
-      (response: any[]) => {
-        setAvailableTracks(response);
-      }
-    );
+    getAvailableTracks(
+      props.space,
+      params.eventId,
+      participant?._id || ''
+    ).then((response: any[]) => {
+      setAvailableTracks(response);
+    });
   };
 
   const fetchParticipantData = () => {
-    getParticipantByReferenceId(props.space, params.participantReferenceId).then(
-      (response: ParticipantModel) => {
-        setParticipant(response);
-        // setAvailableTracks(response);
-      }
-    );
+    getParticipantByReferenceId(
+      props.space,
+      params.participantReferenceId
+    ).then((response: ParticipantModel) => {
+      setParticipant(response);
+      // setAvailableTracks(response);
+    });
   };
 
   const fetchEventData = () => {

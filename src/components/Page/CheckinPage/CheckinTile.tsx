@@ -71,16 +71,16 @@ const CheckinTile = (props: Props) => {
   const cancel = () => history.goBack();
 
   const handleCheckIn = () => {
-    setShowQrReader(true);
-    // registerIn(
-    //   props.space,
-    //   props.eventId,
-    //   props.participantId,
-    //   props.track._id || ''
-    // ).then((response: any) => {
-    //   console.log(response);
-    //   props.handleChange();
-    // });
+    // setShowQrReader(true);
+    registerIn(
+      props.space,
+      props.eventId,
+      props.participantId,
+      props.track._id || '',
+      123
+    ).then((response: any) => {
+      props.handleChange();
+    });
     // setShowQrReader(true);
   };
 

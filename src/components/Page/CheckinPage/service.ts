@@ -6,7 +6,7 @@ export const registerIn = (
   eventId: string,
   participantId: string,
   trackId: string,
-  code: string
+  code: number
 ) => {
   return httpPost(
     `/checkin/${space}/${eventId}/${participantId}/${trackId}/in?code=${code}`,
@@ -80,7 +80,10 @@ export const getParticipantById = (space: string, participantId: string) => {
     });
 };
 
-export const getParticipantByReferenceId = (space: string, participantReferenceId: string) => {
+export const getParticipantByReferenceId = (
+  space: string,
+  participantReferenceId: string
+) => {
   return httpGet(`/participant/${space}/reference/${participantReferenceId}`, {
     headers: {},
   })
