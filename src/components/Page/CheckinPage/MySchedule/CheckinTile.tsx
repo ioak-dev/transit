@@ -11,20 +11,20 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './CheckinTile.scss';
-import ReceiptModel from '../../../model/ReceiptModel';
-import ParticipantModel from '../../../model/ParticipantModel';
-import Topbar from '../../../components/Topbar';
-import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
-import Footer from '../../../components/Footer';
+import ReceiptModel from '../../../../model/ReceiptModel';
+import ParticipantModel from '../../../../model/ParticipantModel';
+import Topbar from '../../../../components/Topbar';
+import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
+import Footer from '../../../../components/Footer';
 import { getAvailableTracks, registerIn, registerOut } from './service';
-import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions';
-import EventModel from '../../../model/EventModel';
-import TrackModel from '../../../model/TrackModel';
+import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
+import EventModel from '../../../../model/EventModel';
+import TrackModel from '../../../../model/TrackModel';
 import {
   formatDateText,
   formatDateTimeText,
-} from '../../../components/Lib/DateUtils';
-import QrScanner from '../../QrScanner';
+} from '../../../../components/Lib/DateUtils';
+import QrScanner from '../../../QrScanner';
 
 const queryString = require('query-string');
 
