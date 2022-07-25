@@ -1,7 +1,7 @@
 .main-content {
-  margin-left: calc(
-      var(--oak-app-layout-sidebar-width)
-  );
+  // margin-left: calc(
+  //     var(--oak-app-layout-sidebar-width)
+  // );
   // margin-right: calc(
   //   var(--oak-app-layout-contextbar-mini-width) +
   //     var(--oak-app-layout-contextbar-width)
@@ -10,7 +10,7 @@
 }
 
 .main-content__sidebar-inactive {
-  margin-left: var(--oak-app-layout-sidebar-width-shrinked);
+  // margin-left: var(--oak-app-layout-sidebar-width-shrinked);
 }
 
 // .main-content__contextbar-inactive {

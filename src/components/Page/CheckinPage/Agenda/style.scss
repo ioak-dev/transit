@@ -1,19 +1,16 @@
-.my-schedule {
-  margin: 20px 20px;
-  display: grid;
-  grid-auto-flow: row;
-  row-gap: 20px;
+.agenda {
 }
-.my-schedule__main {
+.agenda__main {
   // padding: 20px 0;
   display: grid;
   grid-auto-flow: row;
   row-gap: 20px;
+  margin: 20px 20px;
   padding-bottom: 20px;
   // justify-content: center;
 }
 
-.my-schedule__action {
+.agenda__main__action {
   display: flex;
   justify-content: flex-end;
 }
