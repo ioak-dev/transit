@@ -26,8 +26,8 @@ const queryString = require('query-string');
 interface Props {
   space: string;
   location: any;
-  participant?: ParticipantModel;
-  event?: EventModel;
+  participant: ParticipantModel;
+  event: EventModel;
   tracks: any[];
   handleChange: any;
 }
@@ -80,15 +80,15 @@ const MySchedule = (props: Props) => {
 
   return (
     <div className="my-schedule">
-      {props.tracks
+      {props.event && props.participant && props.tracks
         .filter((item) => showAllTracks || !item.isLocked)
         .map((item) => (
           <CheckinTile
             key={item._id}
             space={props.space}
             track={item}
-            eventId={props.event?._id}
-            participantId={props.participant?._id}
+            event={props.event}
+            participant={props.participant}
             handleChange={refreshData}
           />
         ))}

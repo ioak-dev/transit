@@ -32,63 +32,35 @@ interface Props {
   space: string;
   track: any;
   handleChange: any;
-  eventId: any;
-  participantId: any;
+  event: EventModel;
+  participant: ParticipantModel;
 }
 
 const CheckinTile = (props: Props) => {
-  const history = useHistory();
   const dispatch = useDispatch();
-  const qrRef = useRef<any>(null);
-
-  const [qrData, setQrData] = useState('');
   const [showQrReader, setShowQrReader] = useState(false);
 
-  const [availableTracks, setAvailableTracks] = useState<TrackModel[]>([]);
-
-  const [state, setState] = useState<any>({});
-
-  const goToCreateParticipantPage = () => {
-    history.push(`/${props.space}/participant/new`);
-  };
-
-  const goToCompanyPage = (participantId: string) => {
-    history.push(`/${props.space}/participant/${participantId}`);
-  };
-
-  const handleChange = (participant: any) => {
-    setState({
-      ...state,
-      [participant.currentTarget.name]: participant.currentTarget.value,
-    });
-  };
-
-  const save = (event: any) => {
-    event.preventDefault();
-    console.log(state);
-  };
-
-  const cancel = () => history.goBack();
-
   const handleCheckIn = () => {
-    // setShowQrReader(true);
-    registerIn(
-      props.space,
-      props.eventId,
-      props.participantId,
-      props.track._id || '',
-      123
-    ).then((response: any) => {
-      props.handleChange();
-    });
-    // setShowQrReader(true);
+    if (props.event.code || props.track.code) {
+      setShowQrReader(true);
+    } else {
+      registerIn(
+        props.space,
+        props.event?._id || '',
+        props.participant?._id || '',
+        props.track._id || '',
+        123
+      ).then((response: any) => {
+        props.handleChange();
+      });
+    }
   };
 
   const handleCheckOut = () => {
     registerOut(
       props.space,
-      props.eventId,
-      props.participantId,
+      props.event?._id || '',
+      props.participant?._id || '',
       props.track._id || ''
     ).then((response: any) => {
       console.log(response);
@@ -105,8 +77,8 @@ const CheckinTile = (props: Props) => {
     setShowQrReader(false);
     registerIn(
       props.space,
-      props.eventId,
-      props.participantId,
+      props.event?._id || '',
+      props.participant?._id || '',
       props.track._id || '',
       text
     ).then((response: any) => {

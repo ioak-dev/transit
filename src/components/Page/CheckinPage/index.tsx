@@ -19,7 +19,6 @@ import {
 import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions';
 import EventModel from '../../../model/EventModel';
 import TrackModel from '../../../model/TrackModel';
-import CheckinTile from './CheckinTile';
 import MySchedule from './MySchedule';
 
 const queryString = require('query-string');
@@ -140,14 +139,16 @@ const CheckinPage = (props: Props) => {
             {showAllTracks ? 'Show current events only' : 'Show all events'}
           </button>
         </div>
-        <MySchedule
-          event={event}
-          handleChange={refreshData}
-          location={props.location}
-          space={props.space}
-          participant={participant}
-          tracks={availableTracks}
-        />
+        {event && participant && (
+          <MySchedule
+            event={event}
+            handleChange={refreshData}
+            location={props.location}
+            space={props.space}
+            participant={participant}
+            tracks={availableTracks}
+          />
+        )}
       </div>
     </div>
   );
