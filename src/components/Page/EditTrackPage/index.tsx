@@ -51,6 +51,7 @@ const TrackListPage = (props: Props) => {
     from: getDateTimeString(new Date()),
     icon: '',
     to: getDateTimeString(new Date()),
+    code: ''
   });
 
   useEffect(() => {
@@ -146,6 +147,10 @@ const TrackListPage = (props: Props) => {
                 value={state.to}
               />
             </div>
+          </div>
+          <div>
+            <label>Code</label>
+            <input name="code" onInput={handleChange} value={state.code} />
           </div>
           <input type="submit" hidden />
         </form>
