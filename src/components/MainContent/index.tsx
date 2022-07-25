@@ -9,6 +9,7 @@ import BodyContainer from '../App/BodyContainer';
 import SideContent from './SideContent';
 import SideContentMini from './SideContentMini';
 import DisableContextBarCommand from '../../events/DisableContextBarCommand';
+import SideContentFixed from './SideContentFixed';
 
 interface Props {
   cookies: any;
@@ -31,7 +32,7 @@ const MainContent = (props: Props) => {
   return (
     <>
       {/* <SideContentMini cookies={props.cookies} space={props.space} /> */}
-      <SideContent cookies={props.cookies} space={props.space} />
+      <SideContentFixed cookies={props.cookies} space={props.space} />
       {/* <FileExplorer space={props.space} /> */}
       {/* <NavigationContainer
         cookies={props.cookies}

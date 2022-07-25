@@ -39,6 +39,9 @@ const Topbar = (props: Props) => {
       }`}
     >
       <div className="topbar__left">
+        <button className="button" onClick={toggleSidebar}>
+          <FontAwesomeIcon icon={faBars} />
+        </button>
         <div>{props.title}</div>
         {props.left && <div>{props.left}</div>}
       </div>

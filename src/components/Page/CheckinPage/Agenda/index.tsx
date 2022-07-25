@@ -32,7 +32,7 @@ interface Props {
   handleChange: any;
 }
 
-const MySchedule = (props: Props) => {
+const Agenda = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -79,30 +79,14 @@ const MySchedule = (props: Props) => {
   };
 
   return (
-    <div className="my-schedule">
-      <div className="my-schedule__action">
-        <button className="button default-button" onClick={toggleShowAllTracks}>
-          {showAllTracks ? 'Show current events only' : 'Show all events'}
-        </button>
-      </div>
-      <div className="my-schedule__main">
-        {props.event &&
-          props.participant &&
-          props.tracks
-            .filter((item) => showAllTracks || !item.isLocked)
-            .map((item) => (
-              <CheckinTile
-                key={item._id}
-                space={props.space}
-                track={item}
-                event={props.event}
-                participant={props.participant}
-                handleChange={refreshData}
-              />
-            ))}
-      </div>
+    <div className="agenda">
+      {props.event &&
+        props.participant &&
+        props.tracks
+          .filter((item) => showAllTracks || !item.isLocked)
+          .map((item) => <>{item.name}</>)}
     </div>
   );
 };
 
-export default MySchedule;
+export default Agenda;

@@ -2,7 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import { addDays, format } from 'date-fns';
-import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendarDays,
+  faCheck,
+  faHome,
+  faLocationDot,
+  faMapPin,
+  faPlus,
+  faQuestion,
+  faTimes,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
 import ReceiptModel from '../../../model/ReceiptModel';
@@ -20,6 +30,7 @@ import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions
 import EventModel from '../../../model/EventModel';
 import TrackModel from '../../../model/TrackModel';
 import MySchedule from './MySchedule';
+import Agenda from './Agenda';
 
 const queryString = require('query-string');
 
@@ -33,14 +44,23 @@ const CheckinPage = (props: Props) => {
   const dispatch = useDispatch();
 
   const [participantId, setParticipantId] = useState<string | null>(null);
-  const [eventId, setEventId] = useState<string | null>(null);
+  const [page, setPage] = useState<
+    'schedule' | 'agenda' | 'map' | 'user' | 'help'
+  >('schedule');
 
   const [availableTracks, setAvailableTracks] = useState<any[]>([]);
   const [event, setEvent] = useState<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
 
-  const params: { eventId: string; participantReferenceId: string } =
-    useParams();
+  useEffect(() => {
+    const query = queryString.parse(props.location.search);
+    setPage(query.page || 'schedule');
+  }, [props.location.search]);
+
+  const params: {
+    eventId: string;
+    participantReferenceId: string;
+  } = useParams();
 
   const [showAllTracks, setShowAllTracks] = useState(false);
 
@@ -117,8 +137,10 @@ const CheckinPage = (props: Props) => {
     console.log(state);
   };
 
-  const toggleShowAllTracks = () => {
-    setShowAllTracks(!showAllTracks);
+  const goToPage = (page: 'schedule' | 'agenda' | 'map' | 'user' | 'help') => {
+    history.push(
+      `/${props.space}/checkin/${params.eventId}/${params.participantReferenceId}?page=${page}`
+    );
   };
 
   useEffect(() => {
@@ -131,15 +153,7 @@ const CheckinPage = (props: Props) => {
         title={event?.name || ''}
       >{`${participant?.firstName} ${participant?.lastName}`}</Topbar>
       <div className="checkin-page__main">
-        <div className="checkin-page__main__action">
-          <button
-            className="button default-button"
-            onClick={toggleShowAllTracks}
-          >
-            {showAllTracks ? 'Show current events only' : 'Show all events'}
-          </button>
-        </div>
-        {event && participant && (
+        {(!page || page === 'schedule') && event && participant && (
           <MySchedule
             event={event}
             handleChange={refreshData}
@@ -149,6 +163,85 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
+        {page === 'agenda' && event && participant && (
+          <Agenda
+            event={event}
+            handleChange={refreshData}
+            location={props.location}
+            space={props.space}
+            participant={participant}
+            tracks={availableTracks}
+          />
+        )}
+      </div>
+      <div className="checkin-page__footer">
+        <button
+          onClick={() => goToPage('schedule')}
+          className={`button checkin-page__footer__button ${
+            !page || page === 'schedule'
+              ? 'checkin-page__footer__button--active'
+              : ''
+          }`}
+        >
+          <div className="checkin-page__footer__button__label">
+            <FontAwesomeIcon icon={faHome} />
+            <div className="checkin-page__footer__button__label__text">
+              Home
+            </div>
+          </div>
+        </button>
+        <button
+          onClick={() => goToPage('agenda')}
+          className={`button checkin-page__footer__button ${
+            page === 'agenda' ? 'checkin-page__footer__button--active' : ''
+          }`}
+        >
+          <div className="checkin-page__footer__button__label">
+            <FontAwesomeIcon icon={faCalendarDays} />
+            <div className="checkin-page__footer__button__label__text">
+              Agenda
+            </div>
+          </div>
+        </button>
+        <button
+          onClick={() => goToPage('map')}
+          className={`button checkin-page__footer__button ${
+            page === 'map' ? 'checkin-page__footer__button--active' : ''
+          }`}
+        >
+          <div className="checkin-page__footer__button__label">
+            <FontAwesomeIcon icon={faLocationDot} />
+            <div className="checkin-page__footer__button__label__text">
+              My schedule
+            </div>
+          </div>
+        </button>
+        <button
+          onClick={() => goToPage('user')}
+          className={`button checkin-page__footer__button ${
+            page === 'user' ? 'checkin-page__footer__button--active' : ''
+          }`}
+        >
+          <div className="checkin-page__footer__button__label">
+            <FontAwesomeIcon icon={faUser} />
+            <div className="checkin-page__footer__button__label__text">
+              Detail
+            </div>
+          </div>
+        </button>
+        <button
+          onClick={() => goToPage('help')}
+          className={`button checkin-page__footer__button ${
+            page === 'help' ? 'checkin-page__footer__button--active' : ''
+          }`}
+        >
+          <div className="checkin-page__footer__button__label">
+            <FontAwesomeIcon icon={faQuestion} />
+            <div className="checkin-page__footer__button__label__text">
+              Help
+            </div>
+          </div>
+        </button>
       </div>
     </div>
   );
