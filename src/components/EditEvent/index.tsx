@@ -30,6 +30,7 @@ const EditEvent = (props: Props) => {
   const [state, setState] = useState<EventModel>({
     name: '',
     description: '',
+    code: ''
   });
 
   useEffect(() => {
@@ -77,6 +78,10 @@ const EditEvent = (props: Props) => {
               onInput={handleChange}
               value={state.description}
             />
+          </div>
+          <div>
+            <label>Code</label>
+            <input name="code" onInput={handleChange} value={state.code} />
           </div>
           <input type="submit" hidden />
         </form>

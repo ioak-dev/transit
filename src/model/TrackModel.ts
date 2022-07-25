@@ -6,4 +6,5 @@ export default interface TrackModel {
   icon: string;
   from: any;
   to: any;
+  code: string;
 }
