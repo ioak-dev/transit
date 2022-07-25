@@ -1,0 +1,51 @@
+.checkin-tile {
+  padding: 20px 20px;
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-i);
+  border-radius: 6px;
+  display: grid;
+  // grid-template-columns: 1fr 40px;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+  transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+}
+.checkin-tile--status-active {
+  background-color: var(--color-success-100);
+  color: var(--color-success-i);
+}
+.checkin-tile--locked.checkin-tile--status-active {
+  background-color: var(--color-success-300);
+  color: var(--color-success-300-i);
+}
+.checkin-tile--locked {
+  background-color: var(--color-base-100);
+  color: var(--color-base-i);
+}
+.checkin-tile__left__name {
+  font-size: 18px;
+}
+.checkin-tile__left__description {
+  font-size: 12px;
+}
+
+.checkin-tile__right__action {
+  font-size: 40px;
+  // &:hover {
+  //   color: var(--color-primary-i);
+  // }
+}
+
+.checkin-tile__right__indicator {
+  font-size: 40px;
+}
+
+.checkin-tile__right--active {
+  width: 40px;
+}
+
+.qr-scan {
+  width: 100px;
+  height: 100px;
+}
