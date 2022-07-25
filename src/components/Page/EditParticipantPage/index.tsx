@@ -55,7 +55,9 @@ const EditParticipantPage = (props: Props) => {
     email: '',
     telephone: '',
     birthDate: getDateString(new Date()),
-    referenceId: ''
+    referenceId: '',
+    groups: [],
+    room: '',
   });
 
   useEffect(() => {
@@ -171,6 +173,20 @@ const EditParticipantPage = (props: Props) => {
                 onInput={handleChange}
                 value={state.referenceId}
               />
+            </div>
+          </div>
+          <div className="form-two-column">
+            <div>
+              <label>Groups</label>
+              <select name="groups" id="groups" multiple>
+                <option value="java">JAVA</option>
+                <option value="finance">Finance</option>
+                <option value="sap">SAP</option>
+              </select>
+            </div>
+            <div>
+              <label>Room</label>
+              <input name="room" onInput={handleChange} value={state.room} />
             </div>
           </div>
           {/* <div className="form-two-column">

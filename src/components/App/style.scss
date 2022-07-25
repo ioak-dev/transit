@@ -194,7 +194,8 @@
 }
 
 input,
-textarea {
+textarea,
+select {
   border: 1px solid rgb(184, 184, 184);
   border-radius: 4px;
   &:hover:not(:focus) {
@@ -203,7 +204,8 @@ textarea {
 }
 
 .dark input,
-.dark textarea {
+.dark textarea,
+.dark select {
   border: 1px solid rgb(83, 83, 83);
   &:hover:not(:focus) {
     border-color: rgb(124, 124, 124);
@@ -211,7 +213,8 @@ textarea {
 }
 
 input,
-textarea {
+textarea,
+select {
   background-color: inherit;
   color: inherit;
   padding: 6px 12px;
@@ -221,6 +224,10 @@ textarea {
     outline: none;
   }
   width: 100%;
+}
+
+select {
+  padding: 9px 12px;
 }
 
 label {

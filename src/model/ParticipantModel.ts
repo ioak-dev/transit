@@ -7,4 +7,6 @@ export default interface ParticipantModel {
   telephone: string;
   birthDate: any;
   referenceId: string;
+  groups: string[];
+  room: string;
 }

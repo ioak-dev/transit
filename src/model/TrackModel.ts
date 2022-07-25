@@ -7,4 +7,6 @@ export default interface TrackModel {
   from: any;
   to: any;
   code: string;
+  group: string;
+  location: string;
 }

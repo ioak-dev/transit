@@ -51,7 +51,9 @@ const TrackListPage = (props: Props) => {
     from: getDateTimeString(new Date()),
     icon: '',
     to: getDateTimeString(new Date()),
-    code: ''
+    code: '',
+    group: '',
+    location: ''
   });
 
   useEffect(() => {
@@ -148,9 +150,19 @@ const TrackListPage = (props: Props) => {
               />
             </div>
           </div>
-          <div>
-            <label>Code</label>
-            <input name="code" onInput={handleChange} value={state.code} />
+          <div className="form-two-column">
+            <div>
+              <label>Code</label>
+              <input name="code" onInput={handleChange} value={state.code} />
+            </div>
+            <div>
+              <label>Group</label>
+              <input name="group" onInput={handleChange} value={state.group} />
+            </div>
+            <div>
+              <label>Location</label>
+              <input name="location" onInput={handleChange} value={state.location} />
+            </div>
           </div>
           <input type="submit" hidden />
         </form>
