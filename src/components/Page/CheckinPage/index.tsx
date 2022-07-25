@@ -211,9 +211,7 @@ const CheckinPage = (props: Props) => {
         >
           <div className="checkin-page__footer__button__label">
             <FontAwesomeIcon icon={faLocationDot} />
-            <div className="checkin-page__footer__button__label__text">
-              My schedule
-            </div>
+            <div className="checkin-page__footer__button__label__text">Map</div>
           </div>
         </button>
         <button
