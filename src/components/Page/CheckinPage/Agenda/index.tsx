@@ -18,8 +18,6 @@ import {
 } from './service';
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
-import TrackModel from '../../../../model/TrackModel';
-import CheckinTile from './CheckinTile';
 
 const queryString = require('query-string');
 

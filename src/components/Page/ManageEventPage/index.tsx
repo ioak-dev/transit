@@ -54,6 +54,7 @@ const ManageEventPage = (props: Props) => {
   const [state, setState] = useState<EventModel>({
     name: '',
     description: '',
+    code: '',
   });
 
   useEffect(() => {

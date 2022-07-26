@@ -110,10 +110,15 @@ const CheckinTile = (props: Props) => {
           <div className="checkin-tile__left__name">{props.track.name}</div>
           <div className="checkin-tile__left__time">{`${formatDateTimeText(
             props.track.from
-          )} to ${formatDateTimeText(props.track.to)}`}</div>
+          )} to ${formatDateTimeText(props.track.to)} ${
+            props.track.location ? `(${props.track.location})` : ''
+          }`}</div>
           <div className="checkin-tile__left__description">
             {props.track.description}
           </div>
+          {/* <div className="checkin-tile__left__location">
+            {props.track.location}
+          </div> */}
         </div>
         <div className="checkin-tile__right">
           {props.track.isLocked && (

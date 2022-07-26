@@ -2,6 +2,10 @@
   // min-height: calc(100vh - var(--oak-app-layout-topbar-height));
 }
 
+.checkin-page__main {
+  padding-bottom: 50px;
+}
+
 .checkin-page__footer {
   position: fixed;
   bottom: 0;

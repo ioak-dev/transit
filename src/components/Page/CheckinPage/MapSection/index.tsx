@@ -11,7 +11,7 @@ import Topbar from '../../../../components/Topbar';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
-import mapImage from '../../../../assets/map.png';
+// import mapImage from '../../../../assets/map.png';
 
 const queryString = require('query-string');
 
@@ -72,7 +72,8 @@ const MapSection = (props: Props) => {
 
   return (
     <div className="map-section">
-      <img src={mapImage} alt="Location map" />
+      map
+      {/* <img src={mapImage} alt="Location map" /> */}
     </div>
   );
 };
