@@ -105,6 +105,18 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
+        path="/:space/event"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={ManageEventPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
         path="/:space/track"
         exact
         render={(propsLocal) => (
