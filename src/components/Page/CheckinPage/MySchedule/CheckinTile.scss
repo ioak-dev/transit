@@ -10,7 +10,7 @@
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
 }
 .checkin-tile {
-  background-color: #bcc3cc;
+  background-color: #d5dee6;
   color: #000;
 }
 .checkin-tile--status-active {
@@ -26,10 +26,20 @@
   color: #fff;
 }
 .checkin-tile--status-new {
-  background-color: #bcc3cc;
+  background-color: #d5dee6;
   color: #000;
 }
 
+.dark {
+  .checkin-tile {
+    background-color: #bcc3cc;
+    color: #000;
+  }
+  .checkin-tile--status-new {
+    background-color: #bcc3cc;
+    color: #000;
+  }
+}
 .dark2 {
   .checkin-tile {
     background-color: #d5dee6;
