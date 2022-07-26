@@ -4,7 +4,7 @@ const initialState = {
   theme: 'theme_dark',
   textSize: 'textsize_medium',
   themeColor: 'themecolor1',
-  sidebar: true,
+  sidebar: false,
   // contextbar: false,
   hideSidebarOnDesktop: true,
 };

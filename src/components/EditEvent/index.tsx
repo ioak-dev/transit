@@ -30,7 +30,8 @@ const EditEvent = (props: Props) => {
   const [state, setState] = useState<EventModel>({
     name: '',
     description: '',
-    code: ''
+    notification: '',
+    code: '',
   });
 
   useEffect(() => {
@@ -77,6 +78,14 @@ const EditEvent = (props: Props) => {
               name="description"
               onInput={handleChange}
               value={state.description}
+            />
+          </div>
+          <div>
+            <label>Notification message</label>
+            <textarea
+              name="notification"
+              onInput={handleChange}
+              value={state.notification}
             />
           </div>
           <div>

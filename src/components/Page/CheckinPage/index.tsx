@@ -153,6 +153,9 @@ const CheckinPage = (props: Props) => {
       <Topbar
         title={event?.name || ''}
       >{`${participant?.firstName} ${participant?.lastName}`}</Topbar>
+      {event?.notification && (
+        <div className="checkin-page__notification">{event.notification}</div>
+      )}
       <div className="checkin-page__main">
         {(!page || page === 'schedule') && event && participant && (
           <MySchedule
