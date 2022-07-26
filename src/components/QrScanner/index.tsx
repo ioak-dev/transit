@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
-import QrReader from 'react-qr-scanner';
+// import QrReader from 'react-qr-scanner';
+import QrReader from 'react-qr-reader';
 
 interface Props {
   handleChange: any;
@@ -17,9 +18,18 @@ const QrScanner = (props: Props) => {
     console.log(event);
     setQrData(event);
   };
+
+  const camStyle = {
+    display: 'flex',
+    justifycontent: 'center',
+    marginTop: '-50px',
+  };
+
   const previewStyle = {
     height: 300,
     width: 300,
+    display: 'flex',
+    justifycontent: 'center',
   };
 
   const handleScan = (data: any) => {
@@ -51,13 +61,21 @@ const QrScanner = (props: Props) => {
   return (
     <div className="qr-scanner-overlay">
       {showQrReader && (
-        <QrReader
-          delay={state.delay}
-          style={previewStyle}
-          facingMode="rear"
-          onError={handleError}
-          onScan={handleScan}
-        />
+        <div style={camStyle}>
+          {/* <QrReader
+            delay={state.delay}
+            style={previewStyle}
+            facingMode="rear"
+            onError={handleError}
+            onScan={handleScan}
+          /> */}
+          <QrReader
+            delay={300}
+            onError={handleError}
+            onScan={handleScan}
+            style={{ width: '300px', height: '300px' }}
+          />
+        </div>
       )}
       <button className="button default-button" onClick={closeOverlay}>
         Close
