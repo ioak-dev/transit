@@ -32,6 +32,7 @@ import TrackModel from '../../../model/TrackModel';
 import MySchedule from './MySchedule';
 import Agenda from './Agenda';
 import MapSection from './MapSection';
+import MyDetail from './MyDetail';
 
 const queryString = require('query-string');
 
@@ -169,6 +170,16 @@ const CheckinPage = (props: Props) => {
         )}
         {page === 'agenda' && event && participant && (
           <Agenda
+            event={event}
+            handleChange={refreshData}
+            location={props.location}
+            space={props.space}
+            participant={participant}
+            tracks={availableTracks}
+          />
+        )}
+        {page === 'user' && event && participant && (
+          <MyDetail
             event={event}
             handleChange={refreshData}
             location={props.location}
