@@ -31,6 +31,7 @@
 
 .checkin-page__footer__button__label__text {
   font-size: 10px;
+  font-weight: 600;
   display: none;
 }
 
@@ -49,6 +50,17 @@
 .checkin-page__footer__button--active:hover,
 .checkin-page__footer__button--active:focus {
   color: var(--color-primary-100);
+}
+
+.light {
+  .checkin-page__footer__button {
+    background-color: var(--color-base-300);
+    border: 1px solid var(--color-base-100);
+  }
+
+  .checkin-page__footer__button:hover {
+    background-color: var(--color-base-400);
+  }
 }
 
 .checkin-page__footer__button--active

@@ -1,7 +1,5 @@
 .checkin-tile {
   padding: 20px 20px;
-  background-color: var(--color-primary-100);
-  color: var(--color-primary-i);
   border-radius: 6px;
   display: grid;
   // grid-template-columns: 1fr 40px;
@@ -11,18 +9,50 @@
   column-gap: 10px;
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
 }
+.checkin-tile {
+  background-color: #bcc3cc;
+  color: #000;
+}
 .checkin-tile--status-active {
-  background-color: var(--color-success-100);
-  color: var(--color-success-i);
+  background-color: #3c887e;
+  color: #fff;
 }
 .checkin-tile--locked.checkin-tile--status-active {
-  background-color: var(--color-success-300);
-  color: var(--color-success-300-i);
+  background-color: #698a80;
+  color: #fff;
 }
 .checkin-tile--locked {
-  background-color: var(--color-base-100);
-  color: var(--color-base-i);
+  background-color: #a57f60;
+  color: #fff;
 }
+.checkin-tile--status-new {
+  background-color: #bcc3cc;
+  color: #000;
+}
+
+.light {
+  .checkin-tile {
+    background-color: #d5dee6;
+    color: #000;
+  }
+  .checkin-tile--status-active {
+    background-color: #81b19f;
+    color: #000;
+  }
+  .checkin-tile--locked.checkin-tile--status-active {
+    background-color: #c0d8d0;
+    color: #000;
+  }
+  .checkin-tile--locked {
+    background-color: #d0bcb3;
+    color: #000;
+  }
+  .checkin-tile--status-new {
+    background-color: #d5dee6;
+    color: #000;
+  }
+}
+
 .checkin-tile__left__name {
   font-size: 18px;
 }
@@ -45,8 +75,13 @@
   font-size: 40px;
 }
 
-.checkin-tile__right--active {
+.checkin-tile__right__indicator--active,
+.checkin-tile__right__indicator--inactive {
   width: 40px;
+}
+
+.checkin-tile__right__indicator--inactive {
+  opacity: 0.1;
 }
 
 .qr-scan {

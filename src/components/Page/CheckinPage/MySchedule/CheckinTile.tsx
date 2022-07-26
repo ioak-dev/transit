@@ -125,20 +125,20 @@ const CheckinTile = (props: Props) => {
             <>
               {/* {props.track.status === 'new' && <div>-</div>} */}
               {props.track.status === 'active' && (
-                <div className="checkin-tile__right--active checkin-tile__right__indicator">
+                <div className="checkin-tile__right__indicator--inactive checkin-tile__right__indicator">
                   <FontAwesomeIcon icon={faCheck} />
                 </div>
               )}
               {props.track.status === 'closed' && (
-                <div className="checkin-tile__right--active checkin-tile__right__indicator">
-                  <FontAwesomeIcon icon={faCheck} />
+                <div className="checkin-tile__right__indicator--inactive checkin-tile__right__indicator">
+                  <FontAwesomeIcon icon={faTimes} />
                 </div>
               )}
             </>
           )}
           {!props.track.isLocked &&
             ['new', 'closed'].includes(props.track.status) && (
-              <div className="checkin-tile__right--active">
+              <div className="checkin-tile__right__indicator--active">
                 <button
                   className="button checkin-tile__right__action"
                   onClick={handleCheckIn}
@@ -148,7 +148,7 @@ const CheckinTile = (props: Props) => {
               </div>
             )}
           {!props.track.isLocked && props.track.status === 'active' && (
-            <div className="checkin-tile__right--active">
+            <div className="checkin-tile__right__indicator--active">
               <button
                 className="button checkin-tile__right__action"
                 onClick={handleCheckOut}
