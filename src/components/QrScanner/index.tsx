@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 import QrReader from 'react-qr-scanner';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   handleChange: any;
@@ -20,8 +18,8 @@ const QrScanner = (props: Props) => {
     setQrData(event);
   };
   const previewStyle = {
-    height: 240,
-    width: 320,
+    height: 300,
+    width: 300,
   };
 
   const handleScan = (data: any) => {
@@ -56,6 +54,7 @@ const QrScanner = (props: Props) => {
         <QrReader
           delay={state.delay}
           style={previewStyle}
+          facingMode="rear"
           onError={handleError}
           onScan={handleScan}
         />
