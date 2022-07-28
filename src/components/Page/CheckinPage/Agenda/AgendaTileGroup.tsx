@@ -15,7 +15,7 @@ const AgendaTileGroup = (props: Props) => {
     <div className="agenda-tile-group">
       {props.day}
       {props.trackList.map((track) => (
-        <AgendaTile space={props.space} track={track} key={track._id} />
+        <AgendaTile space={props.space} track={track} key={track._id} day={props.day} />
       ))}
     </div>
   );

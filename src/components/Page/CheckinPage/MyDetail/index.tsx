@@ -11,6 +11,7 @@ import Topbar from '../../../../components/Topbar';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
+import moment from 'moment';
 // import mapImage from '../../../../assets/map.png';
 
 const queryString = require('query-string');
@@ -82,7 +83,7 @@ const MyDetail = (props: Props) => {
       </div>
       <div className="my-detail__item">
         <div className="my-detail__item__label">Birth date</div>
-        <div>{props.participant.birthDate || '-'}</div>
+        <div>{moment(props.participant.birthDate).format("DD-MM-YYYY") || '-'}</div>
       </div>
       <div className="my-detail__item">
         <div className="my-detail__item__label">Room number</div>

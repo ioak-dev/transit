@@ -33,6 +33,7 @@ import MySchedule from './MySchedule';
 import Agenda from './Agenda';
 import MapSection from './MapSection';
 import MyDetail from './MyDetail';
+import HelpSection from './HelpSection';
 
 const queryString = require('query-string');
 
@@ -190,6 +191,16 @@ const CheckinPage = (props: Props) => {
         )}
         {page === 'map' && event && participant && (
           <MapSection
+            event={event}
+            handleChange={refreshData}
+            location={props.location}
+            space={props.space}
+            participant={participant}
+            tracks={availableTracks}
+          />
+        )}
+        {page === 'help' && event && participant && (
+          <HelpSection
             event={event}
             handleChange={refreshData}
             location={props.location}
