@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import EventModel from 'src/model/EventModel';
 import ParticipantModel from 'src/model/ParticipantModel';
@@ -18,7 +19,9 @@ const AgendaTile = (props: Props) => {
       <div className="event-list-page__main__item__description">
         {props.track.description}
       </div>
-      {props.day}
+      <div className="event-list-page__main__item__time">
+        {moment(props.track.from).format('h:mm a') || '-'}&nbsp;to&nbsp;{moment(props.track.to).format('MMMM Do, h:mm a') || '-'}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,11 @@
+.event-list-page__main__item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.event-list-page__main__item__time {
+  font-weight: 400;
+  font-size: 12px;
+  align-self: flex-end;
+}

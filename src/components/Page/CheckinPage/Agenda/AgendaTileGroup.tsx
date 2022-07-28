@@ -1,8 +1,9 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import EventModel from 'src/model/EventModel';
 import ParticipantModel from 'src/model/ParticipantModel';
 import AgendaTile from './AgendaTile';
-import './style.scss';
+import './AgendaTileGroup.scss';
 
 interface Props {
   space: string;
@@ -12,8 +13,8 @@ interface Props {
 
 const AgendaTileGroup = (props: Props) => {
   return (
-    <div className="agenda-tile-group">
-      {props.day}
+    <div className="agenda__tile__group">
+      {moment(props.day).format("MMMM Do, YYYY") || '-'}
       {props.trackList.map((track) => (
         <AgendaTile space={props.space} track={track} key={track._id} day={props.day} />
       ))}
