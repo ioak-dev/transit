@@ -19,6 +19,7 @@ import {
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
 import AgendaTile from './AgendaTile';
+import AgendaTileGroup from './AgendaTileGroup';
 
 const queryString = require('query-string');
 
@@ -37,37 +38,26 @@ const Agenda = (props: Props) => {
 
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [eventId, setEventId] = useState<string | null>(null);
+  const [tracksAsMap, setTracksAsMap] = useState<any>({});
 
   const params: { eventId: string; participantReferenceId: string } =
     useParams();
 
-  const [showAllTracks, setShowAllTracks] = useState(false);
-
   const [state, setState] = useState<any>({});
 
-  const goToCreateParticipantPage = () => {
-    history.push(`/${props.space}/participant/new`);
-  };
-
-  const goToCompanyPage = (participantId: string) => {
-    history.push(`/${props.space}/participant/${participantId}`);
-  };
-
-  const handleChange = (participant: any) => {
-    setState({
-      ...state,
-      [participant.currentTarget.name]: participant.currentTarget.value,
+  useEffect(() => {
+    const _tracksAsMap: any = {};
+    props.tracks?.forEach((item: any) => {
+      console.log(new Date(item.from));
+      const _from = format(new Date(item.from), 'yyyy-MM-dd');
+      if (_tracksAsMap[_from]) {
+        _tracksAsMap[_from].push(item);
+      } else {
+        _tracksAsMap[_from] = [item];
+      }
     });
-  };
-
-  const save = (event: any) => {
-    event.preventDefault();
-    console.log(state);
-  };
-
-  const toggleShowAllTracks = () => {
-    setShowAllTracks(!showAllTracks);
-  };
+    setTracksAsMap(_tracksAsMap);
+  }, [props.tracks]);
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
@@ -81,22 +71,14 @@ const Agenda = (props: Props) => {
     <div className="event-list-page__main">
       {props.event &&
         props.participant &&
-        props.tracks
-          .filter((item) => showAllTracks || !item.isLocked)
-          .map((item) => (
-            <button
-              className="button event-list-page__main__item"
-              key={item?._id}
-            >
-              {/* <pre key={item?._id}>{JSON.stringify(item)}</pre> */}
-              <div className="event-list-page__main__item__name">
-                {item.name}
-              </div>
-              <div className="event-list-page__main__item__description">
-                {item.description}
-              </div>
-            </button>
-          ))}
+        Object.keys(tracksAsMap).map((day) => (
+          <AgendaTileGroup
+            space={props.space}
+            trackList={tracksAsMap[day]}
+            day={day}
+            key={day}
+          />
+        ))}
     </div>
   );
 };
