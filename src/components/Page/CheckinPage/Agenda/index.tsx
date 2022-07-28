@@ -18,6 +18,7 @@ import {
 } from './service';
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
+import AgendaTile from './AgendaTile';
 
 const queryString = require('query-string');
 
@@ -77,12 +78,25 @@ const Agenda = (props: Props) => {
   };
 
   return (
-    <div className="agenda">
+    <div className="event-list-page__main">
       {props.event &&
         props.participant &&
         props.tracks
           .filter((item) => showAllTracks || !item.isLocked)
-          .map((item) => <>{item.name}</>)}
+          .map((item) => (
+            <button
+              className="button event-list-page__main__item"
+              key={item?._id}
+            >
+              {/* <pre key={item?._id}>{JSON.stringify(item)}</pre> */}
+              <div className="event-list-page__main__item__name">
+                {item.name}
+              </div>
+              <div className="event-list-page__main__item__description">
+                {item.description}
+              </div>
+            </button>
+          ))}
     </div>
   );
 };

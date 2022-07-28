@@ -272,3 +272,15 @@ label {
     opacity: 1;
   }
 }
+
+pre {
+  white-space: pre-wrap;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  background: #fafafa;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: 'Lucida Console', Monaco, monospace;
+  color: #333;
+}
