@@ -1,0 +1,30 @@
+.validate_section {
+  margin: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.validate_section__item {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.validate_section__item__label {
+  font-size: 24px;
+}
+
+.circle-button {
+  height: 80px;
+  width: 80px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  align-self: center;
+  svg {
+    height: 32px;
+  }
+}

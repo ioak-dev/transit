@@ -5,7 +5,7 @@ import ParticipantModel from 'src/model/ParticipantModel';
 import EventModel from 'src/model/EventModel';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   space: string;
@@ -48,19 +48,18 @@ const ValidateSection = (props: Props) => {
   };
 
   return (
-    <div>
-      <div>
-        <label>Joining Date</label>
-        <input
-          type="datetime-local"
-          name="date"
-          onInput={handleChange}
-          value={state.date}
-        />
+    <div className="validate_section">
+      <div className="validate_section__item__label">
+        Enter joining date to Check-In
       </div>
-      <button className="button primary-button" onClick={handleChange}>
-        <FontAwesomeIcon icon={faCheck} />
-        Save
+      <input
+        type="datetime-local"
+        name="date"
+        onInput={handleChange}
+        value={state.date}
+      />
+      <button className="circle-button" onClick={handleChange}>
+        <FontAwesomeIcon icon={faChevronRight} />
       </button>
     </div>
   );

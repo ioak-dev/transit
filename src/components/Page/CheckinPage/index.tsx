@@ -207,9 +207,6 @@ const CheckinPage = (props: Props) => {
           />
         )}
         {!validationSuccessful && event && participant && (
-          <div>
-            Enter joining date (on entering joining date, convert it into
-            yyyy-mm-dd and set it into session storage. update the local flag
             <ValidateSection
               event={event}
               handleValidation={() => setValidationSuccessful(true)}
@@ -218,7 +215,6 @@ const CheckinPage = (props: Props) => {
               participant={participant}
               tracks={availableTracks}
             />
-          </div>
         )}
       </div>
       {validationSuccessful && (

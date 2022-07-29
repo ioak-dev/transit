@@ -1,5 +1,5 @@
 .checkin-page {
-  // min-height: calc(100vh - var(--oak-app-layout-topbar-height));
+  min-height: calc(100vh - var(--oak-app-layout-topbar-height));
 }
 .checkin-page__notification {
   padding: 20px 20px;
@@ -8,6 +8,7 @@
 }
 .checkin-page__main {
   padding-bottom: 50px;
+  min-height: calc(100vh - var(--oak-app-layout-topbar-height));
 }
 
 .checkin-page__footer {
