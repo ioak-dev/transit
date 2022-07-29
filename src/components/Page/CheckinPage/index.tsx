@@ -51,6 +51,8 @@ const CheckinPage = (props: Props) => {
     'schedule' | 'agenda' | 'map' | 'user' | 'help'
   >('schedule');
 
+  const [validationSuccessful, setValidationSuccessful] =
+    useState<boolean>(false);
   const [availableTracks, setAvailableTracks] = useState<any[]>([]);
   const [event, setEvent] = useState<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
@@ -120,25 +122,13 @@ const CheckinPage = (props: Props) => {
 
   const [state, setState] = useState<any>({});
 
-  const goToCreateParticipantPage = () => {
-    history.push(`/${props.space}/participant/new`);
-  };
-
-  const goToCompanyPage = (participantId: string) => {
-    history.push(`/${props.space}/participant/${participantId}`);
-  };
-
-  const handleChange = (participant: any) => {
-    setState({
-      ...state,
-      [participant.currentTarget.name]: participant.currentTarget.value,
-    });
-  };
-
-  const save = (event: any) => {
-    event.preventDefault();
-    console.log(state);
-  };
+  useEffect(() => {
+    if (participant) {
+      const joiningDate = sessionStorage.getItem('joiningDate');
+      const participantDate = format(participant?.birthDate, 'yyyy-mm-dd');
+      setValidationSuccessful(joiningDate === participantDate);
+    }
+  }, [participant]);
 
   const goToPage = (page: 'schedule' | 'agenda' | 'map' | 'user' | 'help') => {
     history.push(
@@ -159,17 +149,20 @@ const CheckinPage = (props: Props) => {
         <div className="checkin-page__notification">{event.notification}</div>
       )}
       <div className="checkin-page__main">
-        {(!page || page === 'schedule') && event && participant && (
-          <MySchedule
-            event={event}
-            handleChange={refreshData}
-            location={props.location}
-            space={props.space}
-            participant={participant}
-            tracks={availableTracks}
-          />
-        )}
-        {page === 'agenda' && event && participant && (
+        {(!page || page === 'schedule') &&
+          validationSuccessful &&
+          event &&
+          participant && (
+            <MySchedule
+              event={event}
+              handleChange={refreshData}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+          )}
+        {page === 'agenda' && validationSuccessful && event && participant && (
           <Agenda
             event={event}
             handleChange={refreshData}
@@ -179,7 +172,7 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
-        {page === 'user' && event && participant && (
+        {page === 'user' && validationSuccessful && event && participant && (
           <MyDetail
             event={event}
             handleChange={refreshData}
@@ -189,7 +182,7 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
-        {page === 'map' && event && participant && (
+        {page === 'map' && validationSuccessful && event && participant && (
           <MapSection
             event={event}
             handleChange={refreshData}
@@ -199,7 +192,7 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
-        {page === 'help' && event && participant && (
+        {page === 'help' && validationSuccessful && event && participant && (
           <HelpSection
             event={event}
             handleChange={refreshData}
@@ -209,74 +202,84 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
+        {!validationSuccessful && event && participant && (
+          <div>
+            Enter joining date (on entering joining date, convert it into
+            yyyy-mm-dd and set it into session storage. update the local flag
+          </div>
+        )}
       </div>
-      <div className="checkin-page__footer">
-        <button
-          onClick={() => goToPage('schedule')}
-          className={`button checkin-page__footer__button ${
-            !page || page === 'schedule'
-              ? 'checkin-page__footer__button--active'
-              : ''
-          }`}
-        >
-          <div className="checkin-page__footer__button__label">
-            <FontAwesomeIcon icon={faHome} />
-            <div className="checkin-page__footer__button__label__text">
-              Home
+      {validationSuccessful && (
+        <div className="checkin-page__footer">
+          <button
+            onClick={() => goToPage('schedule')}
+            className={`button checkin-page__footer__button ${
+              !page || page === 'schedule'
+                ? 'checkin-page__footer__button--active'
+                : ''
+            }`}
+          >
+            <div className="checkin-page__footer__button__label">
+              <FontAwesomeIcon icon={faHome} />
+              <div className="checkin-page__footer__button__label__text">
+                Home
+              </div>
             </div>
-          </div>
-        </button>
-        <button
-          onClick={() => goToPage('agenda')}
-          className={`button checkin-page__footer__button ${
-            page === 'agenda' ? 'checkin-page__footer__button--active' : ''
-          }`}
-        >
-          <div className="checkin-page__footer__button__label">
-            <FontAwesomeIcon icon={faCalendarDays} />
-            <div className="checkin-page__footer__button__label__text">
-              Agenda
+          </button>
+          <button
+            onClick={() => goToPage('agenda')}
+            className={`button checkin-page__footer__button ${
+              page === 'agenda' ? 'checkin-page__footer__button--active' : ''
+            }`}
+          >
+            <div className="checkin-page__footer__button__label">
+              <FontAwesomeIcon icon={faCalendarDays} />
+              <div className="checkin-page__footer__button__label__text">
+                Agenda
+              </div>
             </div>
-          </div>
-        </button>
-        <button
-          onClick={() => goToPage('map')}
-          className={`button checkin-page__footer__button ${
-            page === 'map' ? 'checkin-page__footer__button--active' : ''
-          }`}
-        >
-          <div className="checkin-page__footer__button__label">
-            <FontAwesomeIcon icon={faLocationDot} />
-            <div className="checkin-page__footer__button__label__text">Map</div>
-          </div>
-        </button>
-        <button
-          onClick={() => goToPage('user')}
-          className={`button checkin-page__footer__button ${
-            page === 'user' ? 'checkin-page__footer__button--active' : ''
-          }`}
-        >
-          <div className="checkin-page__footer__button__label">
-            <FontAwesomeIcon icon={faUser} />
-            <div className="checkin-page__footer__button__label__text">
-              Detail
+          </button>
+          <button
+            onClick={() => goToPage('map')}
+            className={`button checkin-page__footer__button ${
+              page === 'map' ? 'checkin-page__footer__button--active' : ''
+            }`}
+          >
+            <div className="checkin-page__footer__button__label">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <div className="checkin-page__footer__button__label__text">
+                Map
+              </div>
             </div>
-          </div>
-        </button>
-        <button
-          onClick={() => goToPage('help')}
-          className={`button checkin-page__footer__button ${
-            page === 'help' ? 'checkin-page__footer__button--active' : ''
-          }`}
-        >
-          <div className="checkin-page__footer__button__label">
-            <FontAwesomeIcon icon={faQuestion} />
-            <div className="checkin-page__footer__button__label__text">
-              Help
+          </button>
+          <button
+            onClick={() => goToPage('user')}
+            className={`button checkin-page__footer__button ${
+              page === 'user' ? 'checkin-page__footer__button--active' : ''
+            }`}
+          >
+            <div className="checkin-page__footer__button__label">
+              <FontAwesomeIcon icon={faUser} />
+              <div className="checkin-page__footer__button__label__text">
+                Detail
+              </div>
             </div>
-          </div>
-        </button>
-      </div>
+          </button>
+          <button
+            onClick={() => goToPage('help')}
+            className={`button checkin-page__footer__button ${
+              page === 'help' ? 'checkin-page__footer__button--active' : ''
+            }`}
+          >
+            <div className="checkin-page__footer__button__label">
+              <FontAwesomeIcon icon={faQuestion} />
+              <div className="checkin-page__footer__button__label__text">
+                Help
+              </div>
+            </div>
+          </button>
+        </div>
+      )}
     </div>
   );
 };
