@@ -34,6 +34,7 @@ import Agenda from './Agenda';
 import MapSection from './MapSection';
 import MyDetail from './MyDetail';
 import HelpSection from './HelpSection';
+import ValidateSection from './ValidateSection';
 
 const queryString = require('query-string');
 
@@ -127,7 +128,7 @@ const CheckinPage = (props: Props) => {
       const joiningDate = sessionStorage.getItem('joiningDate');
       const participantDate = format(
         new Date(participant?.birthDate),
-        'yyyy-mm-dd'
+        'yyyy-MM-dd'
       );
       setValidationSuccessful(joiningDate === participantDate);
     }
@@ -209,6 +210,14 @@ const CheckinPage = (props: Props) => {
           <div>
             Enter joining date (on entering joining date, convert it into
             yyyy-mm-dd and set it into session storage. update the local flag
+            <ValidateSection
+              event={event}
+              handleValidation={() => setValidationSuccessful(true)}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
           </div>
         )}
       </div>
