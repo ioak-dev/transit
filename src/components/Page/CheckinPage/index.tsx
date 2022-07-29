@@ -125,8 +125,11 @@ const CheckinPage = (props: Props) => {
   useEffect(() => {
     if (participant) {
       const joiningDate = sessionStorage.getItem('joiningDate');
-      // const participantDate = format(participant?.birthDate, 'yyyy-mm-dd');
-      // setValidationSuccessful(joiningDate === participantDate);
+      const participantDate = format(
+        new Date(participant?.birthDate),
+        'yyyy-mm-dd'
+      );
+      setValidationSuccessful(joiningDate === participantDate);
     }
   }, [participant]);
 
