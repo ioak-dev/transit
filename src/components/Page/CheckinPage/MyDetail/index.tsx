@@ -86,6 +86,10 @@ const MyDetail = (props: Props) => {
         <div>{moment(props.participant.birthDate).format("DD-MM-YYYY") || '-'}</div>
       </div>
       <div className="my-detail__item">
+        <div className="my-detail__item__label">Joining date</div>
+        <div>{moment(props.participant.joiningDate).format("DD-MM-YYYY") || '-'}</div>
+      </div>
+      <div className="my-detail__item">
         <div className="my-detail__item__label">Room number</div>
         <div>{props.participant.room || '-'}</div>
       </div>

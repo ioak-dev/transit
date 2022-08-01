@@ -127,7 +127,7 @@ const CheckinPage = (props: Props) => {
     if (participant) {
       const joiningDate = sessionStorage.getItem('joiningDate');
       const participantDate = format(
-        new Date(participant?.birthDate),
+        new Date(participant?.joiningDate),
         'yyyy-MM-dd'
       );
       setValidationSuccessful(joiningDate === participantDate);

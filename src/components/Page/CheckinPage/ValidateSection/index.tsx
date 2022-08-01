@@ -37,7 +37,7 @@ const ValidateSection = (props: Props) => {
     console.log(state.date);
     const stateDate = format(new Date(state.date), 'yyyy-MM-dd');
     const participantDate = format(
-      new Date(props.participant?.birthDate),
+      new Date(props.participant?.joiningDate),
       'yyyy-MM-dd'
     );
     console.log(participantDate, stateDate);
