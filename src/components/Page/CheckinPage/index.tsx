@@ -148,7 +148,7 @@ const CheckinPage = (props: Props) => {
     <div className="checkin-page">
       <Topbar
         title={event?.name || ''}
-      >{`${participant?.firstName} ${participant?.lastName}`}</Topbar>
+      >{`${participant?.firstName}`}</Topbar>
       {event?.notification && (
         <div className="checkin-page__notification">{event.notification}</div>
       )}

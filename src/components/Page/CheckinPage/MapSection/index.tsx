@@ -11,6 +11,7 @@ import Topbar from '../../../../components/Topbar';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
+import MediaTile from './MediaTile';
 // import mapImage from '../../../../assets/map.png';
 
 const queryString = require('query-string');
@@ -70,9 +71,13 @@ const MapSection = (props: Props) => {
     props.handleChange();
   };
 
+  const mediaList = JSON.parse(props.event.media);
+
   return (
     <div className="map-section">
-      <img src="https://iili.io/SWtvtI.jpg" alt="Location map" />
+      {mediaList.map((media: any) => (
+        <MediaTile key={media.title} media={media} />
+      ))}
     </div>
   );
 };

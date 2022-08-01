@@ -3,6 +3,7 @@ export default interface EventModel {
   name: string;
   description: string;
   notification?: string;
-  media?: string;
+  media?: any;
   code: string;
+  support?: string;
 }
