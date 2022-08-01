@@ -22,17 +22,21 @@ const HelpSection = (props: Props) => {
     DisableContextBarCommand.next(true);
   }, []);
 
+  const supportList = JSON.parse(props.event.support);
+
   return (
     <div className="help">
-      <div className="help__item">
-        <div className="help__item__label">Name</div>
-        <div className="help__item__phone">
-          <a href="tel:555-123-4567">
-            <FontAwesomeIcon icon={faPhone} />
-          </a>
-          555-123-4567
+      {supportList.map((support: any) => (
+        <div className="help__item" key={support.name}>
+          <div className="help__item__label">{support.name}</div>
+          <div className="help__item__phone">
+            <a href='tel:${support.phone}'>
+              <FontAwesomeIcon icon={faPhone} />
+            </a>
+            {support.phone}
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };

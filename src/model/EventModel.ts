@@ -5,5 +5,5 @@ export default interface EventModel {
   notification?: string;
   media?: any;
   code: string;
-  support?: string;
+  support?: any;
 }
