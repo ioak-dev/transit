@@ -5,7 +5,10 @@ import { addDays, format } from 'date-fns';
 import {
   faCalendarDays,
   faCheck,
+  faCircleDot,
+  faEllipsis,
   faHome,
+  faListDots,
   faLocationDot,
   faMapPin,
   faPlus,
@@ -35,6 +38,7 @@ import MapSection from './MapSection';
 import MyDetail from './MyDetail';
 import HelpSection from './HelpSection';
 import ValidateSection from './ValidateSection';
+import MoreMenuSection from './MoreMenuSection';
 
 const queryString = require('query-string');
 
@@ -49,7 +53,7 @@ const CheckinPage = (props: Props) => {
 
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [page, setPage] = useState<
-    'schedule' | 'agenda' | 'map' | 'user' | 'help'
+    'schedule' | 'agenda' | 'map' | 'user' | 'help' | 'more'
   >('schedule');
 
   const [validationSuccessful, setValidationSuccessful] =
@@ -134,7 +138,9 @@ const CheckinPage = (props: Props) => {
     }
   }, [participant]);
 
-  const goToPage = (page: 'schedule' | 'agenda' | 'map' | 'user' | 'help') => {
+  const goToPage = (
+    page: 'schedule' | 'agenda' | 'map' | 'user' | 'help' | 'more'
+  ) => {
     history.push(
       `/${props.space}/checkin/${params.eventId}/${params.participantReferenceId}?page=${page}`
     );
@@ -146,9 +152,7 @@ const CheckinPage = (props: Props) => {
 
   return (
     <div className="checkin-page">
-      <Topbar
-        title={event?.name || ''}
-      >{`${participant?.firstName}`}</Topbar>
+      <Topbar title={event?.name || ''}>{`${participant?.firstName}`}</Topbar>
       {event?.notification && (
         <div className="checkin-page__notification">{event.notification}</div>
       )}
@@ -196,6 +200,14 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
+        {page === 'more' && validationSuccessful && event && participant && (
+          <MoreMenuSection
+            location={props.location}
+            space={props.space}
+            page={page}
+            goToPage={goToPage}
+          />
+        )}
         {page === 'help' && validationSuccessful && event && participant && (
           <HelpSection
             event={event}
@@ -207,14 +219,14 @@ const CheckinPage = (props: Props) => {
           />
         )}
         {!validationSuccessful && event && participant && (
-            <ValidateSection
-              event={event}
-              handleValidation={() => setValidationSuccessful(true)}
-              location={props.location}
-              space={props.space}
-              participant={participant}
-              tracks={availableTracks}
-            />
+          <ValidateSection
+            event={event}
+            handleValidation={() => setValidationSuccessful(true)}
+            location={props.location}
+            space={props.space}
+            participant={participant}
+            tracks={availableTracks}
+          />
         )}
       </div>
       {validationSuccessful && (
@@ -274,15 +286,17 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
-            onClick={() => goToPage('help')}
+            onClick={() => goToPage('more')}
             className={`button checkin-page__footer__button ${
-              page === 'help' ? 'checkin-page__footer__button--active' : ''
+              ['help', 'more'].includes(page)
+                ? 'checkin-page__footer__button--active'
+                : ''
             }`}
           >
             <div className="checkin-page__footer__button__label">
-              <FontAwesomeIcon icon={faQuestion} />
+              <FontAwesomeIcon icon={faEllipsis} />
               <div className="checkin-page__footer__button__label__text">
-                Help
+                More
               </div>
             </div>
           </button>
