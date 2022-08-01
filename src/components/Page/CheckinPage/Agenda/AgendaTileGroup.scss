@@ -1,6 +1,11 @@
 .agenda__tile__group {
-    padding: 10px 0 0;
+  padding: 10px 0 0;
 }
 .agenda__tile__group__date {
-    text-align: center;
+  text-align: center;
+}
+.agenda__tile__group__list {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
 }

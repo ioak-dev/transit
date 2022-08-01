@@ -72,7 +72,6 @@ const MapSection = (props: Props) => {
 
   return (
     <div className="map-section">
-      map
       <img src="https://iili.io/SWtvtI.jpg" alt="Location map" />
     </div>
   );

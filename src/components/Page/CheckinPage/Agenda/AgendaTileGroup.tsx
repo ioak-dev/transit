@@ -15,11 +15,18 @@ const AgendaTileGroup = (props: Props) => {
   return (
     <div className="agenda__tile__group">
       <div className="agenda__tile__group__date">
-        {moment(props.day).format("MMMM Do, YYYY") || '-'}
+        {moment(props.day).format('MMMM Do, YYYY') || '-'}
       </div>
-      {props.trackList.map((track) => (
-        <AgendaTile space={props.space} track={track} key={track._id} day={props.day} />
-      ))}
+      <div className="agenda__tile__group__list">
+        {props.trackList.map((track) => (
+          <AgendaTile
+            space={props.space}
+            track={track}
+            key={track._id}
+            day={props.day}
+          />
+        ))}
+      </div>
     </div>
   );
 };
