@@ -6,6 +6,7 @@ export default interface ParticipantModel {
   email: string;
   telephone: string;
   birthDate: any;
+  joiningDate?: any;
   referenceId: string;
   groups: string[];
   room: string;

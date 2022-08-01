@@ -55,6 +55,7 @@ const EditParticipantPage = (props: Props) => {
     email: '',
     telephone: '',
     birthDate: getDateString(new Date()),
+    joiningDate: getDateString(new Date()),
     referenceId: '',
     groups: [],
     room: '',
@@ -69,7 +70,10 @@ const EditParticipantPage = (props: Props) => {
         const birthDate = getDateString(
           new Date(participant.birthDate || new Date())
         );
-        setState({ ...participant, birthDate });
+        const joiningDate = getDateString(
+          new Date(participant.joiningDate || new Date())
+        );
+        setState({ ...participant, birthDate, joiningDate });
       }
     }
   }, [id, participantList]);
@@ -141,8 +145,6 @@ const EditParticipantPage = (props: Props) => {
                 value={state.lastName}
               />
             </div>
-          </div>
-          <div className="form-two-column">
             <div>
               <label>Email</label>
               <input name="email" onInput={handleChange} value={state.email} />
@@ -155,8 +157,6 @@ const EditParticipantPage = (props: Props) => {
                 value={state.telephone}
               />
             </div>
-          </div>
-          <div className="form-two-column">
             <div>
               <label>Birth date</label>
               <input
@@ -167,6 +167,15 @@ const EditParticipantPage = (props: Props) => {
               />
             </div>
             <div>
+              <label>Joining date</label>
+              <input
+                name="joiningDate"
+                type="date"
+                onInput={handleChange}
+                value={state.joiningDate}
+              />
+            </div>
+            <div>
               <label>Id</label>
               <input
                 name="referenceId"
@@ -174,8 +183,10 @@ const EditParticipantPage = (props: Props) => {
                 value={state.referenceId}
               />
             </div>
-          </div>
-          <div className="form-two-column">
+            <div>
+              <label>Room</label>
+              <input name="room" onInput={handleChange} value={state.room} />
+            </div>
             <div>
               <label>Groups</label>
               <select name="groups" id="groups" multiple>
@@ -183,10 +194,6 @@ const EditParticipantPage = (props: Props) => {
                 <option value="finance">Finance</option>
                 <option value="sap">SAP</option>
               </select>
-            </div>
-            <div>
-              <label>Room</label>
-              <input name="room" onInput={handleChange} value={state.room} />
             </div>
           </div>
           {/* <div className="form-two-column">

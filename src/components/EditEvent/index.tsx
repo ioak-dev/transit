@@ -31,6 +31,7 @@ const EditEvent = (props: Props) => {
     name: '',
     description: '',
     notification: '',
+    media: '',
     code: '',
   });
 
@@ -87,6 +88,10 @@ const EditEvent = (props: Props) => {
               onInput={handleChange}
               value={state.notification}
             />
+          </div>
+          <div>
+            <label>Media JSON (type (image/video), title, caption, link)</label>
+            <textarea name="media" onInput={handleChange} value={state.media} />
           </div>
           <div>
             <label>Code</label>
