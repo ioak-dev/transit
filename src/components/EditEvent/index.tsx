@@ -33,7 +33,8 @@ const EditEvent = (props: Props) => {
     notification: '',
     media: '',
     code: '',
-    support: ''
+    support: '',
+    group: '',
   });
 
   useEffect(() => {
@@ -96,7 +97,15 @@ const EditEvent = (props: Props) => {
           </div>
           <div>
             <label>Customer Support JSON (name, phone)</label>
-            <textarea name="support" onInput={handleChange} value={state.support} />
+            <textarea
+              name="support"
+              onInput={handleChange}
+              value={state.support}
+            />
+          </div>
+          <div>
+            <label>Group definition JSON (name, caption)</label>
+            <textarea name="group" onInput={handleChange} value={state.group} />
           </div>
           <div>
             <label>Code</label>

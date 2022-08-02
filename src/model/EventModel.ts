@@ -6,4 +6,5 @@ export default interface EventModel {
   media?: any;
   code: string;
   support?: any;
+  group?: any;
 }
