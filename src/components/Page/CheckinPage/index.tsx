@@ -39,6 +39,7 @@ import MyDetail from './MyDetail';
 import HelpSection from './HelpSection';
 import ValidateSection from './ValidateSection';
 import MoreMenuSection from './MoreMenuSection';
+import GroupSection from './GroupSection';
 
 const queryString = require('query-string');
 
@@ -52,8 +53,9 @@ const CheckinPage = (props: Props) => {
   const dispatch = useDispatch();
 
   const [participantId, setParticipantId] = useState<string | null>(null);
+  const [queryParam, setQueryParam] = useState<any>({});
   const [page, setPage] = useState<
-    'schedule' | 'agenda' | 'map' | 'user' | 'help' | 'more'
+    'schedule' | 'agenda' | 'map' | 'user' | 'help' | 'more' | 'group'
   >('schedule');
 
   const [validationSuccessful, setValidationSuccessful] =
@@ -65,6 +67,7 @@ const CheckinPage = (props: Props) => {
   useEffect(() => {
     const query = queryString.parse(props.location.search);
     setPage(query.page || 'schedule');
+    setQueryParam(query);
   }, [props.location.search]);
 
   const params: {
@@ -139,10 +142,13 @@ const CheckinPage = (props: Props) => {
   }, [participant]);
 
   const goToPage = (
-    page: 'schedule' | 'agenda' | 'map' | 'user' | 'help' | 'more'
+    page: 'schedule' | 'agenda' | 'map' | 'user' | 'help' | 'more' | 'group',
+    group?: string
   ) => {
     history.push(
-      `/${props.space}/checkin/${params.eventId}/${params.participantReferenceId}?page=${page}`
+      `/${props.space}/checkin/${params.eventId}/${
+        params.participantReferenceId
+      }?page=${page}${group ? `&group=${group}` : ''}`
     );
   };
 
@@ -219,6 +225,21 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
+        {page === 'group' &&
+          validationSuccessful &&
+          event &&
+          participant &&
+          queryParam?.group && (
+            <GroupSection
+              group={queryParam.group}
+              event={event}
+              handleChange={refreshData}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+          )}
         {!validationSuccessful && event && participant && (
           <ValidateSection
             event={event}

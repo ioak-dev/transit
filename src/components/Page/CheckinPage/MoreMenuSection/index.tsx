@@ -41,7 +41,7 @@ const MoreMenuSection = (props: Props) => {
       {props.participant.groups?.map((item) => (
         <button
           key={item}
-          onClick={() => props.goToPage('help')}
+          onClick={() => props.goToPage('group', item)}
           className={`button more-menu-section__button ${
             props.page === 'help' ? 'more-menu-section__button--active' : ''
           }`}

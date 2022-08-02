@@ -1,0 +1,16 @@
+.my-detail {
+  margin: 20px 20px;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
+}
+
+.my-detail__item {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.my-detail__item__label {
+  font-size: 12px;
+  font-weight: 600;
+}
