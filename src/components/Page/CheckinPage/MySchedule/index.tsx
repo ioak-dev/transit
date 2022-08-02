@@ -90,6 +90,10 @@ const MySchedule = (props: Props) => {
           props.participant &&
           props.tracks
             .filter((item) => showAllTracks || !item.isLocked)
+            .filter(
+              (item) =>
+                !item.group || props.participant.groups.includes(item.group)
+            )
             .map((item) => (
               <CheckinTile
                 key={item._id}

@@ -206,6 +206,7 @@ const CheckinPage = (props: Props) => {
             space={props.space}
             page={page}
             goToPage={goToPage}
+            participant={participant}
           />
         )}
         {page === 'help' && validationSuccessful && event && participant && (

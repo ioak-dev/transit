@@ -10,46 +10,46 @@
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
 }
 .checkin-tile {
-  background-color: #d5dee6;
-  color: #000;
+  background-color: #5d6a76;
+  color: #fff;
 }
 .checkin-tile--status-active {
-  background-color: #3c887e;
+  background-color: #1596d1;
   color: #fff;
 }
 .checkin-tile--locked.checkin-tile--status-active {
-  background-color: #698a80;
+  background-color: #72b7e2;
   color: #fff;
 }
 .checkin-tile--locked {
-  background-color: #a57f60;
+  background-color: #858f98;
   color: #fff;
 }
 .checkin-tile--status-new {
-  background-color: #d5dee6;
-  color: #000;
+  background-color: #5d6a76;
+  color: #fff;
 }
 
 .dark {
   .checkin-tile {
-    background-color: #bcc3cc;
-    color: #000;
+    background-color: #5d6a76;
+    color: #fff;
   }
   .checkin-tile--status-active {
-    background-color: #3c887e;
+    background-color: #1596d1;
     color: #fff;
   }
   .checkin-tile--locked.checkin-tile--status-active {
-    background-color: #698a80;
+    background-color: #72b7e2;
     color: #fff;
   }
   .checkin-tile--locked {
-    background-color: #a57f60;
+    background-color: #858f98;
     color: #fff;
   }
   .checkin-tile--status-new {
-    background-color: #bcc3cc;
-    color: #000;
+    background-color: #5d6a76;
+    color: #fff;
   }
 }
 .dark2 {

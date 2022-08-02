@@ -8,11 +8,20 @@ interface Props {
   space: string;
   track: any;
   day: string;
+  participant: ParticipantModel;
 }
 
 const AgendaTile = (props: Props) => {
   return (
-    <div className="button agenda-tile" key={props.track._id}>
+    <div
+      className={`button agenda-tile ${
+        props.track.group &&
+        !props.participant.groups.includes(props.track.group)
+          ? 'agenda-tile--na'
+          : ''
+      }`}
+      key={props.track._id}
+    >
       <div className="agenda-tile__name">{props.track.name}</div>
       <div className="agenda-tile__description">{props.track.description}</div>
       <div className="agenda-tile__time">

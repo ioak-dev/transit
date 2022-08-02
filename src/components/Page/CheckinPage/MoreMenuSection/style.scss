@@ -4,3 +4,16 @@
   grid-template-columns: 1fr 1fr;
   justify-content: center;
 }
+
+.more-menu-section__button {
+  padding: 40px 0;
+  &:hover,
+  &:focus {
+    background-color: var(--color-base-400);
+  }
+}
+
+.dark .more-menu-section__button:hover,
+.dark .more-menu-section__button:focus {
+  background-color: var(--color-base-200);
+}

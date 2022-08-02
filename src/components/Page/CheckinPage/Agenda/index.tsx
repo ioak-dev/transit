@@ -77,6 +77,7 @@ const Agenda = (props: Props) => {
             trackList={tracksAsMap[day]}
             day={day}
             key={day}
+            participant={props.participant}
           />
         ))}
     </div>

@@ -9,6 +9,7 @@ interface Props {
   space: string;
   trackList: any[];
   day: string;
+  participant: ParticipantModel;
 }
 
 const AgendaTileGroup = (props: Props) => {
@@ -24,6 +25,7 @@ const AgendaTileGroup = (props: Props) => {
             track={track}
             key={track._id}
             day={props.day}
+            participant={props.participant}
           />
         ))}
       </div>
