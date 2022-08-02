@@ -16,7 +16,7 @@ interface Props {
   space: string;
   location: any;
   goToPage: any;
-  page: 'schedule' | 'agenda' | 'map' | 'user' | 'help' | 'more';
+  page: 'Schedule' | 'Agenda' | 'Map' | 'User' | 'Help' | 'More' | 'Group';
   participant: ParticipantModel;
 }
 
@@ -28,9 +28,9 @@ const MoreMenuSection = (props: Props) => {
   return (
     <div className="more-menu-section">
       <button
-        onClick={() => props.goToPage('help')}
+        onClick={() => props.goToPage('Help')}
         className={`button more-menu-section__button ${
-          props.page === 'help' ? 'more-menu-section__button--active' : ''
+          props.page === 'Help' ? 'more-menu-section__button--active' : ''
         }`}
       >
         <div className="more-menu-section__button__label">
@@ -41,9 +41,9 @@ const MoreMenuSection = (props: Props) => {
       {props.participant.groups?.map((item) => (
         <button
           key={item}
-          onClick={() => props.goToPage('group', item)}
+          onClick={() => props.goToPage('Group', item)}
           className={`button more-menu-section__button ${
-            props.page === 'help' ? 'more-menu-section__button--active' : ''
+            props.page === 'Help' ? 'more-menu-section__button--active' : ''
           }`}
         >
           <div className="more-menu-section__button__label">

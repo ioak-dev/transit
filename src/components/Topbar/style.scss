@@ -7,6 +7,10 @@
   padding: 0 20px;
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out,
     left 250ms ease-in-out, right 250ms ease-in-out;
+  background-color: var(--color-base-300);
+}
+.dark .topbar {
+  background-color: var(--color-base-400);
 }
 .topbar--not-fixed {
 }
@@ -15,6 +19,9 @@
   top: 0;
   left: 0;
   right: 0;
+}
+.topbar--alternate {
+  background-color: transparent !important;
 }
 .topbar--fixed.topbar--sidebar-active {
   left: calc(
@@ -48,4 +55,12 @@
   column-gap: 20px;
   height: 100%;
   align-items: center;
+}
+
+.topbar--alternate .topbar__left {
+  font-size: 18px;
+  font-weight: 600;
+}
+.topbar--alternate .topbar__right {
+  font-size: 18px;
 }

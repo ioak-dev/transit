@@ -12,6 +12,7 @@ interface Props {
   children?: any;
   fixed?: boolean;
   isContextExpanded?: boolean;
+  alternateView?: boolean;
 }
 
 const Topbar = (props: Props) => {
@@ -29,7 +30,7 @@ const Topbar = (props: Props) => {
 
   return (
     <div
-      className={`topbar bg-light-300 text-gray-900 dark:bg-dark-400 dark:text-gray-200 ${
+      className={`topbar text-gray-900 dark:text-gray-200 ${
         props.fixed ? 'topbar--fixed' : 'topbar--not-fixed'
       } ${
         props.isContextExpanded
@@ -37,12 +38,14 @@ const Topbar = (props: Props) => {
           : 'topbar--context-inactive'
       } ${
         profile.sidebar ? 'topbar--sidebar-active' : 'topbar--sidebar-inactive'
-      }`}
+      } ${props.alternateView ? 'topbar--alternate' : 'topbar--alternate'}`}
     >
       <div className="topbar__left">
-        <button className="button" onClick={toggleSidebar}>
-          <FontAwesomeIcon icon={faBars} />
-        </button>
+        {!props.alternateView && (
+          <button className="button" onClick={toggleSidebar}>
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+        )}
         <div>{props.title}</div>
         {props.left && <div>{props.left}</div>}
       </div>

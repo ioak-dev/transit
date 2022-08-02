@@ -55,8 +55,8 @@ const CheckinPage = (props: Props) => {
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [queryParam, setQueryParam] = useState<any>({});
   const [page, setPage] = useState<
-    'schedule' | 'agenda' | 'map' | 'user' | 'help' | 'more' | 'group'
-  >('schedule');
+    'Schedule' | 'Agenda' | 'Map' | 'User' | 'Help' | 'More' | 'Group'
+  >('Schedule');
 
   const [validationSuccessful, setValidationSuccessful] =
     useState<boolean>(false);
@@ -66,7 +66,7 @@ const CheckinPage = (props: Props) => {
 
   useEffect(() => {
     const query = queryString.parse(props.location.search);
-    setPage(query.page || 'schedule');
+    setPage(query.page || 'Schedule');
     setQueryParam(query);
   }, [props.location.search]);
 
@@ -142,7 +142,7 @@ const CheckinPage = (props: Props) => {
   }, [participant]);
 
   const goToPage = (
-    page: 'schedule' | 'agenda' | 'map' | 'user' | 'help' | 'more' | 'group',
+    page: 'Schedule' | 'Agenda' | 'Map' | 'User' | 'Help' | 'More' | 'Group',
     group?: string
   ) => {
     history.push(
@@ -158,12 +158,16 @@ const CheckinPage = (props: Props) => {
 
   return (
     <div className="checkin-page">
-      <Topbar title={event?.name || ''}>{`${participant?.firstName}`}</Topbar>
+      <Topbar
+        alternateView
+        // title={event?.name || ''}
+        title={page === 'Group' ? queryParam.group : page}
+      >{`${participant?.firstName}`}</Topbar>
       {event?.notification && (
         <div className="checkin-page__notification">{event.notification}</div>
       )}
       <div className="checkin-page__main">
-        {(!page || page === 'schedule') &&
+        {(!page || page === 'Schedule') &&
           validationSuccessful &&
           event &&
           participant && (
@@ -176,7 +180,7 @@ const CheckinPage = (props: Props) => {
               tracks={availableTracks}
             />
           )}
-        {page === 'agenda' && validationSuccessful && event && participant && (
+        {page === 'Agenda' && validationSuccessful && event && participant && (
           <Agenda
             event={event}
             handleChange={refreshData}
@@ -186,7 +190,7 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
-        {page === 'user' && validationSuccessful && event && participant && (
+        {page === 'User' && validationSuccessful && event && participant && (
           <MyDetail
             event={event}
             handleChange={refreshData}
@@ -196,7 +200,7 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
-        {page === 'map' && validationSuccessful && event && participant && (
+        {page === 'Map' && validationSuccessful && event && participant && (
           <MapSection
             event={event}
             handleChange={refreshData}
@@ -206,7 +210,7 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
-        {page === 'more' && validationSuccessful && event && participant && (
+        {page === 'More' && validationSuccessful && event && participant && (
           <MoreMenuSection
             location={props.location}
             space={props.space}
@@ -215,7 +219,7 @@ const CheckinPage = (props: Props) => {
             participant={participant}
           />
         )}
-        {page === 'help' && validationSuccessful && event && participant && (
+        {page === 'Help' && validationSuccessful && event && participant && (
           <HelpSection
             event={event}
             handleChange={refreshData}
@@ -225,7 +229,7 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
-        {page === 'group' &&
+        {page === 'Group' &&
           validationSuccessful &&
           event &&
           participant &&
@@ -254,9 +258,9 @@ const CheckinPage = (props: Props) => {
       {validationSuccessful && (
         <div className="checkin-page__footer">
           <button
-            onClick={() => goToPage('schedule')}
+            onClick={() => goToPage('Schedule')}
             className={`button checkin-page__footer__button ${
-              !page || page === 'schedule'
+              !page || page === 'Schedule'
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}
@@ -269,9 +273,9 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
-            onClick={() => goToPage('agenda')}
+            onClick={() => goToPage('Agenda')}
             className={`button checkin-page__footer__button ${
-              page === 'agenda' ? 'checkin-page__footer__button--active' : ''
+              page === 'Agenda' ? 'checkin-page__footer__button--active' : ''
             }`}
           >
             <div className="checkin-page__footer__button__label">
@@ -282,9 +286,9 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
-            onClick={() => goToPage('map')}
+            onClick={() => goToPage('Map')}
             className={`button checkin-page__footer__button ${
-              page === 'map' ? 'checkin-page__footer__button--active' : ''
+              page === 'Map' ? 'checkin-page__footer__button--active' : ''
             }`}
           >
             <div className="checkin-page__footer__button__label">
@@ -295,9 +299,9 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
-            onClick={() => goToPage('user')}
+            onClick={() => goToPage('User')}
             className={`button checkin-page__footer__button ${
-              page === 'user' ? 'checkin-page__footer__button--active' : ''
+              page === 'User' ? 'checkin-page__footer__button--active' : ''
             }`}
           >
             <div className="checkin-page__footer__button__label">
@@ -308,9 +312,9 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
-            onClick={() => goToPage('more')}
+            onClick={() => goToPage('More')}
             className={`button checkin-page__footer__button ${
-              ['help', 'more'].includes(page)
+              ['Help', 'More'].includes(page)
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}
