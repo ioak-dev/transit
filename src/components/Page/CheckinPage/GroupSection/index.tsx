@@ -1,20 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
-import { addDays, format } from 'date-fns';
-import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
-import ReceiptModel from '../../../../model/ReceiptModel';
 import ParticipantModel from '../../../../model/ParticipantModel';
-import Topbar from '../../../../components/Topbar';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
-import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
-import moment from 'moment';
-// import mapImage from '../../../../assets/map.png';
-
-const queryString = require('query-string');
+import { getParticipantsByGroup } from '../service';
 
 interface Props {
   space: string;
@@ -27,52 +16,33 @@ interface Props {
 }
 
 const GroupSection = (props: Props) => {
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  const [participantId, setParticipantId] = useState<string | null>(null);
-  const [eventId, setEventId] = useState<string | null>(null);
-
-  const params: { eventId: string; participantReferenceId: string } =
-    useParams();
-
-  const [showAllTracks, setShowAllTracks] = useState(false);
-
-  const [state, setState] = useState<any>({});
-
-  const goToCreateParticipantPage = () => {
-    history.push(`/${props.space}/participant/new`);
-  };
-
-  const goToCompanyPage = (participantId: string) => {
-    history.push(`/${props.space}/participant/${participantId}`);
-  };
-
-  const handleChange = (participant: any) => {
-    setState({
-      ...state,
-      [participant.currentTarget.name]: participant.currentTarget.value,
-    });
-  };
-
-  const save = (event: any) => {
-    event.preventDefault();
-    console.log(state);
-  };
-
-  const toggleShowAllTracks = () => {
-    setShowAllTracks(!showAllTracks);
-  };
+  const [participantsByGroupList, setParticipantsByGroup] = useState<any[]>([]);
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
+    fetchParticipantsByGroupData();
   }, []);
 
-  const refreshData = () => {
-    props.handleChange();
+  const fetchParticipantsByGroupData = () => {
+    getParticipantsByGroup(props.space, props.group).then((response: any) => {
+      setParticipantsByGroup(response);
+    });
   };
+  console.log(participantsByGroupList);
 
-  return <div className="group-section">{props.group} </div>;
+  return (
+    <div className="group-section">
+      <div className="set">        
+        <div className="set_item active">Members</div>
+        <div className="set_item">Events</div>
+      </div>
+      {participantsByGroupList.map((participant: any) => (
+        <div className="group-section__item" key={participant.firstName}>
+          <div className="participant-list__main__item">{participant.firstName}</div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default GroupSection;
