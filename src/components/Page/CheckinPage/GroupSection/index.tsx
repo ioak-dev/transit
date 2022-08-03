@@ -5,6 +5,12 @@ import DisableContextBarCommand from '../../../../events/DisableContextBarComman
 import EventModel from '../../../../model/EventModel';
 import { getParticipantsByGroup } from '../service';
 import { group } from 'd3';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCalendar,
+  faInfo,
+  faPeopleGroup,
+} from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   space: string;
@@ -18,7 +24,7 @@ interface Props {
 
 const GroupSection = (props: Props) => {
   const [participantsByGroup, setParticipantsByGroup] = useState<any[]>([]);
-  const [showEvents, setShowEvents] = useState<boolean>(false);
+  let [showEvents, setShowEvents] = useState<string>('Members');
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
@@ -31,23 +37,35 @@ const GroupSection = (props: Props) => {
     });
   };
 
+  const aboutDetails = JSON.parse(props.event.home);
+  console.log(aboutDetails);
+
   return (
     <div className="group-section">
       <div className="set">
         <div
-          className={`set_item ${showEvents ? '' : 'active'}`}
-          onClick={() => setShowEvents(false)}
+          className={`set_item ${showEvents === 'Members' ? 'active' : ''}`}
+          onClick={() => setShowEvents('Members')}
         >
+          <FontAwesomeIcon icon={faPeopleGroup} />
           Members
         </div>
         <div
-          className={`set_item ${showEvents ? 'active' : ''}`}
-          onClick={() => setShowEvents(true)}
+          className={`set_item ${showEvents === 'Events' ? 'active' : ''}`}
+          onClick={() => setShowEvents('Events')}
         >
+          <FontAwesomeIcon icon={faCalendar} />
           Events
         </div>
+        <div
+          className={`set_item ${showEvents === 'About' ? 'active' : ''}`}
+          onClick={() => setShowEvents('About')}
+        >
+          <FontAwesomeIcon icon={faInfo} />
+          About
+        </div>
       </div>
-      {!showEvents && (
+      {showEvents === 'Members' && (
         <div>
           {participantsByGroup.map((participant: any) => (
             <div className="group-section__item" key={participant.firstName}>
@@ -58,7 +76,7 @@ const GroupSection = (props: Props) => {
           ))}
         </div>
       )}
-      {showEvents &&
+      {showEvents === 'Events' &&
         props.tracks
           .filter((item) => item.group === props.group)
           .map((item) => (
@@ -66,6 +84,20 @@ const GroupSection = (props: Props) => {
               <div className="group-section__main__item">{item.name}</div>
             </div>
           ))}
+      {showEvents === 'About' && (
+        // {aboutDetails.map((item: any) => (
+        //     <div className="group-section__item" key={item.name}>
+        //       <div className="group-section__main__item">{item.name}</div>
+        //     </div>
+        //   ))}
+        <div>
+          {aboutDetails.map((item: any) => (
+            <div className="group-section__item" key={item.type}>
+              <div className="group-section__main__item">{item.text}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

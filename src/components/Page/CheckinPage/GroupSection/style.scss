@@ -21,22 +21,20 @@
 }
 
 .set {
-  background-color: var(--color-base-100);
-  border-radius: 12px;
-  padding: 6px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
   .set_item {
     border-radius: 12px;
     padding: 5px;
     text-align: center;
     font-size: 16px;
-    color: var(--color-base-500);
+    color: var(--color-2);
     &.active {
-      background-color: var(--color-base-100);
-      box-shadow: 0px 1px 3px var(--color-base-500);
-      color: var(--color-base-700);
+      border-bottom: 1px dashed var(--color-primary-100);
+    }
+    svg {
+      margin: 0 10px 0 0;
+      color: var(--color-primary-100);
     }
   }
 }
