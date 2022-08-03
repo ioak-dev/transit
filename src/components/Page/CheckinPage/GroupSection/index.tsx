@@ -16,7 +16,8 @@ interface Props {
 }
 
 const GroupSection = (props: Props) => {
-  const [participantsByGroupList, setParticipantsByGroup] = useState<any[]>([]);
+  const [participantsByGroup, setParticipantsByGroup] = useState<any[]>([]);
+  const [showEvents, setShowEvents] = useState<boolean>(false);
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
@@ -28,19 +29,45 @@ const GroupSection = (props: Props) => {
       setParticipantsByGroup(response);
     });
   };
-  console.log(participantsByGroupList);
+  console.log(props.tracks);
+  console.log(props.tracks[0]?.group);
+  // const groupsList = JSON.parse(props.tracks[0]?.group);
+  // console.log(groupsList);
+
+  const toggleActivePage = () => {};
 
   return (
     <div className="group-section">
-      <div className="set">        
-        <div className="set_item active">Members</div>
-        <div className="set_item">Events</div>
-      </div>
-      {participantsByGroupList.map((participant: any) => (
-        <div className="group-section__item" key={participant.firstName}>
-          <div className="participant-list__main__item">{participant.firstName}</div>
+      <div className="set">
+        <div
+          className={`set_item ${showEvents ? '' : 'active'}`}
+          onClick={() => setShowEvents(false)}
+        >
+          Members
         </div>
-      ))}
+        <div
+          className={`set_item ${showEvents ? 'active' : ''}`}
+          onClick={() => setShowEvents(true)}
+        >
+          Events
+        </div>
+      </div>
+      {!showEvents && (
+        <div>
+          {participantsByGroup.map((participant: any) => (
+            <div className="group-section__item" key={participant.firstName}>
+              <div className="group-section__main__item">
+                {participant.firstName}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {showEvents && (
+        <div className="group-section__item">
+          <div className="group-section__main__item">eventName</div>
+        </div>
+      )}
     </div>
   );
 };
