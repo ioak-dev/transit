@@ -1,0 +1,26 @@
+.news-feed {
+  margin: 20px 20px;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
+}
+
+.news-feed__item {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.news-feed__item__label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.news-feed__item__phone {
+  display: flex;
+  column-gap: 10px;
+  a {
+    &:hover {
+      color: var(--color-primary-100);
+    }
+  }
+}

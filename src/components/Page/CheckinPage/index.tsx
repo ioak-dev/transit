@@ -42,6 +42,7 @@ import ValidateSection from './ValidateSection';
 import MoreMenuSection from './MoreMenuSection';
 import GroupSection from './GroupSection';
 import HomeSection from './HomeSection';
+import NewsFeed from './NewsFeed';
 
 const queryString = require('query-string');
 
@@ -57,7 +58,15 @@ const CheckinPage = (props: Props) => {
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [queryParam, setQueryParam] = useState<any>({});
   const [page, setPage] = useState<
-    'Home' | 'Schedule' | 'Agenda' | 'Map' | 'User' | 'Help' | 'More' | 'Group'
+    | 'Home'
+    | 'Schedule'
+    | 'Agenda'
+    | 'Map'
+    | 'User'
+    | 'Help'
+    | 'More'
+    | 'Group'
+    | 'News Feed'
   >('Home');
 
   const [validationSuccessful, setValidationSuccessful] =
@@ -152,7 +161,8 @@ const CheckinPage = (props: Props) => {
       | 'User'
       | 'Help'
       | 'More'
-      | 'Group',
+      | 'Group'
+      | 'News Feed',
     group?: string
   ) => {
     history.push(
@@ -254,6 +264,7 @@ const CheckinPage = (props: Props) => {
             space={props.space}
             page={page}
             goToPage={goToPage}
+            event={event}
             participant={participant}
           />
         )}
@@ -267,6 +278,19 @@ const CheckinPage = (props: Props) => {
             tracks={availableTracks}
           />
         )}
+        {page === 'News Feed' &&
+          validationSuccessful &&
+          event &&
+          participant && (
+            <NewsFeed
+              event={event}
+              handleChange={refreshData}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+          )}
         {page === 'Group' &&
           validationSuccessful &&
           event &&
@@ -367,7 +391,7 @@ const CheckinPage = (props: Props) => {
           <button
             onClick={() => goToPage('More')}
             className={`button checkin-page__footer__button ${
-              ['Help', 'More'].includes(page)
+              ['Help', 'More', 'Group', 'User'].includes(page)
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}
