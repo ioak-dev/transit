@@ -1,9 +1,9 @@
-.logo {
+.logo-alt {
   display: grid;
   grid-auto-flow: column;
 
-  .logo--image,
-  .logo--text {
+  .logo-alt--image,
+  .logo-alt--text {
     display: flex;
     align-items: center;
     img {
@@ -12,14 +12,14 @@
   }
 }
 
-.logo--text {
+.logo-alt--text {
   width: auto;
   img {
     height: 70% !important;
   }
 }
 
-.logo--image {
+.logo-alt--image {
   // width: 60px;
   width: 20px;
   display: flex;

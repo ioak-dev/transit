@@ -1,6 +1,6 @@
 .light {
-  --color-primary-100: #4a71c5;
-  --color-primary-200: #4a71c5c0;
+  --color-primary-100: #1596d1;
+  --color-primary-200: #1596d1c0;
   --color-primary-i: #fff;
   --color-success-100: #3c887e;
   --color-success-200: #18a76cc0;
@@ -16,9 +16,9 @@
   --color-base-700: #b0b0b0;
 }
 .dark {
-  --color-primary-100: #86adff;
-  --color-primary-200: #86adffc0;
-  --color-primary-i: #000;
+  --color-primary-100: #1596d1;
+  --color-primary-200: #1596d1c0;
+  --color-primary-i: #fff;
   --color-success-100: #3c887e;
   --color-success-200: #18a76cc0;
   --color-success-300: #25554f;
