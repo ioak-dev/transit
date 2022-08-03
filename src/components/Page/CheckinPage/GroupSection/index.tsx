@@ -4,6 +4,7 @@ import ParticipantModel from '../../../../model/ParticipantModel';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 import EventModel from '../../../../model/EventModel';
 import { getParticipantsByGroup } from '../service';
+import { group } from 'd3';
 
 interface Props {
   space: string;
@@ -29,12 +30,6 @@ const GroupSection = (props: Props) => {
       setParticipantsByGroup(response);
     });
   };
-  console.log(props.tracks);
-  console.log(props.tracks[0]?.group);
-  // const groupsList = JSON.parse(props.tracks[0]?.group);
-  // console.log(groupsList);
-
-  const toggleActivePage = () => {};
 
   return (
     <div className="group-section">
@@ -63,11 +58,14 @@ const GroupSection = (props: Props) => {
           ))}
         </div>
       )}
-      {showEvents && (
-        <div className="group-section__item">
-          <div className="group-section__main__item">eventName</div>
-        </div>
-      )}
+      {showEvents &&
+        props.tracks
+          .filter((item) => item.group === props.group)
+          .map((item) => (
+            <div className="group-section__item" key={item.name}>
+              <div className="group-section__main__item">{item.name}</div>
+            </div>
+          ))}
     </div>
   );
 };
