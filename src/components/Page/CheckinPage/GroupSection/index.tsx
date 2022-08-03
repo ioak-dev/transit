@@ -8,6 +8,9 @@ import { group } from 'd3';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendar,
+  faHand,
+  faHands,
+  faHandsClapping,
   faInfo,
   faPeopleGroup,
 } from '@fortawesome/free-solid-svg-icons';
@@ -37,11 +40,17 @@ const GroupSection = (props: Props) => {
     });
   };
 
-  const aboutDetails = JSON.parse(props.event.home);
-  console.log(aboutDetails);
+  const groupDetail = JSON.parse(props.event.group)?.find(
+    (item: any) => item.name === props.group
+  );
+  console.log(groupDetail);
 
   return (
     <div className="group-section">
+      <div className="group-section__caption">
+        {groupDetail?.caption}&nbsp;
+        <FontAwesomeIcon icon={faHandsClapping} />
+      </div>
       <div className="set">
         <div
           className={`set_item ${showEvents === 'Members' ? 'active' : ''}`}
@@ -90,13 +99,7 @@ const GroupSection = (props: Props) => {
         //       <div className="group-section__main__item">{item.name}</div>
         //     </div>
         //   ))}
-        <div>
-          {aboutDetails.map((item: any) => (
-            <div className="group-section__item" key={item.type}>
-              <div className="group-section__main__item">{item.text}</div>
-            </div>
-          ))}
-        </div>
+        <div>{groupDetail?.description}</div>
       )}
     </div>
   );

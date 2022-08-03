@@ -3,6 +3,16 @@
 }
 .checkin-page--notvalidated {
   // background-color: #1596d1;
+  background-image: linear-gradient(
+      90deg,
+      rgba(49, 113, 209, 0.5),
+      rgba(22, 26, 32, 0.5)
+    ),
+    url(../../../assets/hero.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 50%;
 }
 .checkin-page__notification {
   padding: 20px 20px;

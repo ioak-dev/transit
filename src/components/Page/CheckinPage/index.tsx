@@ -169,10 +169,12 @@ const CheckinPage = (props: Props) => {
   return (
     <div
       className={`checkin-page ${
-        !validationSuccessful ? 'checkin-page--notvalidated' : ''
+        event && participant && !validationSuccessful
+          ? 'checkin-page--notvalidated'
+          : ''
       }`}
     >
-      {validationSuccessful && (
+      {(!event || !participant || validationSuccessful) && (
         <Topbar
           alternateView
           // title={event?.name || ''}

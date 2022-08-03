@@ -22,7 +22,7 @@ const ValidateSection = (props: Props) => {
   }, []);
 
   const getDateTimeString = (_date: Date) => {
-    return format(_date, "yyyy-MM-dd'T'HH:mm");
+    return format(_date, 'yyyy-MM-dd');
   };
 
   const [state, setState] = useState<any>({
@@ -53,7 +53,7 @@ const ValidateSection = (props: Props) => {
         When did you join Westernacher?
       </div>
       <input
-        type="datetime-local"
+        type="date"
         name="date"
         onInput={handleChange}
         value={state.date}

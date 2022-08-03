@@ -5,6 +5,16 @@
   row-gap: 10px;
 }
 
+.group-section__caption {
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 10px;
+  svg {
+    color: goldenrod;
+  }
+}
+
 .group-section__item {
   display: grid;
   grid-auto-flow: row;
