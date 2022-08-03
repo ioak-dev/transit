@@ -186,9 +186,9 @@ const SideContentFixed = (props: Props) => {
       </div>
       <div className="side-content-fixed__footer">
         <div className="side-content-fixed__footer__left">
-          <div className="side-content-fixed__footer__right">
+          {/* <div className="side-content-fixed__footer__right">
             <DarkModeIcon />
-          </div>
+          </div> */}
         </div>
         {profile.sidebar && (
           <div className="side-content-fixed__footer__right">

@@ -167,12 +167,25 @@ const CheckinPage = (props: Props) => {
   }, []);
 
   return (
-    <div className="checkin-page">
-      <Topbar
-        alternateView
-        // title={event?.name || ''}
-        title={page === 'Group' ? queryParam.group : page}
-      >{`${participant?.firstName}`}</Topbar>
+    <div
+      className={`checkin-page ${
+        !validationSuccessful ? 'checkin-page--notvalidated' : ''
+      }`}
+    >
+      {validationSuccessful && (
+        <Topbar
+          alternateView
+          // title={event?.name || ''}
+          title={page === 'Group' ? queryParam.group : page}
+        >{`${participant?.firstName}`}</Topbar>
+      )}
+      {!validationSuccessful && (
+        <Topbar
+          alternateView
+          // title={event?.name || ''}
+          title={event?.name || ''}
+        >{`${participant?.firstName}`}</Topbar>
+      )}
       {event?.notification && (
         <div className="checkin-page__notification">{event.notification}</div>
       )}

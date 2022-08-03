@@ -50,7 +50,7 @@ const ValidateSection = (props: Props) => {
   return (
     <div className="validate_section">
       <div className="validate_section__item__label">
-        Enter joining date to Check-In
+        When did you join Westernacher?
       </div>
       <input
         type="datetime-local"

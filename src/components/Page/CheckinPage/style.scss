@@ -1,6 +1,9 @@
 .checkin-page {
   min-height: calc(100vh - var(--oak-app-layout-topbar-height));
 }
+.checkin-page--notvalidated {
+  // background-color: #1596d1;
+}
 .checkin-page__notification {
   padding: 20px 20px;
   background-color: #cfba60;
