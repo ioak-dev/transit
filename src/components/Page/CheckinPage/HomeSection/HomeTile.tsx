@@ -1,25 +1,41 @@
 import React from 'react';
 import { useEffect } from 'react';
-import './MediaTile.scss';
+import './HomeTile.scss';
 
 interface Props {
   content: any;
 }
 
-const MediaTile = (props: Props) => {
+const HomeTile = (props: Props) => {
   console.log(props.content);
   // const src = 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4';
   const src = props.content.link;
   return (
-    <div className="content_tile">
-      {props.content.type === 'title' && <h2>{props.content.text}</h2>}
-      {props.content.type === 'subtitle' && <h4>{props.content.text}</h4>}
-      <h6>{props.content.caption}</h6>
+    <div className="home_tile">
       {props.content.type === 'image' && (
-        <img src={props.content.link} alt="Location map" />
+        <div className="home_tile_image">
+          <img src={props.content.link} alt="Location map" />
+        </div>
+      )}
+
+      {props.content.type === 'title' && (
+        <div className="home_tile_title">
+          <h4>{props.content.text}</h4>
+        </div>
+      )}
+
+      {props.content.type === 'subtitle' && (
+        <div className="home_tile_subtitle">
+          <h6>{props.content.text}</h6>
+        </div>
+      )}
+      {props.content.type === 'text' && (
+        <div className="home_tile_text">
+          <p>{props.content.text}</p>
+        </div>
       )}
       {props.content.type === 'video' && (
-        <div>
+        <div className="home_tile_video">
           <video width="100%" controls>
             <source src={src} type="video/mp4" />
             Sorry, your browser doesn't support videos.
@@ -27,7 +43,7 @@ const MediaTile = (props: Props) => {
         </div>
       )}
       {props.content.type === 'youtube' && (
-        <div>
+        <div className="home_tile_youtube">
           <iframe
             width="100%"
             src={src}
@@ -42,4 +58,4 @@ const MediaTile = (props: Props) => {
   );
 };
 
-export default MediaTile;
+export default HomeTile;

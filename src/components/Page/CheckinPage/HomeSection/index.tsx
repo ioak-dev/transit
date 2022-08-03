@@ -11,7 +11,7 @@ import Topbar from '../../../../components/Topbar';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
-import MediaTile from './MediaTile';
+import HomeTile from './HomeTile';
 // import mapImage from '../../../../assets/map.png';
 
 const queryString = require('query-string');
@@ -71,12 +71,12 @@ const HomeSection = (props: Props) => {
     props.handleChange();
   };
 
-  const mediaList = JSON.parse(props.event.home);
+  const homeList = JSON.parse(props.event.home);
 
   return (
     <div className="map-section">
-      {mediaList.map((media: any) => (
-        <MediaTile key={media.title} content={media} />
+      {homeList.map((media: any) => (
+        <HomeTile key={media.title} content={media} />
       ))}
     </div>
   );
