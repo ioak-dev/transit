@@ -35,6 +35,7 @@ const EditEvent = (props: Props) => {
     code: '',
     support: '',
     group: '',
+    home: '',
   });
 
   useEffect(() => {
@@ -94,6 +95,13 @@ const EditEvent = (props: Props) => {
           <div>
             <label>Media JSON (type (image/video), title, caption, link)</label>
             <textarea name="media" onInput={handleChange} value={state.media} />
+          </div>
+          <div>
+            <label>
+              Home page JSON (type (title/subtitle/text/image/video), text,
+              link)
+            </label>
+            <textarea name="home" onInput={handleChange} value={state.home} />
           </div>
           <div>
             <label>Customer Support JSON (name, phone)</label>

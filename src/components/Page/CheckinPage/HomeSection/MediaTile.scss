@@ -1,0 +1,15 @@
+.media_tile {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+}
+h4 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+}
+h6 {
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 15px;
+}

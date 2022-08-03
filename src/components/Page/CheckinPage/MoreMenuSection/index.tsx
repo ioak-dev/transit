@@ -5,8 +5,10 @@ import EventModel from 'src/model/EventModel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPeopleGroup,
+  faPerson,
   faPhone,
   faQuestion,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 
@@ -16,7 +18,15 @@ interface Props {
   space: string;
   location: any;
   goToPage: any;
-  page: 'Schedule' | 'Agenda' | 'Map' | 'User' | 'Help' | 'More' | 'Group';
+  page:
+    | 'Home'
+    | 'Schedule'
+    | 'Agenda'
+    | 'Map'
+    | 'User'
+    | 'Help'
+    | 'More'
+    | 'Group';
   participant: ParticipantModel;
 }
 
@@ -27,6 +37,19 @@ const MoreMenuSection = (props: Props) => {
 
   return (
     <div className="more-menu-section">
+      <button
+        onClick={() => props.goToPage('User')}
+        className={`button more-menu-section__button ${
+          props.page === 'Help' ? 'more-menu-section__button--active' : ''
+        }`}
+      >
+        <div className="more-menu-section__button__label">
+          <FontAwesomeIcon icon={faUser} />
+          <div className="more-menu-section__button__label__text">
+            My detail
+          </div>
+        </div>
+      </button>
       <button
         onClick={() => props.goToPage('Help')}
         className={`button more-menu-section__button ${
