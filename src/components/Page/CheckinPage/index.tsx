@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import { addDays, format } from 'date-fns';
 import {
+  faCalendarCheck,
   faCalendarDays,
   faCheck,
   faCircleDot,
@@ -40,6 +41,7 @@ import HelpSection from './HelpSection';
 import ValidateSection from './ValidateSection';
 import MoreMenuSection from './MoreMenuSection';
 import GroupSection from './GroupSection';
+import HomeSection from './HomeSection';
 
 const queryString = require('query-string');
 
@@ -55,8 +57,8 @@ const CheckinPage = (props: Props) => {
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [queryParam, setQueryParam] = useState<any>({});
   const [page, setPage] = useState<
-    'Schedule' | 'Agenda' | 'Map' | 'User' | 'Help' | 'More' | 'Group'
-  >('Schedule');
+    'Home' | 'Schedule' | 'Agenda' | 'Map' | 'User' | 'Help' | 'More' | 'Group'
+  >('Home');
 
   const [validationSuccessful, setValidationSuccessful] =
     useState<boolean>(false);
@@ -66,7 +68,7 @@ const CheckinPage = (props: Props) => {
 
   useEffect(() => {
     const query = queryString.parse(props.location.search);
-    setPage(query.page || 'Schedule');
+    setPage(query.page || 'Home');
     setQueryParam(query);
   }, [props.location.search]);
 
@@ -142,7 +144,15 @@ const CheckinPage = (props: Props) => {
   }, [participant]);
 
   const goToPage = (
-    page: 'Schedule' | 'Agenda' | 'Map' | 'User' | 'Help' | 'More' | 'Group',
+    page:
+      | 'Home'
+      | 'Schedule'
+      | 'Agenda'
+      | 'Map'
+      | 'User'
+      | 'Help'
+      | 'More'
+      | 'Group',
     group?: string
   ) => {
     history.push(
@@ -167,6 +177,19 @@ const CheckinPage = (props: Props) => {
         <div className="checkin-page__notification">{event.notification}</div>
       )}
       <div className="checkin-page__main">
+        {(!page || page === 'Home') &&
+          validationSuccessful &&
+          event &&
+          participant && (
+            <HomeSection
+              event={event}
+              handleChange={refreshData}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+          )}
         {(!page || page === 'Schedule') &&
           validationSuccessful &&
           event &&
@@ -258,9 +281,9 @@ const CheckinPage = (props: Props) => {
       {validationSuccessful && (
         <div className="checkin-page__footer">
           <button
-            onClick={() => goToPage('Schedule')}
+            onClick={() => goToPage('Home')}
             className={`button checkin-page__footer__button ${
-              !page || page === 'Schedule'
+              !page || page === 'Home'
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}
@@ -269,6 +292,21 @@ const CheckinPage = (props: Props) => {
               <FontAwesomeIcon icon={faHome} />
               <div className="checkin-page__footer__button__label__text">
                 Home
+              </div>
+            </div>
+          </button>
+          <button
+            onClick={() => goToPage('Schedule')}
+            className={`button checkin-page__footer__button ${
+              !page || page === 'Schedule'
+                ? 'checkin-page__footer__button--active'
+                : ''
+            }`}
+          >
+            <div className="checkin-page__footer__button__label">
+              <FontAwesomeIcon icon={faCalendarCheck} />
+              <div className="checkin-page__footer__button__label__text">
+                My Schedule
               </div>
             </div>
           </button>
@@ -298,7 +336,7 @@ const CheckinPage = (props: Props) => {
               </div>
             </div>
           </button>
-          <button
+          {/* <button
             onClick={() => goToPage('User')}
             className={`button checkin-page__footer__button ${
               page === 'User' ? 'checkin-page__footer__button--active' : ''
@@ -310,7 +348,7 @@ const CheckinPage = (props: Props) => {
                 Detail
               </div>
             </div>
-          </button>
+          </button> */}
           <button
             onClick={() => goToPage('More')}
             className={`button checkin-page__footer__button ${

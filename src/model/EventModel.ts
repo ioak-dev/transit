@@ -7,4 +7,5 @@ export default interface EventModel {
   code: string;
   support?: any;
   group?: any;
+  home?: any;
 }
