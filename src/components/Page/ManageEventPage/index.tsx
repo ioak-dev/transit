@@ -7,6 +7,7 @@ import {
   faCheck,
   faPen,
   faPlus,
+  faRss,
   faTimes,
   faUser,
   faUsers,
@@ -35,7 +36,7 @@ const ManageEventPage = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [view, setView] = useState<'details' | 'tracklist' | 'users'>(
+  const [view, setView] = useState<'details' | 'tracklist' | 'users' | 'feed'>(
     'details'
   );
   const params: { id: string } = useParams();
@@ -79,6 +80,10 @@ const ManageEventPage = (props: Props) => {
 
   const cancel = () => history.goBack();
 
+  const changeView = (_view: 'details' | 'tracklist' | 'users' | 'feed') => {
+    history.push(`/${props.space}/event/${params.id}?view=${_view}`);
+  };
+
   useEffect(() => {
     DisableContextBarCommand.next(true);
   }, []);
@@ -89,21 +94,27 @@ const ManageEventPage = (props: Props) => {
         <div className="topbar-action-group">
           <button
             className={`button ${view === 'details' ? 'active' : ''}`}
-            onClick={() => setView('details')}
+            onClick={() => changeView('details')}
           >
             <FontAwesomeIcon icon={faPen} />
           </button>
           <button
             className={`button ${view === 'tracklist' ? 'active' : ''}`}
-            onClick={() => setView('tracklist')}
+            onClick={() => changeView('tracklist')}
           >
             <FontAwesomeIcon icon={faCalendar} />
           </button>
           <button
             className={`button ${view === 'users' ? 'active' : ''}`}
-            onClick={() => setView('users')}
+            onClick={() => changeView('users')}
           >
             <FontAwesomeIcon icon={faUsers} />
+          </button>
+          <button
+            className={`button ${view === 'feed' ? 'active' : ''}`}
+            onClick={() => changeView('feed')}
+          >
+            <FontAwesomeIcon icon={faRss} />
           </button>
         </div>
       </Topbar>
@@ -115,6 +126,7 @@ const ManageEventPage = (props: Props) => {
         {view === 'users' && (
           <ParticipantList eventId={params.id} space={props.space} />
         )}
+        {view === 'feed' && <>Feed (priority, description, sender, eventId)</>}
       </div>
       {/* <Footer>
         <div className="footer-action">

@@ -17,3 +17,7 @@
 .dark .more-menu-section__button:focus {
   background-color: var(--color-base-200);
 }
+
+.more-menu-section__button__label svg {
+  font-size: 24px;
+}
