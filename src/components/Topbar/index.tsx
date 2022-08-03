@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfile } from '../../actions/ProfileActions';
+import Logo from '../Logo';
 import DarkModeIcon from '../Navigation/DarkModeIcon';
 import './style.scss';
 
@@ -46,12 +47,14 @@ const Topbar = (props: Props) => {
             <FontAwesomeIcon icon={faBars} />
           </button>
         )}
+        <Logo variant="short" />
         <div>{props.title}</div>
         {props.left && <div>{props.left}</div>}
       </div>
       <div className="topbar__right">
-        <DarkModeIcon />
+        {/* <DarkModeIcon /> */}
         {props.children}
+        <Logo variant="short" />
       </div>
     </div>
   );

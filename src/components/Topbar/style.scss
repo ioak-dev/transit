@@ -4,7 +4,7 @@
   grid-template-columns: 1fr auto;
   column-gap: 10px;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 10px;
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out,
     left 250ms ease-in-out, right 250ms ease-in-out;
   background-color: var(--color-base-300);
@@ -52,7 +52,7 @@
 .topbar__right {
   display: grid;
   grid-auto-flow: column;
-  column-gap: 20px;
+  column-gap: 10px;
   height: 100%;
   align-items: center;
 }
