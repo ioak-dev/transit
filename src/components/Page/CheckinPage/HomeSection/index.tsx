@@ -74,7 +74,7 @@ const HomeSection = (props: Props) => {
   const homeList = JSON.parse(props.event.home);
 
   return (
-    <div className="map-section">
+    <div className="home-section">
       {homeList.map((media: any) => (
         <HomeTile key={media.title} content={media} />
       ))}
