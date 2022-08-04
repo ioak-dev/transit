@@ -48,7 +48,6 @@ const Agenda = (props: Props) => {
   useEffect(() => {
     const _tracksAsMap: any = {};
     props.tracks?.forEach((item: any) => {
-      console.log(new Date(item.from));
       const _from = format(new Date(item.from), 'yyyy-MM-dd');
       if (_tracksAsMap[_from]) {
         _tracksAsMap[_from].push(item);

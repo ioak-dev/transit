@@ -7,7 +7,6 @@ interface Props {
 }
 
 const HomeTile = (props: Props) => {
-  console.log(props.content);
   // const src = 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4';
   const src = props.content.link;
   return (

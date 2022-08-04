@@ -1,13 +1,27 @@
 .news-feed {
-  margin: 20px 20px;
+  margin: 10px;
   display: grid;
   grid-auto-flow: row;
   row-gap: 20px;
 }
 
 .news-feed__item {
-  display: grid;
-  grid-auto-flow: row;
+  display: flex;
+  background: #ccc;
+  padding: 10px 16px;
+  border-radius: 20px;
+  max-width: 90%;
+  &.admin {
+    border-top-left-radius: 0;
+    background-image: linear-gradient(to right, #e7e9e8, #fdfdfc);
+    justify-self: flex-start;
+  }
+  &.user {
+    border-bottom-right-radius: 0;
+    background-image: linear-gradient(to right, #1596d1, #72b7e2);
+    color: var(--color-base-100);
+    justify-self: flex-end;
+  }
 }
 
 .news-feed__item__label {

@@ -43,7 +43,6 @@ const GroupSection = (props: Props) => {
   const groupDetail = JSON.parse(props.event.group)?.find(
     (item: any) => item.name === props.group
   );
-  console.log(groupDetail);
 
   return (
     <div className="group-section">

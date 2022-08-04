@@ -56,3 +56,23 @@
 .feed-list__main__item__right {
   // font-size: 12px;
 }
+
+.feed-list__item {
+  display: flex;
+  background: #ccc;
+  padding: 10px 16px;
+  border-radius: 20px;
+  max-width: 90%;
+  &.admin {
+    border-top-left-radius: 0;
+    background-image: linear-gradient(to right, #e7e9e8, #fdfdfc);
+    color: var(--color-base-500);
+    justify-self: flex-start;
+  }
+  &.user {
+    border-bottom-right-radius: 0;
+    background-image: linear-gradient(to right, #1596d1, #72b7e2);
+    color: var(--color-primary-i);
+    justify-self: flex-end;
+  }
+}

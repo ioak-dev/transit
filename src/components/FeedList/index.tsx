@@ -41,7 +41,7 @@ const FeedList = (props: Props) => {
     description: '',
     sender: '',
     eventId: '',
-    admin: false,
+    admin: true,
     userId: '',
   });
 
@@ -130,19 +130,28 @@ const FeedList = (props: Props) => {
         </div>
       </div>
       <div className="feed-list">
-        <>Feed (priority, description, sender, eventId)</>
         <div className="feed-list__main">
           {availableFeeds.map((item: FeedModel) => (
-            <button className="button feed-list__main__item" key={item._id}>
-              <div className="feed-list__main__item__left">
-                <div className="feed-list__main__item__left__name">
+            <>
+              <button className="button feed-list__main__item" key={item._id}>
+                <div className="feed-list__main__item__left">
+                  <div className="feed-list__main__item__left__name">
+                    {item.description}
+                  </div>
+                  <div className="feed-list__main__item__left__description">
+                    {item.description}
+                  </div>
+                </div>
+              </button>
+              {/* <div className="news-feed">
+                <div
+                  className={`feed-list__item ${item.admin ? 'admin' : 'user'}`}
+                  key={item._id}
+                >
                   {item.description}
                 </div>
-                <div className="feed-list__main__item__left__description">
-                  {item.description}
-                </div>
-              </div>
-            </button>
+              </div> */}
+            </>
           ))}
         </div>
       </div>

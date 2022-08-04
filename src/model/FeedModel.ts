@@ -5,5 +5,8 @@ export default interface FeedModel {
   important: boolean,
   sender: string,
   userId: string,
-  admin: boolean
+  admin: boolean,
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: string;
 }
