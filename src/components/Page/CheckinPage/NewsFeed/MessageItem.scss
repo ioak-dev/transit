@@ -3,6 +3,10 @@
   justify-content: flex-end;
 }
 
+.message-item.message-item--admin-not-possible {
+  justify-content: flex-start;
+}
+
 .message-item__container {
   max-width: 80%;
   border-radius: 20px 20px 0 20px;
@@ -20,7 +24,13 @@
   justify-content: flex-start;
 }
 
-.message-item--admin .message-item__container {
+.message-item--admin-not-possible.message-item--own {
+  justify-content: flex-end;
+}
+
+.message-item--admin .message-item__container,
+.message-item--admin-not-possible.message-item--not-own
+  .message-item__container {
   background-color: var(--color-primary-100);
   color: var(--color-primary-i);
 }
