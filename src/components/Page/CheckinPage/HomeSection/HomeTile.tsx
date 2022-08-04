@@ -24,6 +24,13 @@ const HomeTile = (props: Props) => {
         </div>
       )}
 
+      {props.content.type === 'html' && (
+        <div
+          dangerouslySetInnerHTML={{ __html: props.content.text }}
+          className="home_tile_text"
+        />
+      )}
+
       {props.content.type === 'subtitle' && (
         <div className="home_tile_subtitle">
           <h6>{props.content.text}</h6>

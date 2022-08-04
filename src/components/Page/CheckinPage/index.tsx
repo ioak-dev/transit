@@ -7,11 +7,14 @@ import {
   faCalendarDays,
   faCheck,
   faCircleDot,
+  faCommentDots,
   faEllipsis,
   faHome,
   faListDots,
+  faListUl,
   faLocationDot,
   faMapPin,
+  faMessage,
   faPlus,
   faQuestion,
   faTimes,
@@ -356,42 +359,30 @@ const CheckinPage = (props: Props) => {
             }`}
           >
             <div className="checkin-page__footer__button__label">
-              <FontAwesomeIcon icon={faCalendarDays} />
+              {/* <FontAwesomeIcon icon={faCalendarDays} /> */}
+              <FontAwesomeIcon icon={faListUl} />
               <div className="checkin-page__footer__button__label__text">
                 Agenda
               </div>
             </div>
           </button>
           <button
-            onClick={() => goToPage('Map')}
+            onClick={() => goToPage('News Feed')}
             className={`button checkin-page__footer__button ${
-              page === 'Map' ? 'checkin-page__footer__button--active' : ''
+              page === 'News Feed' ? 'checkin-page__footer__button--active' : ''
             }`}
           >
             <div className="checkin-page__footer__button__label">
-              <FontAwesomeIcon icon={faLocationDot} />
+              <FontAwesomeIcon icon={faCommentDots} />
               <div className="checkin-page__footer__button__label__text">
-                Map
+                Feed
               </div>
             </div>
           </button>
-          {/* <button
-            onClick={() => goToPage('User')}
-            className={`button checkin-page__footer__button ${
-              page === 'User' ? 'checkin-page__footer__button--active' : ''
-            }`}
-          >
-            <div className="checkin-page__footer__button__label">
-              <FontAwesomeIcon icon={faUser} />
-              <div className="checkin-page__footer__button__label__text">
-                Detail
-              </div>
-            </div>
-          </button> */}
           <button
             onClick={() => goToPage('More')}
             className={`button checkin-page__footer__button ${
-              ['Help', 'More', 'Group', 'User'].includes(page)
+              ['Help', 'More', 'Group', 'User', 'Map'].includes(page)
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}

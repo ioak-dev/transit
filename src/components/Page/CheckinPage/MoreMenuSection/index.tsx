@@ -12,15 +12,17 @@ import {
   faPhone,
   faQuestion,
   faUser,
+  fas,
+  faLocationDot,
 } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 import DarkModeIcon from '../../../../components/Navigation/DarkModeIcon';
 import { setProfile } from '../../../../actions/ProfileActions';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 // import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons';
 
-library.add(fas);
+library.add(fas, fab);
 
 const queryString = require('query-string');
 
@@ -78,16 +80,14 @@ const MoreMenuSection = (props: Props) => {
   return (
     <div className="more-menu-section">
       <button
-        onClick={() => props.goToPage('News Feed')}
+        onClick={() => props.goToPage('Map')}
         className={`button more-menu-section__button ${
-          props.page === 'News Feed' ? 'more-menu-section__button--active' : ''
+          props.page === 'Map' ? 'more-menu-section__button--active' : ''
         }`}
       >
         <div className="more-menu-section__button__label">
-          <FontAwesomeIcon icon={faCommentDots} />
-          <div className="more-menu-section__button__label__text">
-            News feed
-          </div>
+          <FontAwesomeIcon icon={faLocationDot} />
+          <div className="more-menu-section__button__label__text">Map</div>
         </div>
       </button>
       <button

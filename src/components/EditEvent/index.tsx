@@ -112,7 +112,10 @@ const EditEvent = (props: Props) => {
             />
           </div>
           <div>
-            <label>Group definition JSON (name, caption)</label>
+            <label>
+              Group definition JSON (name, caption, icon, iconPrefix,
+              description)
+            </label>
             <textarea name="group" onInput={handleChange} value={state.group} />
           </div>
           <div>
