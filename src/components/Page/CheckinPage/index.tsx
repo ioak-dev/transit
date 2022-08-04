@@ -11,6 +11,7 @@ import {
   faEllipsis,
   faHome,
   faListDots,
+  faListUl,
   faLocationDot,
   faMapPin,
   faMessage,
@@ -358,7 +359,8 @@ const CheckinPage = (props: Props) => {
             }`}
           >
             <div className="checkin-page__footer__button__label">
-              <FontAwesomeIcon icon={faCalendarDays} />
+              {/* <FontAwesomeIcon icon={faCalendarDays} /> */}
+              <FontAwesomeIcon icon={faListUl} />
               <div className="checkin-page__footer__button__label__text">
                 Agenda
               </div>
