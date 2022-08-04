@@ -58,7 +58,7 @@ const NewsFeed = (props: Props) => {
         messages={messages}
         participant={props.participant}
         participantMap={props.participantMap}
-        isAdminMessagePresent={false}
+        isAdminMessagePresent={true}
       />
       <Compose handleChange={handleChange} />
     </div>
