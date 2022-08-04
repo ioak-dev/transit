@@ -1,0 +1,13 @@
+[
+  {
+    "firstName": "Arun",
+    "lastName": "Selvaraj",
+    "email": "a@b.com",
+    "telephone": "",
+    "birthDate": "2022-07-13",
+    "__v": 0,
+    "referenceId": "615",
+    "groups": ["Java", "Cricket", "Badminton"],
+    "joiningDate": "2022-08-02"
+  }
+]

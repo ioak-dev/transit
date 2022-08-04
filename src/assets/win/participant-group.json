@@ -1,0 +1,14 @@
+[
+  {
+    "email": "a@b.com",
+    "group": "Java"
+  },
+  {
+    "email": "a@b.com",
+    "group": "Cricket"
+  },
+  {
+    "email": "a@b.com",
+    "group": "Badminton"
+  }
+]
