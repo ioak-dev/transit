@@ -22,7 +22,10 @@ const NewsFeed = (props: Props) => {
 
   return (
     <div className="news-feed">
-      <div>news feed</div>
+      news feed
+      <div className="news-feed__item">news-feed__item</div>
+      <div className="news-feed__item__label">news-feed__item__label</div>
+      <div className="news-feed__item__phone">news-feed__item__phone</div>
       <Compose handleChange={handleChange} />
     </div>
   );

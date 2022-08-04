@@ -24,6 +24,7 @@ import EditEventPage from '../EditEventPage';
 import EditEvent from '../../../components/EditEvent';
 import TrackList from '../../../components/TrackList';
 import ParticipantList from '../../../components/ParticipantList';
+import FeedList from '../../../components/FeedList';
 
 const queryString = require('query-string');
 
@@ -126,7 +127,7 @@ const ManageEventPage = (props: Props) => {
         {view === 'users' && (
           <ParticipantList eventId={params.id} space={props.space} />
         )}
-        {view === 'feed' && <>Feed (priority, description, sender, eventId)</>}
+        {view === 'feed' && <FeedList eventId={params.id} space={props.space} />}
       </div>
       {/* <Footer>
         <div className="footer-action">
