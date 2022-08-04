@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import './style.scss';
-import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 import ParticipantModel from 'src/model/ParticipantModel';
 import EventModel from 'src/model/EventModel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import Compose from '../../../../components/Compose';
 
 const queryString = require('query-string');
 
@@ -18,11 +18,14 @@ interface Props {
 }
 
 const NewsFeed = (props: Props) => {
-  useEffect(() => {
-    DisableContextBarCommand.next(true);
-  }, []);
+  const handleChange = (text: string) => {};
 
-  return <div className="news-feed">news feed</div>;
+  return (
+    <div className="news-feed">
+      <div>news feed</div>
+      <Compose handleChange={handleChange} />
+    </div>
+  );
 };
 
 export default NewsFeed;

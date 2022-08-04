@@ -1,0 +1,34 @@
+.compose {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: center;
+  align-items: center;
+  column-gap: 10px;
+
+  button {
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-i);
+  }
+
+  input {
+    background-color: var(--color-base-400);
+    border: none;
+  }
+}
+
+.dark .compose input {
+  background-color: var(--color-base-200);
+}
