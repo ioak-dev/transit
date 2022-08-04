@@ -11,9 +11,9 @@
   column-gap: 10px;
 
   button {
-    height: 40px;
-    width: 40px;
-    border-radius: 40px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -26,6 +26,8 @@
   input {
     background-color: var(--color-base-400);
     border: none;
+    height: 50px;
+    border-radius: 50px;
   }
 }
 
