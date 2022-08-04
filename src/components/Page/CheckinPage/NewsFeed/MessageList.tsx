@@ -14,6 +14,7 @@ interface Props {
   participant?: ParticipantModel;
   messages: MessageModel[];
   participantMap: any;
+  isAdminMessagePresent: boolean;
 }
 
 const MessageList = (props: Props) => {
@@ -27,6 +28,7 @@ const MessageList = (props: Props) => {
           message={message}
           key={message._id}
           participant={props.participant}
+          isAdminMessagePresent={props.isAdminMessagePresent}
         />
       ))}
     </div>

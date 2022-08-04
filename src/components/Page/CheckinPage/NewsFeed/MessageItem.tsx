@@ -14,6 +14,7 @@ interface Props {
   message: MessageModel;
   participant?: ParticipantModel;
   participantMap: any;
+  isAdminMessagePresent: boolean;
 }
 
 const MessageItem = (props: Props) => {
@@ -24,8 +25,12 @@ const MessageItem = (props: Props) => {
       className={`message-item ${
         props.message.sender === props.participant?._id
           ? 'message-item--own'
-          : ''
-      } ${props.message.admin ? 'message-item--admin' : ''}`}
+          : 'message-item--not-own'
+      } ${props.message.admin ? 'message-item--admin' : ''} ${
+        props.isAdminMessagePresent
+          ? 'message-item--admin-possible'
+          : 'message-item--admin-not-possible'
+      }`}
     >
       <div className="message-item__container">
         <div className="message-item__container__description">
