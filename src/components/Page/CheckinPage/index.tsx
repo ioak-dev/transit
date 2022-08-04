@@ -32,6 +32,7 @@ import {
   getEventById,
   getParticipantById,
   getParticipantByReferenceId,
+  getParticipantList,
 } from './service';
 import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions';
 import EventModel from '../../../model/EventModel';
@@ -77,6 +78,7 @@ const CheckinPage = (props: Props) => {
   const [availableTracks, setAvailableTracks] = useState<any[]>([]);
   const [event, setEvent] = useState<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
+  const [participantMap, setParticipantMap] = useState<any>({});
 
   useEffect(() => {
     const query = queryString.parse(props.location.search);
@@ -95,6 +97,7 @@ const CheckinPage = (props: Props) => {
     console.log(params);
     if (params.eventId && params.participantReferenceId) {
       fetchParticipantData();
+      fetchParticipantList();
       fetchEventData();
     }
   }, [params]);
@@ -124,6 +127,19 @@ const CheckinPage = (props: Props) => {
       setParticipant(response);
       // setAvailableTracks(response);
     });
+  };
+
+  const fetchParticipantList = () => {
+    getParticipantList(props.space, params.eventId).then(
+      (response: ParticipantModel[]) => {
+        console.log(response);
+        const _participantMap: any = {};
+        response.forEach((item: ParticipantModel) => {
+          _participantMap[item._id || ''] = item;
+        });
+        setParticipantMap(_participantMap);
+      }
+    );
   };
 
   const fetchEventData = () => {
@@ -292,6 +308,7 @@ const CheckinPage = (props: Props) => {
               space={props.space}
               participant={participant}
               tracks={availableTracks}
+              participantMap={participantMap}
             />
           )}
         {page === 'Group' &&

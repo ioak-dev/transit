@@ -14,15 +14,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
-import ReceiptModel from '../../model/ReceiptModel';
-import TrackModel from '../../model/TrackModel';
-import Topbar from '../../components/Topbar';
 import DisableContextBarCommand from '../../events/DisableContextBarCommand';
-import EventModel from '../../model/EventModel';
-import { formatDateTimeText } from '../Lib/DateUtils';
-import FeedModel from 'src/model/FeedModel';
 import { getFeedsBySpace, sendFeed } from './service';
-import { initial } from 'lodash';
+import MessageList from '../Page/CheckinPage/NewsFeed/MessageList';
+import MessageModel from '../../model/MessageModel';
+import ParticipantModel from '../../model/ParticipantModel';
+import { getFeedMessages } from '../Page/CheckinPage/NewsFeed/service';
+import Compose from './Compose';
 
 const queryString = require('query-string');
 
@@ -33,128 +31,55 @@ interface Props {
 
 const FeedList = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
+  const participantList = useSelector((state: any) => state.participant.items);
 
-  const [availableFeeds, setavailableFeeds] = useState<FeedModel[]>([]);
-
-  let [state, setState] = useState<FeedModel>({
-    important: false,
-    description: '',
-    sender: '',
-    eventId: '',
-    admin: true,
-    userId: '',
-  });
-
-  const initialState = {
-    important: false,
-    description: '',
-    sender: '',
-    eventId: '',
-    admin: false,
-    userId: '',
-  };
+  const [availableFeeds, setavailableFeeds] = useState<MessageModel[]>([]);
+  const [participantMap, setParticipantMap] = useState<any>({});
 
   const fetchFeedsData = () => {
-    getFeedsBySpace(props.space, authorization).then(
-      (response: FeedModel[]) => {
+    getFeedMessages(props.space, props.eventId || '').then(
+      (response: MessageModel[]) => {
         setavailableFeeds(response);
       }
     );
   };
 
   useEffect(() => {
+    if (participantList) {
+      const _participantMap: any = {};
+      participantList.forEach((item: ParticipantModel) => {
+        _participantMap[item._id || ''] = item;
+      });
+      setParticipantMap(_participantMap);
+    }
+  }, [participantList]);
+
+  useEffect(() => {
     fetchFeedsData();
     DisableContextBarCommand.next(true);
   }, []);
 
-  const handleChange = (event: any) => {
-    setState({
-      ...state,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  };
-
-  const toggleChange = (event: any) => {
-    console.log(event.target.checked);
-    setState({ ...state, important: event.target.checked });
-  };
-
-  const send = (event: any) => {
-    event.preventDefault();
-    console.log(state);
+  const handleChange = (payload: any) => {
     sendFeed(
       props.space,
-      { ...state, eventId: props.eventId, admin: true },
+      { ...payload, eventId: props.eventId },
       authorization
     ).then((response: any) => {
       fetchFeedsData();
-      console.log(response);
     });
-  };
-
-  const clear = () => {
-    setState(initialState);
   };
 
   return (
     <>
-      <div className="create-feed">
-        <div>
-          <label>Description</label>
-          <input
-            name="description"
-            onInput={handleChange}
-            value={state.description}
-          />
-        </div>
-        <div>
-          <label htmlFor="important">Important</label>
-          <input
-            type="checkbox"
-            id="important"
-            name="important"
-            checked={state.important}
-            onChange={toggleChange}
-          />
-        </div>
-        <div>
-          <button className="button primary-button" onClick={send}>
-            <FontAwesomeIcon icon={faPaperPlane} />
-            Send
-          </button>
-        </div>
-        <div>
-          <button className="button default-button" onClick={clear}>
-            <FontAwesomeIcon icon={faXmark} />
-          </button>
-        </div>
-      </div>
       <div className="feed-list">
-        <div className="feed-list__main">
-          {availableFeeds.map((item: FeedModel) => (
-            <>
-              <button className="button feed-list__main__item" key={item._id}>
-                <div className="feed-list__main__item__left">
-                  <div className="feed-list__main__item__left__name">
-                    {item.description}
-                  </div>
-                  <div className="feed-list__main__item__left__description">
-                    {item.description}
-                  </div>
-                </div>
-              </button>
-              {/* <div className="news-feed">
-                <div
-                  className={`feed-list__item ${item.admin ? 'admin' : 'user'}`}
-                  key={item._id}
-                >
-                  {item.description}
-                </div>
-              </div> */}
-            </>
-          ))}
-        </div>
+        {availableFeeds && (
+          <MessageList
+            messages={availableFeeds}
+            participantMap={participantMap}
+          />
+        )}
       </div>
+      <Compose handleChange={handleChange} />
     </>
   );
 };

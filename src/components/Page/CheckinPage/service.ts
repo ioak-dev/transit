@@ -66,6 +66,20 @@ export const getAvailableTracks = (
     });
 };
 
+export const getParticipantList = (space: string, eventId: string) => {
+  return httpGet(`/participant/${space}/event/${eventId}`, {
+    headers: {},
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+    })
+    .catch((error) => {
+      return Promise.resolve({});
+    });
+};
+
 export const getParticipantById = (space: string, participantId: string) => {
   return httpGet(`/participant/${space}/${participantId}`, {
     headers: {},
