@@ -8,12 +8,15 @@ import { group } from 'd3';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendar,
+  faCircleInfo,
+  faFeed,
   faHand,
   faHands,
   faHandsClapping,
   faInfo,
   faPeopleGroup,
 } from '@fortawesome/free-solid-svg-icons';
+import NewsFeed from '../NewsFeed';
 
 interface Props {
   space: string;
@@ -27,6 +30,7 @@ interface Props {
 
 const GroupSection = (props: Props) => {
   const [participantsByGroup, setParticipantsByGroup] = useState<any[]>([]);
+  const [participantMap, setParticipantMap] = useState<any>({});
   let [showEvents, setShowEvents] = useState<string>('Members');
 
   useEffect(() => {
@@ -35,9 +39,16 @@ const GroupSection = (props: Props) => {
   }, []);
 
   const fetchParticipantsByGroupData = () => {
-    getParticipantsByGroup(props.space, props.group).then((response: any) => {
-      setParticipantsByGroup(response);
-    });
+    getParticipantsByGroup(props.space, props.group).then(
+      (response: ParticipantModel[]) => {
+        setParticipantsByGroup(response);
+        const _participantMap: any = {};
+        response.forEach((item: ParticipantModel) => {
+          _participantMap[item._id || ''] = item;
+        });
+        setParticipantMap(_participantMap);
+      }
+    );
   };
 
   const groupDetail = JSON.parse(props.event.group)?.find(
@@ -56,21 +67,24 @@ const GroupSection = (props: Props) => {
           onClick={() => setShowEvents('Members')}
         >
           <FontAwesomeIcon icon={faPeopleGroup} />
-          Members
         </div>
         <div
           className={`set_item ${showEvents === 'Events' ? 'active' : ''}`}
           onClick={() => setShowEvents('Events')}
         >
           <FontAwesomeIcon icon={faCalendar} />
-          Events
         </div>
         <div
           className={`set_item ${showEvents === 'About' ? 'active' : ''}`}
           onClick={() => setShowEvents('About')}
         >
-          <FontAwesomeIcon icon={faInfo} />
-          About
+          <FontAwesomeIcon icon={faCircleInfo} />
+        </div>
+        <div
+          className={`set_item ${showEvents === 'Feed' ? 'active' : ''}`}
+          onClick={() => setShowEvents('Feed')}
+        >
+          <FontAwesomeIcon icon={faFeed} />
         </div>
       </div>
       {showEvents === 'Members' && (
@@ -92,13 +106,17 @@ const GroupSection = (props: Props) => {
               <div className="group-section__main__item">{item.name}</div>
             </div>
           ))}
-      {showEvents === 'About' && (
-        // {aboutDetails.map((item: any) => (
-        //     <div className="group-section__item" key={item.name}>
-        //       <div className="group-section__main__item">{item.name}</div>
-        //     </div>
-        //   ))}
-        <div>{groupDetail?.description}</div>
+      {showEvents === 'About' && <div>{groupDetail?.description}</div>}
+      {showEvents === 'Feed' && (
+        <NewsFeed
+          event={props.event}
+          handleChange={fetchParticipantsByGroupData}
+          location={props.location}
+          space={props.space}
+          participant={props.participant}
+          tracks={props.tracks}
+          participantMap={participantMap}
+        />
       )}
     </div>
   );
