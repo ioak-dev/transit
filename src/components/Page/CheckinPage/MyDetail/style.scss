@@ -14,3 +14,9 @@
   font-size: 12px;
   font-weight: 600;
 }
+
+.edit_room {
+  display: grid;
+  grid-template-columns: 50% 47px;
+  column-gap: 15px;
+}

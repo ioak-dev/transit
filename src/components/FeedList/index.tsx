@@ -76,6 +76,7 @@ const FeedList = (props: Props) => {
           <MessageList
             messages={availableFeeds}
             participantMap={participantMap}
+            isAdminMessagePresent={true}
           />
         )}
       </div>

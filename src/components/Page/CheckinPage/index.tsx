@@ -260,7 +260,7 @@ const CheckinPage = (props: Props) => {
         {page === 'User' && validationSuccessful && event && participant && (
           <MyDetail
             event={event}
-            handleChange={refreshData}
+            handleChange={fetchParticipantData}
             location={props.location}
             space={props.space}
             participant={participant}

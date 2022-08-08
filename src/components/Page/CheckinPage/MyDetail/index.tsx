@@ -12,6 +12,7 @@ import DisableContextBarCommand from '../../../../events/DisableContextBarComman
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
 import moment from 'moment';
+import { saveRoom } from './service';
 // import mapImage from '../../../../assets/map.png';
 
 const queryString = require('query-string');
@@ -57,6 +58,11 @@ const MyDetail = (props: Props) => {
   const save = (event: any) => {
     event.preventDefault();
     console.log(state);
+    saveRoom(props.space, props.participant._id, state.room).then(
+      (response: any) => {
+        refreshData();
+      }
+    );
   };
 
   const toggleShowAllTracks = () => {
@@ -83,16 +89,35 @@ const MyDetail = (props: Props) => {
       </div>
       <div className="my-detail__item">
         <div className="my-detail__item__label">Birth date</div>
-        <div>{moment(props.participant.birthDate).format("DD-MM-YYYY") || '-'}</div>
+        <div>
+          {moment(props.participant.birthDate).format('DD-MM-YYYY') || '-'}
+        </div>
       </div>
       {/* <div className="my-detail__item">
         <div className="my-detail__item__label">Joining date</div>
         <div>{moment(props.participant.joiningDate).format("DD-MM-YYYY") || '-'}</div>
       </div> */}
-      <div className="my-detail__item">
-        <div className="my-detail__item__label">Room number</div>
-        <div>{props.participant.room || '-'}</div>
-      </div>
+      {props.participant.room && (
+        <div className="my-detail__item">
+          <div className="my-detail__item__label">Room number</div>
+          <div>{props.participant.room || '-'}</div>
+        </div>
+      )}
+      {!props.participant.room && (
+        <div>
+          <label>Add Room Number</label>
+          <div className="edit_room">
+            <input name="room" onInput={handleChange} value={state.room} />
+            <button
+              className="button primary-button"
+              type="submit"
+              onClick={save}
+            >
+              <FontAwesomeIcon icon={faCheck} />
+            </button>
+          </div>
+        </div>
+      )}
       {/* <img src={mapImage} alt="Location map" /> */}
     </div>
   );
