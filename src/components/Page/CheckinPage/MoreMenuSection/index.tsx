@@ -37,6 +37,7 @@ interface Props {
     | 'Agenda'
     | 'Map'
     | 'User'
+    | 'People'
     | 'Help'
     | 'More'
     | 'Group'
@@ -100,6 +101,19 @@ const MoreMenuSection = (props: Props) => {
           <FontAwesomeIcon icon={faUser} />
           <div className="more-menu-section__button__label__text">
             My detail
+          </div>
+        </div>
+      </button>
+      <button
+        onClick={() => props.goToPage('People')}
+        className={`button more-menu-section__button ${
+          props.page === 'Help' ? 'more-menu-section__button--active' : ''
+        }`}
+      >
+        <div className="more-menu-section__button__label">
+          <FontAwesomeIcon icon={faPeopleGroup} />
+          <div className="more-menu-section__button__label__text">
+            People
           </div>
         </div>
       </button>

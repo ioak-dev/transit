@@ -47,6 +47,7 @@ import MoreMenuSection from './MoreMenuSection';
 import GroupSection from './GroupSection';
 import HomeSection from './HomeSection';
 import NewsFeed from './NewsFeed';
+import People from './People';
 
 const queryString = require('query-string');
 
@@ -67,6 +68,7 @@ const CheckinPage = (props: Props) => {
     | 'Agenda'
     | 'Map'
     | 'User'
+    | 'People'
     | 'Help'
     | 'More'
     | 'Group'
@@ -79,6 +81,7 @@ const CheckinPage = (props: Props) => {
   const [event, setEvent] = useState<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
   const [participantMap, setParticipantMap] = useState<any>({});
+  const [participantList, setParticipantList] = useState<ParticipantModel[]>([]);
 
   useEffect(() => {
     const query = queryString.parse(props.location.search);
@@ -133,6 +136,7 @@ const CheckinPage = (props: Props) => {
     getParticipantList(props.space, params.eventId).then(
       (response: ParticipantModel[]) => {
         console.log(response);
+        setParticipantList(response);
         const _participantMap: any = {};
         response.forEach((item: ParticipantModel) => {
           _participantMap[item._id || ''] = item;
@@ -178,6 +182,7 @@ const CheckinPage = (props: Props) => {
       | 'Agenda'
       | 'Map'
       | 'User'
+      | 'People'
       | 'Help'
       | 'More'
       | 'Group'
@@ -264,6 +269,15 @@ const CheckinPage = (props: Props) => {
             location={props.location}
             space={props.space}
             participant={participant}
+            tracks={availableTracks}
+          />
+        )}
+        {page === 'People' && validationSuccessful && event && participant && (
+          <People
+            event={event}
+            location={props.location}
+            space={props.space}
+            participantList={participantList}
             tracks={availableTracks}
           />
         )}
