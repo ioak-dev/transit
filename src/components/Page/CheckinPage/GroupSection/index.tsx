@@ -17,6 +17,7 @@ import {
   faPeopleGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import NewsFeed from '../NewsFeed';
+import AgendaTile from '../Agenda/AgendaTile';
 
 interface Props {
   space: string;
@@ -102,9 +103,13 @@ const GroupSection = (props: Props) => {
         props.tracks
           .filter((item) => item.group === props.group)
           .map((item) => (
-            <div className="group-section__item" key={item.name}>
-              <div className="group-section__main__item">{item.name}</div>
-            </div>
+            <AgendaTile
+              space={props.space}
+              track={item}
+              key={item._id}
+              day={''}
+              participant={props.participant}
+            />
           ))}
       {showEvents === 'About' && <div>{groupDetail?.description}</div>}
       {showEvents === 'Feed' && (
