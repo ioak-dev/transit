@@ -18,6 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import NewsFeed from '../NewsFeed';
 import AgendaTile from '../Agenda/AgendaTile';
+import ParticipantTile from './ParticipantTile';
 
 interface Props {
   space: string;
@@ -91,11 +92,10 @@ const GroupSection = (props: Props) => {
       {showEvents === 'Members' && (
         <div>
           {participantsByGroup.map((participant: any) => (
-            <div className="group-section__item" key={participant.firstName}>
-              <div className="group-section__main__item">
-                {participant.firstName}
-              </div>
-            </div>
+            <ParticipantTile
+              participant={participant}
+              key={participant.firstName}
+            ></ParticipantTile>
           ))}
         </div>
       )}
