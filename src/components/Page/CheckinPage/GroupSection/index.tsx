@@ -16,7 +16,7 @@ import {
   faInfo,
   faPeopleGroup,
 } from '@fortawesome/free-solid-svg-icons';
-import NewsFeed from '../NewsFeed';
+import GroupNewsFeed from './GroupNewsFeed';
 import AgendaTile from '../Agenda/AgendaTile';
 import ParticipantTile from './ParticipantTile';
 
@@ -113,7 +113,7 @@ const GroupSection = (props: Props) => {
           ))}
       {showEvents === 'About' && <div>{groupDetail?.description}</div>}
       {showEvents === 'Feed' && (
-        <NewsFeed
+        <GroupNewsFeed
           event={props.event}
           handleChange={fetchParticipantsByGroupData}
           location={props.location}
@@ -121,6 +121,7 @@ const GroupSection = (props: Props) => {
           participant={props.participant}
           tracks={props.tracks}
           participantMap={participantMap}
+          group={props.group}
         />
       )}
     </div>
