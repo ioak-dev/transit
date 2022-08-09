@@ -10,4 +10,15 @@ export default interface ParticipantModel {
   referenceId: string;
   groups: string[];
   room: string;
+  practice?: string;
+  food?: string;
+  drink?: string;
+  sports?: string;
+  travelMode?: string;
+  flightNoIn?: string;
+  flightNoOut?: string;
+  startBaseIn?: Date;
+  startBaseOut?: Date;
+  landBaseIn?: Date;
+  landBaseOut?: Date;
 }

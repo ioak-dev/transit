@@ -34,7 +34,7 @@ const ValidateSection = (props: Props) => {
       ...state,
       [track.currentTarget.name]: track.currentTarget.value,
     });
-    console.log(state.date);
+    console.log(props.participant?.joiningDate, state.date);
     const stateDate = format(new Date(state.date), 'yyyy-MM-dd');
     const participantDate = format(
       new Date(props.participant?.joiningDate),

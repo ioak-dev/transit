@@ -103,6 +103,34 @@ const MyDetail = (props: Props) => {
           <div>{props.participant.room || '-'}</div>
         </div>
       )}
+      <div className="my-detail__item">
+        <div className="my-detail__item__label">Practice</div>
+        <div>{props.participant.practice || '-'}</div>
+      </div>
+      <div className="my-detail__item">
+        <div className="my-detail__item__label">Food preference</div>
+        <div>{props.participant.food || '-'}</div>
+      </div>
+      <div className="my-detail__item">
+        <div className="my-detail__item__label">Drink preference</div>
+        <div>{props.participant.drink || '-'}</div>
+      </div>
+      <div className="my-detail__item">
+        <div className="my-detail__item__label">Sports</div>
+        <div>{props.participant.sports || '-'}</div>
+      </div>
+      <div className="my-detail__item">
+        <div className="my-detail__item__label">Travel mode</div>
+        <div>{props.participant.travelMode || '-'}</div>
+      </div>
+      <div className="my-detail__item">
+        <div className="my-detail__item__label">Onward flight#</div>
+        <div>{props.participant.flightNoIn || '-'}</div>
+      </div>
+      <div className="my-detail__item">
+        <div className="my-detail__item__label">Return flight#</div>
+        <div>{props.participant.flightNoOut || '-'}</div>
+      </div>
       {!props.participant.room && (
         <div>
           <label>Add Room Number</label>

@@ -427,15 +427,9 @@ const CheckinPage = (props: Props) => {
           <button
             onClick={() => goToPage('More')}
             className={`button checkin-page__footer__button ${
-              [
-                'Help',
-                'More',
-                'Group',
-                'User',
-                'Map',
-                'People',
-                'News Feed',
-              ].includes(page)
+              ['Help', 'More', 'Group', 'User', 'Map', 'News Feed'].includes(
+                page
+              )
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}
