@@ -22,7 +22,7 @@ const People = (props: Props) => {
   }, []);
 
   return (
-    <div className='my-detail'>
+    <div className="people">
       {props.participantList.map((participant: any) => (
         <ParticipantTile
           participant={participant}

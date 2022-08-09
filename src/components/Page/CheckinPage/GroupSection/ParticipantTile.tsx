@@ -14,10 +14,16 @@ const ParticipantTile = (props: Props) => {
       <div className="participant-tile__name">
         {props.participant.firstName}
       </div>
-      <div className="participant-tile__description">
-        {props.participant.telephone}
-      </div>
-      <div className="participant-tile__time">{props.participant.room}</div>
+      {props.participant.telephone && (
+        <div className="participant-tile__description">
+          {props.participant.telephone}
+        </div>
+      )}
+      {props.participant.room && (
+        <div className="participant-tile__time">
+          Room: {props.participant.room}
+        </div>
+      )}
     </div>
   );
 };

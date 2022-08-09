@@ -15,6 +15,7 @@ import {
   faLocationDot,
   faMapPin,
   faMessage,
+  faPeopleGroup,
   faPlus,
   faQuestion,
   faTimes,
@@ -48,6 +49,7 @@ import GroupSection from './GroupSection';
 import HomeSection from './HomeSection';
 import NewsFeed from './NewsFeed';
 import People from './People';
+import TopbarRightSection from './TopbarRightSection';
 
 const queryString = require('query-string');
 
@@ -81,7 +83,9 @@ const CheckinPage = (props: Props) => {
   const [event, setEvent] = useState<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
   const [participantMap, setParticipantMap] = useState<any>({});
-  const [participantList, setParticipantList] = useState<ParticipantModel[]>([]);
+  const [participantList, setParticipantList] = useState<ParticipantModel[]>(
+    []
+  );
 
   useEffect(() => {
     const query = queryString.parse(props.location.search);
@@ -213,7 +217,16 @@ const CheckinPage = (props: Props) => {
           alternateView
           // title={event?.name || ''}
           title={page === 'Group' ? queryParam.group : page}
-        >{`${participant?.firstName}`}</Topbar>
+        >
+          {participant && event && (
+            <TopbarRightSection
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              event={event}
+            />
+          )}
+        </Topbar>
       )}
       {!validationSuccessful && (
         <Topbar
@@ -398,22 +411,31 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
-            onClick={() => goToPage('News Feed')}
+            onClick={() => goToPage('People')}
             className={`button checkin-page__footer__button ${
-              page === 'News Feed' ? 'checkin-page__footer__button--active' : ''
+              page === 'People' ? 'checkin-page__footer__button--active' : ''
             }`}
           >
             <div className="checkin-page__footer__button__label">
-              <FontAwesomeIcon icon={faCommentDots} />
+              {/* <FontAwesomeIcon icon={faCommentDots} /> */}
+              <FontAwesomeIcon icon={faPeopleGroup} />
               <div className="checkin-page__footer__button__label__text">
-                Feed
+                People
               </div>
             </div>
           </button>
           <button
             onClick={() => goToPage('More')}
             className={`button checkin-page__footer__button ${
-              ['Help', 'More', 'Group', 'User', 'Map'].includes(page)
+              [
+                'Help',
+                'More',
+                'Group',
+                'User',
+                'Map',
+                'People',
+                'News Feed',
+              ].includes(page)
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}
