@@ -13,6 +13,7 @@ import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActi
 import EventModel from '../../../../model/EventModel';
 import moment from 'moment';
 import { saveRoom } from './service';
+import { formatDateTimeText } from '../../../../components/Lib/DateUtils';
 // import mapImage from '../../../../assets/map.png';
 
 const queryString = require('query-string');
@@ -123,14 +124,57 @@ const MyDetail = (props: Props) => {
         <div className="my-detail__item__label">Travel mode</div>
         <div>{props.participant.travelMode || '-'}</div>
       </div>
-      <div className="my-detail__item">
-        <div className="my-detail__item__label">Onward flight#</div>
-        <div>{props.participant.flightNoIn || '-'}</div>
-      </div>
-      <div className="my-detail__item">
-        <div className="my-detail__item__label">Return flight#</div>
-        <div>{props.participant.flightNoOut || '-'}</div>
-      </div>
+      {props.participant.flightNoIn && (
+        <>
+          <div className="my-detail__item">
+            <div className="my-detail__item__label">Onward flight#</div>
+            <div>{props.participant.flightNoIn || '-'}</div>
+          </div>
+          <div className="my-detail__item">
+            <div className="my-detail__item__label">
+              Onward flight departure
+            </div>
+            <div>
+              {formatDateTimeText(
+                props.participant.startBaseIn || new Date()
+              ) || '-'}
+            </div>
+          </div>
+          <div className="my-detail__item">
+            <div className="my-detail__item__label">Onward flight arrival</div>
+            <div>
+              {formatDateTimeText(props.participant.landBaseIn || new Date()) ||
+                '-'}
+            </div>
+          </div>
+        </>
+      )}
+      {props.participant.flightNoOut && (
+        <>
+          <div className="my-detail__item">
+            <div className="my-detail__item__label">Return flight#</div>
+            <div>{props.participant.flightNoOut || '-'}</div>
+          </div>
+          <div className="my-detail__item">
+            <div className="my-detail__item__label">
+              Return flight departure
+            </div>
+            <div>
+              {formatDateTimeText(
+                props.participant.startBaseOut || new Date()
+              ) || '-'}
+            </div>
+          </div>
+          <div className="my-detail__item">
+            <div className="my-detail__item__label">Return flight arrival</div>
+            <div>
+              {formatDateTimeText(
+                props.participant.landBaseOut || new Date()
+              ) || '-'}
+            </div>
+          </div>
+        </>
+      )}
       {!props.participant.room && (
         <div>
           <label>Add Room Number</label>
