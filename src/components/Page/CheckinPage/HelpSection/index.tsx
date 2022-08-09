@@ -30,7 +30,7 @@ const HelpSection = (props: Props) => {
         <div className="help__item" key={support.name}>
           <div className="help__item__label">{support.name}</div>
           <div className="help__item__phone">
-            <a href='tel:${support.phone}'>
+            <a href={`tel:${support.telephone}`}>
               <FontAwesomeIcon icon={faPhone} />
             </a>
             {support.phone}

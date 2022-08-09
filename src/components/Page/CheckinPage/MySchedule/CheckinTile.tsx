@@ -25,6 +25,9 @@ import {
   formatDateTimeText,
 } from '../../../../components/Lib/DateUtils';
 import QrScanner from '../../../QrScanner';
+import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
+import { newId } from '../../../../events/MessageService';
+import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
 
 const queryString = require('query-string');
 
@@ -44,6 +47,7 @@ const CheckinTile = (props: Props) => {
     if (props.event.code || props.track.code) {
       setShowQrReader(true);
     } else {
+      AddSpinnerCommand.next(newId());
       registerIn(
         props.space,
         props.event?._id || '',
@@ -75,6 +79,8 @@ const CheckinTile = (props: Props) => {
   const handleQrData = (text: any) => {
     console.log(text);
     setShowQrReader(false);
+    const spinnerTaskId = newId();
+    AddSpinnerCommand.next(spinnerTaskId);
     registerIn(
       props.space,
       props.event?._id || '',
@@ -83,6 +89,7 @@ const CheckinTile = (props: Props) => {
       text
     ).then((response: any) => {
       console.log(response);
+      RemoveSpinnerCommand.next(spinnerTaskId);
       props.handleChange();
     });
   };

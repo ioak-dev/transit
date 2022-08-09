@@ -1,0 +1,40 @@
+.compose {
+  position: fixed;
+  bottom: 58px;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: center;
+  align-items: center;
+  background-color: var(--color-base-200);
+
+  button {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-i);
+  }
+
+  input {
+    background-color: var(--color-base-400);
+    border: none;
+    height: 50px;
+    border-radius: 50px;
+  }
+}
+
+.dark .compose input {
+  background-color: var(--color-base-200);
+}
+
+.dark .compose {
+  background-color: var(--color-base-300);
+}

@@ -17,6 +17,8 @@ interface Props {
 }
 
 const ValidateSection = (props: Props) => {
+  const [showError, setshowError] = useState(false);
+
   useEffect(() => {
     DisableContextBarCommand.next(true);
   }, []);
@@ -34,6 +36,9 @@ const ValidateSection = (props: Props) => {
       ...state,
       [track.currentTarget.name]: track.currentTarget.value,
     });
+  };  
+
+  const checkIn = () => {
     console.log(props.participant?.joiningDate, state.date);
     const stateDate = format(new Date(state.date), 'yyyy-MM-dd');
     const participantDate = format(
@@ -44,8 +49,15 @@ const ValidateSection = (props: Props) => {
     if (participantDate === stateDate) {
       sessionStorage.setItem('joiningDate', stateDate);
       props.handleValidation();
+    } else {
+      setshowError(!showError);
     }
   };
+
+  const hideError = () => {
+    setshowError(false);
+  };
+
 
   return (
     <div className="validate_section">
@@ -56,9 +68,11 @@ const ValidateSection = (props: Props) => {
         type="date"
         name="date"
         onInput={handleChange}
+        onFocus={hideError}
         value={state.date}
       />
-      <button className="circle-button" onClick={handleChange}>
+      {showError && <div className="errorText">Joining date is Incorrect!</div>}
+      <button className="circle-button" onClick={checkIn}>
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
     </div>

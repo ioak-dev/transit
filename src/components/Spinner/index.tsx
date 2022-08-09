@@ -7,6 +7,7 @@ import './style.scss';
 import AddSpinnerCommand from '../../events/AddSpinnerCommand';
 import RemoveSpinnerCommand from '../../events/RemoveSpinnerCommand';
 import { isEmptyOrSpaces } from '../Utils';
+import BouncingDots from './BouncingDots';
 
 interface Props {}
 
@@ -25,7 +26,15 @@ const Spinner = (props: Props) => {
     });
   }, []);
 
-  return <>{state.length > 0 && <div className="spinner">SPINNER</div>}</>;
+  return (
+    <>
+      {state.length > 0 && (
+        <div className="spinner">
+          <BouncingDots />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Spinner;

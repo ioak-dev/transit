@@ -19,6 +19,7 @@ import {
 import GroupNewsFeed from './GroupNewsFeed';
 import AgendaTile from '../Agenda/AgendaTile';
 import ParticipantTile from './ParticipantTile';
+import SearchInput from '../People/SearchInput';
 
 interface Props {
   space: string;
@@ -34,6 +35,8 @@ const GroupSection = (props: Props) => {
   const [participantsByGroup, setParticipantsByGroup] = useState<any[]>([]);
   const [participantMap, setParticipantMap] = useState<any>({});
   let [showEvents, setShowEvents] = useState<string>('Members');
+  const [search, setSearch]: [string, (search: string) => void] =
+    React.useState('');
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
@@ -56,6 +59,10 @@ const GroupSection = (props: Props) => {
   const groupDetail = JSON.parse(props.event.group)?.find(
     (item: any) => item.name === props.group
   );
+
+  const handleChange = (payload: any) => {
+    setSearch(payload);
+  };
 
   return (
     <div className="group-section">
@@ -91,12 +98,30 @@ const GroupSection = (props: Props) => {
       </div>
       {showEvents === 'Members' && (
         <div>
-          {participantsByGroup.map((participant: any) => (
-            <ParticipantTile
-              participant={participant}
-              key={participant.firstName}
-            ></ParticipantTile>
-          ))}
+          {participantsByGroup
+            .filter((item) => {
+              if (search === '') {
+                return item;
+              } else if (
+                item.firstName
+                  .toLocaleLowerCase()
+                  .includes(search.toLowerCase())
+              ) {
+                return item;
+              }
+            })
+            .map((participant: any) => (
+              <ParticipantTile
+                participant={participant}
+                key={participant.firstName}
+              ></ParticipantTile>
+            ))}
+          <div>
+            <SearchInput
+              searchText={search}
+              handleChange={handleChange}
+            ></SearchInput>
+          </div>
         </div>
       )}
       {showEvents === 'Events' &&
