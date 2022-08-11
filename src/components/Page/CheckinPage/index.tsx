@@ -351,7 +351,6 @@ const CheckinPage = (props: Props) => {
               location={props.location}
               space={props.space}
               participant={participant}
-              participantList={participantList}
               tracks={availableTracks}
             />
           )}
