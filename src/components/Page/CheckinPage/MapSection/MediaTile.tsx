@@ -31,7 +31,7 @@ const MediaTile = (props: Props) => {
           <span onClick={downloadImage}>Download</span>
         </div>
       )}
-      {props.media.type === 'video' && (
+      {/* {props.media.type === 'video' && (
         <div>
           <video width="100%" controls>
             <source src={src} type="video/mp4" />
@@ -50,7 +50,7 @@ const MediaTile = (props: Props) => {
             allowFullScreen
           ></iframe>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -28,13 +28,21 @@ const HelpSection = (props: Props) => {
     <div className="help">
       {supportList.map((support: any) => (
         <div className="help__item" key={support.name}>
-          <div className="help__item__label">{support.name}</div>
-          <div className="help__item__phone">
-            <a href={`tel:${support.telephone}`}>
-              <FontAwesomeIcon icon={faPhone} />
-            </a>
-            {support.phone}
-          </div>
+          {support.type === 'phone' && (
+            <div className='help__item__phone'>
+              <div className="help__item__phone__label">{support.name}</div>
+              <div className="help__item__phone__phone">
+                <a href={`tel:${support.phone}`}>
+                  <FontAwesomeIcon icon={faPhone} />
+                </a>
+                {support.phone}
+              </div>
+            </div>
+          )}
+
+          {support.type === 'title' && (
+            <div className="help__item__title">{support.name}</div>
+          )}
         </div>
       ))}
     </div>

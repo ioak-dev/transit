@@ -2,25 +2,33 @@
   margin: 20px 20px;
   display: grid;
   grid-auto-flow: row;
-  row-gap: 20px;
 }
 
 .help__item {
   display: grid;
   grid-auto-flow: row;
-}
 
-.help__item__label {
-  font-size: 12px;
-  font-weight: 600;
-}
+  .help__item__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-primary-100);
+  }
 
-.help__item__phone {
-  display: flex;
-  column-gap: 10px;
-  a {
-    &:hover {
-      color: var(--color-primary-100);
+  .help__item__phone {
+    padding: 0 0 10px 10px;
+    .help__item__phone__label {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .help__item__phone__phone {
+      display: flex;
+      column-gap: 10px;
+      a {
+        &:hover {
+          color: var(--color-primary-100);
+        }
+      }
     }
   }
 }
