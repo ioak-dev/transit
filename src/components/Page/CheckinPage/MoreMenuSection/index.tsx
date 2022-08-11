@@ -81,43 +81,6 @@ const MoreMenuSection = (props: Props) => {
   return (
     <div className="more-menu-section">
       <button
-        onClick={() => props.goToPage('Map')}
-        className={`button more-menu-section__button ${
-          props.page === 'Map' ? 'more-menu-section__button--active' : ''
-        }`}
-      >
-        <div className="more-menu-section__button__label">
-          <FontAwesomeIcon icon={faLocationDot} />
-          <div className="more-menu-section__button__label__text">Map</div>
-        </div>
-      </button>
-      <button
-        onClick={() => props.goToPage('User')}
-        className={`button more-menu-section__button ${
-          props.page === 'Help' ? 'more-menu-section__button--active' : ''
-        }`}
-      >
-        <div className="more-menu-section__button__label">
-          <FontAwesomeIcon icon={faUser} />
-          <div className="more-menu-section__button__label__text">
-            My detail
-          </div>
-        </div>
-      </button>
-      <button
-        onClick={() => props.goToPage('People')}
-        className={`button more-menu-section__button ${
-          props.page === 'Help' ? 'more-menu-section__button--active' : ''
-        }`}
-      >
-        <div className="more-menu-section__button__label">
-          <FontAwesomeIcon icon={faPeopleGroup} />
-          <div className="more-menu-section__button__label__text">
-            People
-          </div>
-        </div>
-      </button>
-      <button
         onClick={() => props.goToPage('Help')}
         className={`button more-menu-section__button ${
           props.page === 'Help' ? 'more-menu-section__button--active' : ''

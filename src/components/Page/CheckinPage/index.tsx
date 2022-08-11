@@ -217,6 +217,7 @@ const CheckinPage = (props: Props) => {
           alternateView
           // title={event?.name || ''}
           title={page === 'Group' ? queryParam.group : page}
+          handleClick={() => goToPage('Home')}
         >
           {participant && event && (
             <TopbarRightSection
@@ -367,17 +368,16 @@ const CheckinPage = (props: Props) => {
       {validationSuccessful && (
         <div className="checkin-page__footer">
           <button
-            onClick={() => goToPage('Home')}
+            onClick={() => goToPage('Agenda')}
             className={`button checkin-page__footer__button ${
-              !page || page === 'Home'
-                ? 'checkin-page__footer__button--active'
-                : ''
+              page === 'Agenda' ? 'checkin-page__footer__button--active' : ''
             }`}
           >
             <div className="checkin-page__footer__button__label">
-              <FontAwesomeIcon icon={faHome} />
+              {/* <FontAwesomeIcon icon={faCalendarDays} /> */}
+              <FontAwesomeIcon icon={faListUl} />
               <div className="checkin-page__footer__button__label__text">
-                Home
+                Agenda
               </div>
             </div>
           </button>
@@ -397,20 +397,6 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
-            onClick={() => goToPage('Agenda')}
-            className={`button checkin-page__footer__button ${
-              page === 'Agenda' ? 'checkin-page__footer__button--active' : ''
-            }`}
-          >
-            <div className="checkin-page__footer__button__label">
-              {/* <FontAwesomeIcon icon={faCalendarDays} /> */}
-              <FontAwesomeIcon icon={faListUl} />
-              <div className="checkin-page__footer__button__label__text">
-                Agenda
-              </div>
-            </div>
-          </button>
-          <button
             onClick={() => goToPage('People')}
             className={`button checkin-page__footer__button ${
               page === 'People' ? 'checkin-page__footer__button--active' : ''
@@ -425,9 +411,24 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
+            onClick={() => goToPage('Map')}
+            className={`button checkin-page__footer__button ${
+              !page || page === 'Map'
+                ? 'checkin-page__footer__button--active'
+                : ''
+            }`}
+          >
+            <div className="checkin-page__footer__button__label">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <div className="checkin-page__footer__button__label__text">
+                Map
+              </div>
+            </div>
+          </button>
+          <button
             onClick={() => goToPage('More')}
             className={`button checkin-page__footer__button ${
-              ['Help', 'More', 'Group', 'User', 'Map', 'News Feed'].includes(
+              ['Help', 'More', 'Group', 'User', 'Home', 'News Feed'].includes(
                 page
               )
                 ? 'checkin-page__footer__button--active'

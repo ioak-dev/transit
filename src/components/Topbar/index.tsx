@@ -14,6 +14,7 @@ interface Props {
   fixed?: boolean;
   isContextExpanded?: boolean;
   alternateView?: boolean;
+  handleClick?: any;
 }
 
 const Topbar = (props: Props) => {
@@ -27,6 +28,12 @@ const Topbar = (props: Props) => {
     );
 
     dispatch(setProfile({ ...profile, sidebar: !profile.sidebar }));
+  };
+
+  const handleClick = () => {
+    if (props.handleClick) {
+      props.handleClick();
+    }
   };
 
   return (
@@ -47,7 +54,7 @@ const Topbar = (props: Props) => {
             <FontAwesomeIcon icon={faBars} />
           </button>
         )}
-        <Logo variant="short" />
+        <Logo variant="short" handleClick={handleClick} />
         <div>{props.title}</div>
         {props.left && <div>{props.left}</div>}
       </div>
