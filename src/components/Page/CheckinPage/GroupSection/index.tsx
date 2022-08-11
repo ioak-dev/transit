@@ -116,12 +116,10 @@ const GroupSection = (props: Props) => {
                 key={participant.firstName}
               ></ParticipantTile>
             ))}
-          <div>
-            <SearchInput
-              searchText={search}
-              handleChange={handleChange}
-            ></SearchInput>
-          </div>
+          <SearchInput
+            searchText={search}
+            handleChange={handleChange}
+          ></SearchInput>
         </div>
       )}
       {showEvents === 'Events' &&
