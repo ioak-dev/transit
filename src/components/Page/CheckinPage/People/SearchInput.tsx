@@ -12,17 +12,17 @@ interface Props {
 }
 
 const SearchInput = (props: Props) => {
-
   const handleChange = (event: any) => {
     props.handleChange(event.currentTarget.value);
   };
 
   return (
-    <div className="compose">
+    <div className="search-input">
       <input
         className="input"
         name="compose"
         value={props.searchText}
+        autoComplete="off"
         onInput={handleChange}
       />
     </div>

@@ -28,6 +28,7 @@ const Compose = (props: Props) => {
       <input
         className="input"
         name="compose"
+        autoComplete="off"
         value={state}
         onInput={handleChange}
       />
