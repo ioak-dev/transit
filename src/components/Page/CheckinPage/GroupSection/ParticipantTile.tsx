@@ -22,7 +22,9 @@ const ParticipantTile = (props: Props) => {
           {props.participant.firstName}
         </div>
         {props.participant.room && (
-          <div className="participant-tile__time">{props.participant.practice}</div>
+          <div className="participant-tile__time">
+            {props.participant.practice}
+          </div>
         )}
       </div>
       <div className="participant-tile__phone__time">
@@ -33,6 +35,9 @@ const ParticipantTile = (props: Props) => {
             </a>
             {props.participant.telephone}
           </div>
+        )}
+        {!props.participant.telephone && (
+          <div className="participant-tile__phone" />
         )}
         {props.participant.room && (
           <div className="participant-tile__time">
