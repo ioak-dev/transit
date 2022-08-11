@@ -19,13 +19,37 @@ interface Props {
 const People = (props: Props) => {
   const [search, setSearch]: [string, (search: string) => void] =
     React.useState('');
+  const [labels, setLabels] = useState<string[]>([]);
+  const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
+    makeLabelsList();
   }, []);
 
   const handleChange = (payload: any) => {
     setSearch(payload);
+  };
+
+  const makeLabelsList = () => {
+    const _labels: any = [];
+    props.participantList.forEach((item: ParticipantModel) => {
+      if (!_labels.includes(item.practice)) {
+        _labels.push(item.practice);
+      }
+      console.log(_labels);
+    });
+    setLabels(_labels);
+    console.log(labels);
+  };
+
+  const selected = (label: any) => {
+    const _selectedLabels = [...selectedLabels];
+    _selectedLabels.indexOf(label) === -1
+      ? _selectedLabels.push(label)
+      : _selectedLabels.splice(_selectedLabels.indexOf(label), 1);
+    setSelectedLabels(_selectedLabels);
+    console.log(_selectedLabels);
   };
 
   return (
@@ -33,13 +57,14 @@ const People = (props: Props) => {
       <div className="people">
         {props.participantList
           .filter((item) => {
-            if (search === '') {
-              return item;
-            } else if (
-              item.firstName.toLocaleLowerCase().includes(search.toLowerCase())
-            ) {
-              return item;
-            }
+            return (
+              (search === '' ||
+                item.firstName
+                  .toLocaleLowerCase()
+                  .includes(search.toLowerCase())) &&
+              (selectedLabels.length === 0 ||
+                selectedLabels.includes(item.practice || ''))
+            );
           })
           .map((participant: any) => (
             <ParticipantTile
@@ -47,6 +72,19 @@ const People = (props: Props) => {
               key={participant.firstName}
             ></ParticipantTile>
           ))}
+      </div>
+      <div className="label-list">
+        {labels.map((item) => (
+          <button
+            className={`button label ${
+              selectedLabels.includes(item) ? 'active' : ''
+            }`}
+            key={item}
+            onClick={() => selected(item)}
+          >
+            {item}
+          </button>
+        ))}
       </div>
       <div>
         <SearchInput

@@ -20,3 +20,30 @@
   grid-template-columns: 50% 47px;
   column-gap: 15px;
 }
+
+.label-list {
+  position: fixed;
+  bottom: 130px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 10px;
+  .label {
+    padding: 6px 12px;
+    background-color: var(--color-base-400);
+    color: #000;
+    border-radius: 6px;
+    font-size: 11px;
+    cursor: pointer;
+    &.active {
+      background-color: var(--color-primary-100);
+      color: var(--color-primary-i);
+    }
+  }
+}
+
+.dark .label-list .label {
+  background-color: var(--color-base-200);
+  color: #fff;
+}
