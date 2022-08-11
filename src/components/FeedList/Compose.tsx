@@ -91,6 +91,7 @@ const Compose = (props: Props) => {
         <input
           placeholder="Sender"
           name="sender"
+          autoComplete="off"
           onInput={handleChange}
           value={state.sender}
         />

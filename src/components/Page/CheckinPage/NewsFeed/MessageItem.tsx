@@ -43,7 +43,7 @@ const MessageItem = (props: Props) => {
               : props.message.sender}
           </div>
           <div className="message-item__container__meta__time">
-            {formatDateTimeText(props.message.createdAt)}
+            {formatDateTimeText(props.message.createdAt || new Date())}
           </div>
         </div>
       </div>
