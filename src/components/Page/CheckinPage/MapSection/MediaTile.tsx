@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import './MediaTile.scss';
+import { saveAs } from 'file-saver';
 
 interface Props {
   media: any;
@@ -8,16 +9,27 @@ interface Props {
 
 const MediaTile = (props: Props) => {
   console.log(props.media);
+  const downloadImage = () => {
+    saveAs(props.media.link, props.media.link.split('/').pop()); // Put your image url here.
+  };
   // const src = 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4';
   const src = props.media.link;
   return (
     <div className="media_tile">
       <div>
         <h4>{props.media.title}</h4>
-        <h6>{props.media.caption}</h6>
+        {/* <h6>{props.media.caption}</h6> */}
       </div>
       {props.media.type === 'image' && (
-        <img src={props.media.link} alt="Location map" />
+        <div className='image-wrapper'>
+          <img
+            className="thumbnail"
+            src={props.media.link}
+            alt="Location map"
+            width={100}
+          />
+          <span onClick={downloadImage}>Download</span>
+        </div>
       )}
       {props.media.type === 'video' && (
         <div>
