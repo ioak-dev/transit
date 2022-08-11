@@ -46,4 +46,8 @@
 .dark .label-list .label {
   background-color: var(--color-base-200);
   color: #fff;
+  &.active {
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-i);
+  }
 }
