@@ -32,3 +32,8 @@
 .agenda-tile--na {
   opacity: 0.4;
 }
+
+.agenda-tile__time {
+  display: flex;
+  justify-content: space-between;
+}
