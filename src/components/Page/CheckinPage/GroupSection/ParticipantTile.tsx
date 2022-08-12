@@ -19,7 +19,7 @@ const ParticipantTile = (props: Props) => {
     <div className="button participant-tile" key={props.participant._id}>
       <div className="participant-tile__name__time">
         <div className="participant-tile__name">
-          {props.participant.firstName}
+          {props.participant.firstName} {props.participant.lastName}
         </div>
         {props.participant.room && (
           <div className="participant-tile__time">

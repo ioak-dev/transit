@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import { addDays, format } from 'date-fns';
@@ -81,6 +81,7 @@ const CheckinPage = (props: Props) => {
     useState<boolean>(false);
   const [availableTracks, setAvailableTracks] = useState<any[]>([]);
   const [event, setEvent] = useState<EventModel>();
+  const eventRef = useRef<EventModel | null>(null);
   const [participant, setParticipant] = useState<ParticipantModel>();
   const [participantMap, setParticipantMap] = useState<any>({});
   const [participantList, setParticipantList] = useState<ParticipantModel[]>(
@@ -110,7 +111,10 @@ const CheckinPage = (props: Props) => {
   }, [params]);
 
   useEffect(() => {
-    console.log(params);
+    pollData();
+  }, []);
+
+  useEffect(() => {
     if (params.eventId && participant?._id) {
       refreshData();
     }
@@ -124,6 +128,17 @@ const CheckinPage = (props: Props) => {
     ).then((response: any[]) => {
       setAvailableTracks(response);
     });
+  };
+
+  const pollData = () => {
+    console.log('**poll');
+    if (validationSuccessful && event && participant) {
+      refreshData();
+      fetchEventData();
+    }
+    setTimeout(() => {
+      pollData();
+    }, 5000);
   };
 
   const fetchParticipantData = () => {

@@ -5,6 +5,7 @@ import DisableContextBarCommand from '../../../../events/DisableContextBarComman
 import EventModel from '../../../../model/EventModel';
 import ParticipantTile from '../GroupSection/ParticipantTile';
 import SearchInput from './SearchInput';
+import { isEmptyOrSpaces } from '../../../../components/Utils';
 
 const queryString = require('query-string');
 
@@ -34,7 +35,7 @@ const People = (props: Props) => {
   const makeLabelsList = () => {
     const _labels: any = [];
     props.participantList.forEach((item: ParticipantModel) => {
-      if (!_labels.includes(item.practice)) {
+      if (!_labels.includes(item.practice) && !isEmptyOrSpaces(item.practice)) {
         _labels.push(item.practice);
       }
       console.log(_labels);
@@ -60,6 +61,9 @@ const People = (props: Props) => {
             return (
               (search === '' ||
                 item.firstName
+                  .toLocaleLowerCase()
+                  .includes(search.toLowerCase()) ||
+                item.lastName
                   .toLocaleLowerCase()
                   .includes(search.toLowerCase())) &&
               (selectedLabels.length === 0 ||
