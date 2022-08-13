@@ -6,6 +6,7 @@ import transitWhiteText from '../../images/transit_white_text.svg';
 import transitBlackSmall from '../../images/transit_black_small.svg';
 import transitBlackText from '../../images/transit_black_text.svg';
 import transitBlack from '../../images/transit_black.svg';
+import indiaLogo from '../../images/india_short.png';
 
 interface Props {
   variant: 'full' | 'short';
@@ -22,10 +23,10 @@ const LogoAlt = (props: Props) => {
     <div className="logo-alt">
       <div className="logo-alt--image">
         {profile.theme === 'theme_light' && (
-          <img src={transitWhiteSmall} alt="Fortuna logo-alt" />
+          <img src={indiaLogo} alt="Fortuna logo-alt" />
         )}
         {profile.theme !== 'theme_light' && (
-          <img src={transitWhiteSmall} alt="Fortuna logo-alt" />
+          <img src={indiaLogo} alt="Fortuna logo-alt" />
         )}
       </div>
       {props.variant === 'full' && (

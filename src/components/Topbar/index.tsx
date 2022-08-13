@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfile } from '../../actions/ProfileActions';
 import Logo from '../Logo';
+import LogoAlt from '../LogoAlt';
 import DarkModeIcon from '../Navigation/DarkModeIcon';
 import './style.scss';
 
@@ -61,7 +62,7 @@ const Topbar = (props: Props) => {
       <div className="topbar__right">
         {/* <DarkModeIcon /> */}
         {props.children}
-        <Logo variant="short" />
+        <LogoAlt variant="short" />
       </div>
     </div>
   );
