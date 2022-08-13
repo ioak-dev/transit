@@ -9,6 +9,14 @@
   align-content: center;
   align-items: center;
   // margin-top: 100px;
+  input {
+    border-color: transparent;
+    color: #fff;
+    background-color: #ffffff30;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+  }
 }
 
 .validate_section__item {

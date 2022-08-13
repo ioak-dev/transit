@@ -54,7 +54,7 @@ const ParticipantSelectSection = (props: Props) => {
   return (
     <div className="participant-select-section">
       <div className="participant-select-section__item__label">
-        Enter your reference id
+        Enter your ID
       </div>
       <input
         name="id"
@@ -62,9 +62,7 @@ const ParticipantSelectSection = (props: Props) => {
         onFocus={hideError}
         value={state.id}
       />
-      {showError && (
-        <div className="errorText">Please enter your reference id</div>
-      )}
+      {showError && <div className="errorText">Please enter your ID</div>}
       <button className="circle-button" onClick={checkIn}>
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
