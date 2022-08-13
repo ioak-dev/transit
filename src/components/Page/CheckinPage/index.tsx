@@ -50,6 +50,7 @@ import HomeSection from './HomeSection';
 import NewsFeed from './NewsFeed';
 import People from './People';
 import TopbarRightSection from './TopbarRightSection';
+import ParticipantSelectSection from './ParticipantSelectSection';
 
 const queryString = require('query-string');
 
@@ -120,8 +121,11 @@ const CheckinPage = (props: Props) => {
   const [showAllTracks, setShowAllTracks] = useState(false);
 
   useEffect(() => {
-    console.log(params);
-    if (params.eventId && params.participantReferenceId) {
+    if (
+      params.eventId &&
+      params.participantReferenceId &&
+      availableTracks.length === 0
+    ) {
       fetchParticipantData();
       fetchParticipantList();
       fetchEventData();
@@ -133,7 +137,7 @@ const CheckinPage = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    if (params.eventId && participant?._id) {
+    if (params.eventId && participant?._id && availableTracks.length === 0) {
       refreshData();
     }
   }, [params, participant]);
@@ -162,6 +166,12 @@ const CheckinPage = (props: Props) => {
       ).then((response: any[]) => {
         setAvailableTracks(response);
       });
+      getEventById(props.space, paramsRef.current.eventId).then(
+        (response: EventModel) => {
+          setEvent(response);
+          // setAvailableTracks(response);
+        }
+      );
     }
     setTimeout(() => {
       pollData();
@@ -249,34 +259,36 @@ const CheckinPage = (props: Props) => {
   return (
     <div
       className={`checkin-page ${
-        event && participant && !validationSuccessful
+        (event && participant && !validationSuccessful) ||
+        params.participantReferenceId === 'register'
           ? 'checkin-page--notvalidated'
           : ''
       }`}
     >
-      {(!event || !participant || validationSuccessful) && (
-        <Topbar
-          alternateView
-          // title={event?.name || ''}
-          title={page === 'Group' ? queryParam.group : page}
-          handleClick={() => goToPage('Home')}
-        >
-          {participant && event && (
-            <TopbarRightSection
-              location={props.location}
-              space={props.space}
-              participant={participant}
-              event={event}
-            />
-          )}
-        </Topbar>
-      )}
+      {params?.participantReferenceId !== 'register' &&
+        (!event || !participant || validationSuccessful) && (
+          <Topbar
+            alternateView
+            // title={event?.name || ''}
+            title={page === 'Group' ? queryParam.group : page}
+            handleClick={() => goToPage('Home')}
+          >
+            {participant && event && (
+              <TopbarRightSection
+                location={props.location}
+                space={props.space}
+                participant={participant}
+                event={event}
+              />
+            )}
+          </Topbar>
+        )}
       {!validationSuccessful && (
         <Topbar
           alternateView
           // title={event?.name || ''}
           title={event?.name || ''}
-        >{`${participant?.firstName}`}</Topbar>
+        >{`${participant?.firstName || ''}`}</Topbar>
       )}
       {event?.notification && (
         <div className="checkin-page__notification">{event.notification}</div>
@@ -404,6 +416,14 @@ const CheckinPage = (props: Props) => {
             space={props.space}
             participant={participant}
             tracks={availableTracks}
+          />
+        )}
+        {params?.participantReferenceId === 'register' && (
+          <ParticipantSelectSection
+            handleValidation={() => setValidationSuccessful(true)}
+            location={props.location}
+            space={props.space}
+            eventId={params?.eventId}
           />
         )}
       </div>

@@ -1,0 +1,39 @@
+.participant-select-section {
+  height: calc(100vh - var(--oak-app-layout-topbar-height));
+  margin: 0 20px;
+  display: grid;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  // margin-top: 100px;
+}
+
+.participant-select-section__item {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.participant-select-section__item__label {
+  font-size: 16px;
+}
+
+.circle-button {
+  height: 50px;
+  width: 50px;
+  // border: 2px solid #ccc;
+  border-radius: 50%;
+  align-self: center;
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-i);
+  svg {
+    height: 16px;
+  }
+}
+
+.errorText {
+  color: var(--color-failure-i);
+  font-size: 12px;
+}
