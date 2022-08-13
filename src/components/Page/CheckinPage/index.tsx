@@ -79,25 +79,43 @@ const CheckinPage = (props: Props) => {
 
   const [validationSuccessful, setValidationSuccessful] =
     useState<boolean>(false);
+  const validationSuccessfulRef = useRef(false);
   const [availableTracks, setAvailableTracks] = useState<any[]>([]);
   const [event, setEvent] = useState<EventModel>();
-  const eventRef = useRef<EventModel | null>(null);
+  const eventRef = useRef<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
+  const participantRef = useRef<ParticipantModel>();
   const [participantMap, setParticipantMap] = useState<any>({});
   const [participantList, setParticipantList] = useState<ParticipantModel[]>(
     []
   );
+  const params: {
+    eventId: string;
+    participantReferenceId: string;
+  } = useParams();
+  const paramsRef = useRef({ eventId: '', participantReferenceId: '' });
+
+  useEffect(() => {
+    eventRef.current = event;
+  }, [event]);
+
+  useEffect(() => {
+    paramsRef.current = params;
+  }, [params]);
+
+  useEffect(() => {
+    participantRef.current = participant;
+  }, [participant]);
+
+  useEffect(() => {
+    validationSuccessfulRef.current = validationSuccessful;
+  }, [validationSuccessful]);
 
   useEffect(() => {
     const query = queryString.parse(props.location.search);
     setPage(query.page || 'Home');
     setQueryParam(query);
   }, [props.location.search]);
-
-  const params: {
-    eventId: string;
-    participantReferenceId: string;
-  } = useParams();
 
   const [showAllTracks, setShowAllTracks] = useState(false);
 
@@ -132,13 +150,22 @@ const CheckinPage = (props: Props) => {
 
   const pollData = () => {
     console.log('**poll');
-    if (validationSuccessful && event && participant) {
-      refreshData();
-      fetchEventData();
+    if (
+      validationSuccessfulRef.current &&
+      eventRef.current &&
+      participantRef.current
+    ) {
+      getAvailableTracks(
+        props.space,
+        paramsRef.current.eventId,
+        participantRef.current?._id || ''
+      ).then((response: any[]) => {
+        setAvailableTracks(response);
+      });
     }
     setTimeout(() => {
       pollData();
-    }, 5000);
+    }, 300000);
   };
 
   const fetchParticipantData = () => {
