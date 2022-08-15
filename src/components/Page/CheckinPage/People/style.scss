@@ -23,12 +23,13 @@
 
 .label-list {
   position: fixed;
-  bottom: 130px;
+  bottom: 128px;
   display: flex;
   gap: 5px;
   align-items: center;
   flex-wrap: wrap;
-  padding: 0 10px;
+  padding: 10px 10px 0 10px;
+  background-color: var(--color-base-200);
   .label {
     padding: 6px 12px;
     background-color: var(--color-base-400);
@@ -43,6 +44,9 @@
   }
 }
 
+.dark .label-list {
+  background-color: var(--color-base-300);
+}
 .dark .label-list .label {
   background-color: var(--color-base-200);
   color: #fff;

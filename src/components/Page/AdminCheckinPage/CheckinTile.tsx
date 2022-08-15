@@ -43,7 +43,6 @@ interface Props {
 
 const CheckinTile = (props: Props) => {
   const dispatch = useDispatch();
-  const [showQrReader, setShowQrReader] = useState(false);
   const [checkin, setCheckin] = useState<CheckinModel>();
 
   useEffect(() => {
@@ -85,13 +84,12 @@ const CheckinTile = (props: Props) => {
 
   return (
     <>
-      {/* {showQrReader && (
+      {/* {validationSuccessful && (
         <div className="qr-scan">
           <QrReader constraints={{}} onResult={handleQrResult} />
           <div>{qrData}</div>
         </div>
       )} */}
-      {showQrReader && <div>test</div>}
       <div
         className={`admin-checkin-tile ${
           checkin ? 'admin-checkin-tile--status-active' : ''

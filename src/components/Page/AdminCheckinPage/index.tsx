@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
 import ParticipantModel from '../../../model/ParticipantModel';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
@@ -9,9 +10,8 @@ import Topbar from '../../../components/Topbar';
 import { getTracks } from './service';
 import TrackList from './TrackList';
 import ParticipantList from './ParticipantList';
-import { getParticipantList } from '../CheckinPage/service';
-import TrackModel from 'src/model/TrackModel';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getEventById, getParticipantList } from '../CheckinPage/service';
+import TrackModel from '../../../model/TrackModel';
 
 const queryString = require('query-string');
 
@@ -26,6 +26,7 @@ const AdminCheckinPage = (props: Props) => {
     code: string;
   } = useParams();
   const [queryParam, setQueryParam] = useState<any>();
+  const [validationSuccessful, setValidationSuccessful] = useState(false);
 
   useEffect(() => {
     const queryParam = queryString.parse(props.location.search);
@@ -47,7 +48,11 @@ const AdminCheckinPage = (props: Props) => {
         setParticipants(response);
       }
     );
-  }, []);
+    getEventById(props.space, params.eventId).then((response: EventModel) => {
+      console.log(response);
+      setValidationSuccessful(response?.adminKey === params.code);
+    });
+  }, [params]);
 
   return (
     <div className="admin-checkin-page">
@@ -56,7 +61,7 @@ const AdminCheckinPage = (props: Props) => {
         // title={event?.name || ''}
         title="Administrator"
       />
-      {!queryParam?.trackId && (
+      {validationSuccessful && !queryParam?.trackId && (
         <TrackList
           tracks={tracks}
           eventId={params.eventId}
@@ -65,7 +70,7 @@ const AdminCheckinPage = (props: Props) => {
           code={params.code}
         />
       )}
-      {queryParam?.trackId && (
+      {validationSuccessful && queryParam?.trackId && (
         <ParticipantList
           participants={participants}
           eventId={params.eventId}
@@ -75,6 +80,7 @@ const AdminCheckinPage = (props: Props) => {
           trackId={queryParam.trackId}
         />
       )}
+      {!validationSuccessful && <div>Unauthorized</div>}
     </div>
   );
 };

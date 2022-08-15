@@ -8,4 +8,5 @@ export default interface EventModel {
   support?: any;
   group?: any;
   home?: any;
+  adminKey?: string;
 }

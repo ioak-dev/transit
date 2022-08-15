@@ -26,7 +26,7 @@ const People = (props: Props) => {
   useEffect(() => {
     DisableContextBarCommand.next(true);
     makeLabelsList();
-  }, []);
+  }, [props.participantList]);
 
   const handleChange = (payload: any) => {
     setSearch(payload);
@@ -70,11 +70,8 @@ const People = (props: Props) => {
                 selectedLabels.includes(item.practice || ''))
             );
           })
-          .map((participant: any) => (
-            <ParticipantTile
-              participant={participant}
-              key={participant.firstName}
-            ></ParticipantTile>
+          .map((participant: ParticipantModel) => (
+            <ParticipantTile participant={participant} key={participant._id} />
           ))}
       </div>
       <div className="label-list">

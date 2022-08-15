@@ -21,7 +21,7 @@ const ParticipantTile = (props: Props) => {
         <div className="participant-tile__name">
           {props.participant.firstName} {props.participant.lastName}
         </div>
-        {props.participant.room && (
+        {props.participant.practice && (
           <div className="participant-tile__time">
             {props.participant.practice}
           </div>

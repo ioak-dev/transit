@@ -36,6 +36,7 @@ const EditEvent = (props: Props) => {
     support: '',
     group: '',
     home: '',
+    adminKey: '',
   });
 
   useEffect(() => {
@@ -121,6 +122,14 @@ const EditEvent = (props: Props) => {
           <div>
             <label>Code</label>
             <input name="code" onInput={handleChange} value={state.code} />
+          </div>
+          <div>
+            <label>Admin Key</label>
+            <input
+              name="adminKey"
+              onInput={handleChange}
+              value={state.adminKey}
+            />
           </div>
           <input type="submit" hidden />
         </form>
