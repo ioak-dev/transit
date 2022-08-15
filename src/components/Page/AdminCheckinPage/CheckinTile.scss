@@ -1,0 +1,108 @@
+.admin-checkin-tile {
+  padding: 10px 20px;
+  border-radius: 6px;
+  display: grid;
+  // grid-template-columns: 1fr 40px;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+  transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+}
+.admin-checkin-tile {
+  background-color: #5d6a76;
+  color: #fff;
+}
+.admin-checkin-tile--status-active {
+  background-color: #1596d1;
+  color: #fff;
+}
+.admin-checkin-tile--locked.admin-checkin-tile--status-active {
+  background-color: #72b7e2;
+  color: #fff;
+}
+.admin-checkin-tile--locked {
+  background-color: #858f98;
+  color: #fff;
+}
+.admin-checkin-tile--status-new {
+  background-color: #5d6a76;
+  color: #fff;
+}
+
+.dark {
+  .admin-checkin-tile {
+    background-color: #5d6a76;
+    color: #fff;
+  }
+  .admin-checkin-tile--status-active {
+    background-color: #1596d1;
+    color: #fff;
+  }
+  .admin-checkin-tile--locked.admin-checkin-tile--status-active {
+    background-color: #72b7e2;
+    color: #fff;
+  }
+  .admin-checkin-tile--locked {
+    background-color: #858f98;
+    color: #fff;
+  }
+  .admin-checkin-tile--status-new {
+    background-color: #5d6a76;
+    color: #fff;
+  }
+}
+.dark2 {
+  .admin-checkin-tile {
+    background-color: #d5dee6;
+    color: #000;
+  }
+  .admin-checkin-tile--status-active {
+    background-color: #81b19f;
+    color: #000;
+  }
+  .admin-checkin-tile--locked.admin-checkin-tile--status-active {
+    background-color: #c0d8d0;
+    color: #000;
+  }
+  .admin-checkin-tile--locked {
+    background-color: #d0bcb3;
+    color: #000;
+  }
+  .admin-checkin-tile--status-new {
+    background-color: #d5dee6;
+    color: #000;
+  }
+}
+
+.admin-checkin-tile__left__name {
+  // font-size: 18px;
+}
+
+.admin-checkin-tile__right {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+}
+
+.admin-checkin-tile__right__action {
+  font-size: 30px;
+  // &:hover {
+  //   color: var(--color-primary-i);
+  // }
+}
+
+.admin-checkin-tile__right__indicator {
+  font-size: 30px;
+}
+
+.admin-checkin-tile__right__indicator--active,
+.admin-checkin-tile__right__indicator--inactive {
+  width: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-checkin-tile__right__indicator--inactive {
+  opacity: 0.1;
+}

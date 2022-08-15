@@ -105,6 +105,10 @@ const CheckinPage = (props: Props) => {
   }, [params]);
 
   useEffect(() => {
+    setValidationSuccessful(false);
+  }, [params.participantReferenceId]);
+
+  useEffect(() => {
     participantRef.current = participant;
   }, [participant]);
 
@@ -228,6 +232,8 @@ const CheckinPage = (props: Props) => {
         'yyyy-MM-dd'
       );
       setValidationSuccessful(joiningDate === participantDate);
+    } else {
+      setValidationSuccessful(false);
     }
   }, [participant]);
 
@@ -265,36 +271,41 @@ const CheckinPage = (props: Props) => {
           : ''
       }`}
     >
-      {params?.participantReferenceId !== 'register' &&
-        (!event || !participant || validationSuccessful) && (
-          <Topbar
-            alternateView
-            // title={event?.name || ''}
-            title={page === 'Group' ? queryParam.group : page}
-            handleClick={() => goToPage('Home')}
-          >
-            {participant && event && (
-              <TopbarRightSection
-                location={props.location}
-                space={props.space}
-                participant={participant}
-                event={event}
-              />
-            )}
-          </Topbar>
-        )}
-      {!validationSuccessful && (
+      {params?.participantReferenceId !== 'register' && validationSuccessful && (
+        <Topbar
+          alternateView
+          // title={event?.name || ''}
+          title={page === 'Group' ? queryParam.group : page}
+          handleClick={() => goToPage('Home')}
+        >
+          {participant && event && (
+            <TopbarRightSection
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              event={event}
+            />
+          )}
+        </Topbar>
+      )}
+      {(params?.participantReferenceId === 'register' ||
+        !event ||
+        !participant ||
+        !validationSuccessful) && (
         <Topbar
           alternateView
           // title={event?.name || ''}
           title={event?.name || ''}
-        >{`${participant?.firstName || ''}`}</Topbar>
+        >
+          {`${participant?.firstName || ''}`}
+        </Topbar>
       )}
       {event?.notification && (
         <div className="checkin-page__notification">{event.notification}</div>
       )}
       <div className="checkin-page__main">
-        {(!page || page === 'Home') &&
+        {params?.participantReferenceId !== 'register' &&
+          (!page || page === 'Home') &&
           validationSuccessful &&
           event &&
           participant && (
@@ -307,7 +318,8 @@ const CheckinPage = (props: Props) => {
               tracks={availableTracks}
             />
           )}
-        {(!page || page === 'Schedule') &&
+        {params?.participantReferenceId !== 'register' &&
+          (!page || page === 'Schedule') &&
           validationSuccessful &&
           event &&
           participant && (
@@ -320,66 +332,91 @@ const CheckinPage = (props: Props) => {
               tracks={availableTracks}
             />
           )}
-        {page === 'Agenda' && validationSuccessful && event && participant && (
-          <Agenda
-            event={event}
-            handleChange={refreshData}
-            location={props.location}
-            space={props.space}
-            participant={participant}
-            tracks={availableTracks}
-          />
-        )}
-        {page === 'User' && validationSuccessful && event && participant && (
-          <MyDetail
-            event={event}
-            handleChange={fetchParticipantData}
-            location={props.location}
-            space={props.space}
-            participant={participant}
-            tracks={availableTracks}
-          />
-        )}
-        {page === 'People' && validationSuccessful && event && participant && (
-          <People
-            event={event}
-            location={props.location}
-            space={props.space}
-            participantList={participantList}
-            tracks={availableTracks}
-          />
-        )}
-        {page === 'Map' && validationSuccessful && event && participant && (
-          <MapSection
-            event={event}
-            handleChange={refreshData}
-            location={props.location}
-            space={props.space}
-            participant={participant}
-            tracks={availableTracks}
-          />
-        )}
-        {page === 'More' && validationSuccessful && event && participant && (
-          <MoreMenuSection
-            location={props.location}
-            space={props.space}
-            page={page}
-            goToPage={goToPage}
-            event={event}
-            participant={participant}
-          />
-        )}
-        {page === 'Help' && validationSuccessful && event && participant && (
-          <HelpSection
-            event={event}
-            handleChange={refreshData}
-            location={props.location}
-            space={props.space}
-            participant={participant}
-            tracks={availableTracks}
-          />
-        )}
-        {page === 'News Feed' &&
+        {params?.participantReferenceId !== 'register' &&
+          page === 'Agenda' &&
+          validationSuccessful &&
+          event &&
+          participant && (
+            <Agenda
+              event={event}
+              handleChange={refreshData}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+          )}
+        {params?.participantReferenceId !== 'register' &&
+          page === 'User' &&
+          validationSuccessful &&
+          event &&
+          participant && (
+            <MyDetail
+              event={event}
+              handleChange={fetchParticipantData}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+          )}
+        {params?.participantReferenceId !== 'register' &&
+          page === 'People' &&
+          validationSuccessful &&
+          event &&
+          participant && (
+            <People
+              event={event}
+              location={props.location}
+              space={props.space}
+              participantList={participantList}
+              tracks={availableTracks}
+            />
+          )}
+        {params?.participantReferenceId !== 'register' &&
+          page === 'Map' &&
+          validationSuccessful &&
+          event &&
+          participant && (
+            <MapSection
+              event={event}
+              handleChange={refreshData}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+          )}
+        {params?.participantReferenceId !== 'register' &&
+          page === 'More' &&
+          validationSuccessful &&
+          event &&
+          participant && (
+            <MoreMenuSection
+              location={props.location}
+              space={props.space}
+              page={page}
+              goToPage={goToPage}
+              event={event}
+              participant={participant}
+            />
+          )}
+        {params?.participantReferenceId !== 'register' &&
+          page === 'Help' &&
+          validationSuccessful &&
+          event &&
+          participant && (
+            <HelpSection
+              event={event}
+              handleChange={refreshData}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+          )}
+        {params?.participantReferenceId !== 'register' &&
+          page === 'News Feed' &&
           validationSuccessful &&
           event &&
           participant && (
@@ -393,7 +430,8 @@ const CheckinPage = (props: Props) => {
               participantMap={participantMap}
             />
           )}
-        {page === 'Group' &&
+        {params?.participantReferenceId !== 'register' &&
+          page === 'Group' &&
           validationSuccessful &&
           event &&
           participant &&
@@ -408,16 +446,19 @@ const CheckinPage = (props: Props) => {
               tracks={availableTracks}
             />
           )}
-        {!validationSuccessful && event && participant && (
-          <ValidateSection
-            event={event}
-            handleValidation={() => setValidationSuccessful(true)}
-            location={props.location}
-            space={props.space}
-            participant={participant}
-            tracks={availableTracks}
-          />
-        )}
+        {params?.participantReferenceId !== 'register' &&
+          !validationSuccessful &&
+          event &&
+          participant && (
+            <ValidateSection
+              event={event}
+              handleValidation={() => setValidationSuccessful(true)}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+          )}
         {params?.participantReferenceId === 'register' && (
           <ParticipantSelectSection
             handleValidation={() => setValidationSuccessful(true)}
@@ -427,7 +468,7 @@ const CheckinPage = (props: Props) => {
           />
         )}
       </div>
-      {validationSuccessful && (
+      {params?.participantReferenceId !== 'register' && validationSuccessful && (
         <div className="checkin-page__footer">
           <button
             onClick={() => goToPage('Agenda')}

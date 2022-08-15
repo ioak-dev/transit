@@ -21,6 +21,7 @@ import EditTrackPage from '../Page/EditTrackPage';
 import ManageEventPage from '../Page/ManageEventPage';
 import EditParticipantPage from '../Page/EditParticipantPage';
 import CheckinPage from '../Page/CheckinPage';
+import AdminCheckinPage from '../Page/AdminCheckinPage';
 
 interface Props {
   cookies: any;
@@ -148,6 +149,18 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={CheckinPage}
+            middleware={[]}
+          />
+        )}
+      />
+      <Route
+        path="/:space/admin-checkin/:eventId/:code"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={AdminCheckinPage}
             middleware={[]}
           />
         )}
