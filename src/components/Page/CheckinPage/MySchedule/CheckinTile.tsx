@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
-import { addDays, format } from 'date-fns';
+import { addDays, format, intervalToDuration } from 'date-fns';
 import {
   faArrowRightFromBracket,
   faCheck,
@@ -42,6 +42,25 @@ interface Props {
 const CheckinTile = (props: Props) => {
   const dispatch = useDispatch();
   const [showQrReader, setShowQrReader] = useState(false);
+  const [duration, setDuration] = useState<string>('');
+
+  useEffect(() => {
+    const interval = intervalToDuration({
+      start: new Date(props.track.from),
+      end: new Date(props.track.to),
+    });
+    let _duration = '';
+    if (interval.days && interval.days > 0) {
+      _duration += `${interval.days}d`;
+    }
+    if (interval.hours && interval.hours > 0) {
+      _duration += `${_duration ? ' ' : ''}${interval.hours}h`;
+    }
+    if (interval.minutes && interval.minutes > 0) {
+      _duration += `${_duration ? ' ' : ''}${interval.minutes}m`;
+    }
+    setDuration(_duration);
+  }, props.track);
 
   const handleCheckIn = () => {
     if (props.event.code || props.track.code) {
@@ -115,14 +134,16 @@ const CheckinTile = (props: Props) => {
       >
         <div className="checkin-tile__left">
           <div className="checkin-tile__left__name">{props.track.name}</div>
-          <div className="checkin-tile__left__time">{`${formatDateTimeText(
-            props.track.from
-          )} to ${formatDateTimeText(props.track.to)} ${
-            props.track.location ? `(${props.track.location})` : ''
-          }`}</div>
+          <div className="checkin-tile__left__schedule">
+            {props.track.location ? `(${props.track.location})` : ''} (
+            {duration})
+          </div>
           <div className="checkin-tile__left__description">
             {props.track.description}
           </div>
+          <div className="checkin-tile__left__time">{`${formatDateTimeText(
+            props.track.from
+          )}`}</div>
           {/* <div className="checkin-tile__left__location">
             {props.track.location}
           </div> */}

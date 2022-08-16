@@ -81,7 +81,12 @@
 .checkin-tile__left__description {
   font-size: 12px;
 }
-.checkin-tile__left__location {
+
+.checkin-tile__left__time {
+  margin-top: 10px;
+}
+.checkin-tile__left__schedule,
+.checkin-tile__left__time {
   font-size: 12px;
   font-weight: 600;
 }
