@@ -6,6 +6,7 @@ import EventModel from 'src/model/EventModel';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { registerIn } from '../service';
 
 interface Props {
   space: string;
@@ -36,7 +37,7 @@ const ValidateSection = (props: Props) => {
       ...state,
       [track.currentTarget.name]: track.currentTarget.value,
     });
-  };  
+  };
 
   const checkIn = () => {
     console.log(props.participant?.joiningDate, state.date);
@@ -48,6 +49,13 @@ const ValidateSection = (props: Props) => {
     console.log(participantDate, stateDate);
     if (participantDate === stateDate) {
       sessionStorage.setItem('joiningDate', stateDate);
+      registerIn(
+        props.space,
+        props.event._id || '',
+        props.participant._id || '',
+        'NA',
+        0
+      ).then((response) => {});
       props.handleValidation();
     } else {
       setshowError(!showError);
@@ -57,7 +65,6 @@ const ValidateSection = (props: Props) => {
   const hideError = () => {
     setshowError(false);
   };
-
 
   return (
     <div className="validate_section">
