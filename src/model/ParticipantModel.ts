@@ -21,4 +21,5 @@ export default interface ParticipantModel {
   startBaseOut?: Date;
   landBaseIn?: Date;
   landBaseOut?: Date;
+  distanceTravelled?: number;
 }

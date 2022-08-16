@@ -54,6 +54,8 @@ const AdminCheckinPage = (props: Props) => {
     });
   }, [params]);
 
+  const goToEventCheckin = () => {};
+
   return (
     <div className="admin-checkin-page">
       <Topbar
@@ -61,6 +63,18 @@ const AdminCheckinPage = (props: Props) => {
         // title={event?.name || ''}
         title="Administrator"
       />
+      {validationSuccessful && !queryParam?.trackId && (
+        <div className="admin-checkin-page__event">
+          <button
+            className="button track-list__item"
+            onClick={goToEventCheckin}
+          >
+            <div className="track-list__item__container">
+              <div className="track-list__item__container__name">Event</div>
+            </div>
+          </button>
+        </div>
+      )}
       {validationSuccessful && !queryParam?.trackId && (
         <TrackList
           tracks={tracks}

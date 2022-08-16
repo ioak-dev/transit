@@ -22,12 +22,18 @@
   // background-color: var(--color-base-200);
   button {
     padding: 6px 12px;
-    background-color: var(--color-base-200);
+    background-color: var(--color-base-400);
     border-radius: 6px;
     font-size: 11px;
   }
   button.active {
     background-color: var(--color-primary-100);
+  }
+}
+
+.dark .participant-list-quickfilter {
+  button {
+    background-color: var(--color-base-200);
   }
 }
 
