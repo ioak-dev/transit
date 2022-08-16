@@ -42,6 +42,8 @@
 }
 
 .errorText {
-  color: var(--color-failure-i);
+  background-color: var(--color-failure-i);
+  color: #fff;
+  padding: 0 6px;
   font-size: 12px;
 }
