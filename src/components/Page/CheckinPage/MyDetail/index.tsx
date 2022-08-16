@@ -144,55 +144,60 @@ const MyDetail = (props: Props) => {
         <div>{props.participant.travelMode || '-'}</div>
       </div>
       {props.participant.flightNoIn && (
-        <>
-          <div className="my-detail__item">
-            <div className="my-detail__item__label">Onward flight#</div>
-            <div>{props.participant.flightNoIn || '-'}</div>
+        <div className="my-detail__item">
+          <div className="my-detail__item__label">Onward flight#</div>
+          <div>{props.participant.flightNoIn || '-'}</div>
+        </div>
+      )}
+      {props.participant.startBaseIn && (
+        <div className="my-detail__item">
+          <div className="my-detail__item__label">
+            Onward {props.participant.travelMode?.toLowerCase()} departure
           </div>
-          <div className="my-detail__item">
-            <div className="my-detail__item__label">
-              Onward flight departure
-            </div>
-            <div>
-              {formatDateTimeText(
-                props.participant.startBaseIn || new Date()
-              ) || '-'}
-            </div>
+          <div>
+            {formatDateTimeText(props.participant.startBaseIn || new Date()) ||
+              '-'}
           </div>
-          <div className="my-detail__item">
-            <div className="my-detail__item__label">Onward flight arrival</div>
-            <div>
-              {formatDateTimeText(props.participant.landBaseIn || new Date()) ||
-                '-'}
-            </div>
+        </div>
+      )}
+      {props.participant.landBaseIn && (
+        <div className="my-detail__item">
+          <div className="my-detail__item__label">
+            Onward {props.participant.travelMode?.toLowerCase()} arrival
           </div>
-        </>
+          <div>
+            {formatDateTimeText(props.participant.landBaseIn || new Date()) ||
+              '-'}
+          </div>
+        </div>
       )}
       {props.participant.flightNoOut && (
-        <>
-          <div className="my-detail__item">
-            <div className="my-detail__item__label">Return flight#</div>
-            <div>{props.participant.flightNoOut || '-'}</div>
+        <div className="my-detail__item">
+          <div className="my-detail__item__label">Return flight#</div>
+          <div>{props.participant.flightNoOut || '-'}</div>
+        </div>
+      )}
+      {props.participant.startBaseOut && (
+        <div className="my-detail__item">
+          <div className="my-detail__item__label">
+            Return {props.participant.travelMode?.toLowerCase()} departure
           </div>
-          <div className="my-detail__item">
-            <div className="my-detail__item__label">
-              Return flight departure
-            </div>
-            <div>
-              {formatDateTimeText(
-                props.participant.startBaseOut || new Date()
-              ) || '-'}
-            </div>
+          <div>
+            {formatDateTimeText(props.participant.startBaseOut || new Date()) ||
+              '-'}
           </div>
-          <div className="my-detail__item">
-            <div className="my-detail__item__label">Return flight arrival</div>
-            <div>
-              {formatDateTimeText(
-                props.participant.landBaseOut || new Date()
-              ) || '-'}
-            </div>
+        </div>
+      )}
+      {props.participant.landBaseOut && (
+        <div className="my-detail__item">
+          <div className="my-detail__item__label">
+            Return {props.participant.travelMode?.toLowerCase()} arrival
           </div>
-        </>
+          <div>
+            {formatDateTimeText(props.participant.landBaseOut || new Date()) ||
+              '-'}
+          </div>
+        </div>
       )}
       {/* <img src={mapImage} alt="Location map" /> */}
     </div>
