@@ -1,35 +1,49 @@
 [
     {
+        "iconPrefix": "fas",
+        "icon": "code",
         "name": "Java",
         "caption": "Java development team",
         "description": "Our Java development team has worked on multiple projects in Java application development for frontend, backend and CMS. Java is one of the few languages that can be used for multiple purposes across all domains. But identifying and implementing the right code based on your use cases is the trick."
     },
     {
+        "iconPrefix": "fas",
+        "icon": "baseball-ball",
         "name": "Cricket",
         "caption": "Either hit a wicket or give a free hit...",
         "description": "Cricket is not a sport but a religion is India, being played in every nook & corner of the country. First cricket club was established in Calcutta in 1792!"
     },
     {
+        "iconPrefix": "fas",
+        "icon": "table-tennis",
         "name": "Badminton",
         "caption": "A bad day of badminton is better than a good day at work!",
         "description": "Badminton is the second-most played sport in India after Cricket. To succeed in Badminton, you need ‘Sindhu’ of strength and focus on your ‘Lakshya’!"
     },
     {
+        "iconPrefix": "fas",
+        "icon": "table-tennis",
         "name": "Table Tennis",
         "caption": "Play ping pong – the ultimate workout!",
         "description": ""
     },
     {
+        "iconPrefix": "fas",
+        "icon": "swimming-pool",
         "name": "Swimming",
         "caption": "Swim to Live. Live to Swim…",
         "description": "Why pool-side, have a party inside one. The only sport with no half times, no substitutions, no timeouts, and you only get 1 shot for your goal"
     },
     {
+        "iconPrefix": "fas",
+        "icon": "chess",
         "name": "Chess",
         "caption": "The blunders are all there on board, waiting to be made…",
         "description": "Chess is one of the oldest and most popular board games. For a change the objective of the game is to capture the opponent’s King & not Queen!"
     },
     {
+        "iconPrefix": "fas",
+        "icon": "coins",
         "name": "Carrom",
         "caption": "No boredom on this  board game!",
         "description": "Carrom is a tabletop game of Indian origin and is one of the world's favourite indoor board games. It’s all about flick of your finger!"
