@@ -26,7 +26,6 @@ const MediaTile = (props: Props) => {
             className="thumbnail"
             src={props.media.link}
             alt="Location map"
-            width={100}
           />
           <span onClick={downloadImage}>Download</span>
         </div>
