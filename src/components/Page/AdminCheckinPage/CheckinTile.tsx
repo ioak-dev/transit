@@ -37,7 +37,7 @@ interface Props {
   handleChange: any;
   participant: ParticipantModel;
   checkinMap: any;
-  track: TrackModel;
+  track?: TrackModel;
   eventId: string;
 }
 
@@ -59,7 +59,7 @@ const CheckinTile = (props: Props) => {
       props.space,
       props.eventId,
       props.participant._id || '',
-      props.track._id || ''
+      props.track?._id || 'NA'
     ).then((response) => {
       props.handleChange();
     });
@@ -70,7 +70,7 @@ const CheckinTile = (props: Props) => {
       props.space,
       props.eventId,
       props.participant._id || '',
-      props.track._id || ''
+      props.track?._id || 'NA'
     ).then((response) => {
       props.handleChange();
     });
@@ -103,43 +103,42 @@ const CheckinTile = (props: Props) => {
             {props.participant.referenceId}
           </div>
         </div>
-        {new Date(props.track.from) <= new Date() &&
-          new Date(props.track.to) >= new Date() && (
-            <div className="admin-checkin-tile__right">
-              {!checkin && (
-                <div className="admin-checkin-tile__right__indicator--active">
-                  <button
-                    className="button admin-checkin-tile__right__action"
-                    onClick={handleCheckIn}
-                  >
-                    <FontAwesomeIcon
-                      icon={faPersonWalkingDashedLineArrowRight}
-                    />
-                  </button>
-                </div>
-              )}
-              {checkin && !checkin.to && (
-                <div className="admin-checkin-tile__right__indicator--active">
-                  <button
-                    className="button admin-checkin-tile__right__action"
-                    onClick={handleCheckOut}
-                  >
-                    <FontAwesomeIcon icon={faArrowRightFromBracket} />
-                  </button>
-                </div>
-              )}
-              {checkin && (
-                <div className="admin-checkin-tile__right__indicator--active">
-                  <button
-                    className="button admin-checkin-tile__right__action"
-                    onClick={handleDelete}
-                  >
-                    <FontAwesomeIcon icon={faTimes} />
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+        {((new Date(props.track?.from) <= new Date() &&
+          new Date(props.track?.to) >= new Date()) ||
+          !props.track) && (
+          <div className="admin-checkin-tile__right">
+            {!checkin && (
+              <div className="admin-checkin-tile__right__indicator--active">
+                <button
+                  className="button admin-checkin-tile__right__action"
+                  onClick={handleCheckIn}
+                >
+                  <FontAwesomeIcon icon={faPersonWalkingDashedLineArrowRight} />
+                </button>
+              </div>
+            )}
+            {checkin && !checkin.to && (
+              <div className="admin-checkin-tile__right__indicator--active">
+                <button
+                  className="button admin-checkin-tile__right__action"
+                  onClick={handleCheckOut}
+                >
+                  <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                </button>
+              </div>
+            )}
+            {checkin && (
+              <div className="admin-checkin-tile__right__indicator--active">
+                <button
+                  className="button admin-checkin-tile__right__action"
+                  onClick={handleDelete}
+                >
+                  <FontAwesomeIcon icon={faTimes} />
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

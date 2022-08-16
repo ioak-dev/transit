@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
 import ParticipantModel from '../../../model/ParticipantModel';
@@ -21,6 +21,7 @@ interface Props {
 }
 
 const AdminCheckinPage = (props: Props) => {
+  const history = useHistory();
   const params: {
     eventId: string;
     code: string;
@@ -54,6 +55,12 @@ const AdminCheckinPage = (props: Props) => {
     });
   }, [params]);
 
+  const goToEventCheckin = () => {
+    history.push(
+      `/${props.space}/admin-checkin/${params.eventId}/${params.code}?trackId=NA`
+    );
+  };
+
   return (
     <div className="admin-checkin-page">
       <Topbar
@@ -61,6 +68,23 @@ const AdminCheckinPage = (props: Props) => {
         // title={event?.name || ''}
         title="Administrator"
       />
+      {validationSuccessful && !queryParam?.trackId && (
+        <div className="admin-checkin-page__event">
+          <button
+            className="button track-list__item"
+            onClick={goToEventCheckin}
+          >
+            <div className="track-list__item__container">
+              <div className="track-list__item__container__name">
+                Event attendance
+              </div>
+              <div className="track-list__item__container__description">
+                Check in and check out data for the whole event
+              </div>
+            </div>
+          </button>
+        </div>
+      )}
       {validationSuccessful && !queryParam?.trackId && (
         <TrackList
           tracks={tracks}

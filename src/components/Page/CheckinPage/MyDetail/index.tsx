@@ -88,12 +88,12 @@ const MyDetail = (props: Props) => {
         <div className="my-detail__item__label">e-mail</div>
         <div>{props.participant.email || '-'}</div>
       </div>
-      <div className="my-detail__item">
+      {/* <div className="my-detail__item">
         <div className="my-detail__item__label">Birth date</div>
         <div>
           {moment(props.participant.birthDate).format('DD-MM-YYYY') || '-'}
         </div>
-      </div>
+      </div> */}
       {/* <div className="my-detail__item">
         <div className="my-detail__item__label">Joining date</div>
         <div>{moment(props.participant.joiningDate).format("DD-MM-YYYY") || '-'}</div>
@@ -102,6 +102,21 @@ const MyDetail = (props: Props) => {
         <div className="my-detail__item">
           <div className="my-detail__item__label">Room number</div>
           <div>{props.participant.room || '-'}</div>
+        </div>
+      )}
+      {!props.participant.room && (
+        <div>
+          <label>Add Room Number</label>
+          <div className="edit_room">
+            <input name="room" onInput={handleChange} value={state.room} />
+            <button
+              className="button primary-button"
+              type="submit"
+              onClick={save}
+            >
+              <FontAwesomeIcon icon={faCheck} />
+            </button>
+          </div>
         </div>
       )}
       <div className="my-detail__item">
@@ -119,6 +134,10 @@ const MyDetail = (props: Props) => {
       <div className="my-detail__item">
         <div className="my-detail__item__label">Sports</div>
         <div>{props.participant.sports || '-'}</div>
+      </div>
+      <div className="my-detail__item">
+        <div className="my-detail__item__label">Distance travelled</div>
+        <div>{`${props.participant.distanceTravelled} km` || '-'}</div>
       </div>
       <div className="my-detail__item">
         <div className="my-detail__item__label">Travel mode</div>
@@ -174,21 +193,6 @@ const MyDetail = (props: Props) => {
             </div>
           </div>
         </>
-      )}
-      {!props.participant.room && (
-        <div>
-          <label>Add Room Number</label>
-          <div className="edit_room">
-            <input name="room" onInput={handleChange} value={state.room} />
-            <button
-              className="button primary-button"
-              type="submit"
-              onClick={save}
-            >
-              <FontAwesomeIcon icon={faCheck} />
-            </button>
-          </div>
-        </div>
       )}
       {/* <img src={mapImage} alt="Location map" /> */}
     </div>
