@@ -136,7 +136,9 @@ const MyDetail = (props: Props) => {
         <div>{props.participant.sports || '-'}</div>
       </div>
       <div className="my-detail__item">
-        <div className="my-detail__item__label">Distance travelled</div>
+        <div className="my-detail__item__label">
+          Distance traveled to reach here
+        </div>
         <div>{`${props.participant.distanceTravelled} km` || '-'}</div>
       </div>
       <div className="my-detail__item">
