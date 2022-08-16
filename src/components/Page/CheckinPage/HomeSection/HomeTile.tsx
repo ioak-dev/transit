@@ -24,10 +24,9 @@ const HomeTile = (props: Props) => {
       )}
 
       {props.content.type === 'html' && (
-        <div
-          dangerouslySetInnerHTML={{ __html: props.content.text }}
-          className="home_tile_text"
-        />
+        <div className="home_tile_text">
+          <p dangerouslySetInnerHTML={{ __html: props.content.text }}></p>
+        </div>
       )}
 
       {props.content.type === 'subtitle' && (
@@ -39,6 +38,15 @@ const HomeTile = (props: Props) => {
         <div className="home_tile_text">
           <p>{props.content.text}</p>
         </div>
+      )}
+      {props.content.type === 'practice' && (
+        <>
+          <div className="home_tile_text practice">
+            <h5>{props.content.title}</h5>
+            <img src={props.content.thumbnail} alt="Location map" />
+            <p dangerouslySetInnerHTML={{ __html: props.content.text }}></p>
+          </div>
+        </>
       )}
       {props.content.type === 'video' && (
         <div className="home_tile_video">

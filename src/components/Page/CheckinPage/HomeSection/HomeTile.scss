@@ -35,4 +35,16 @@
   video {
     border-radius: 12px;
   }
+  .practice {
+    img {
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+    h5 {
+      font-weight: 600;
+      font-size: 18px;
+      display: inline-block;
+      border-bottom: 1px dashed var(--color-primary-100);
+    }
+  }
 }

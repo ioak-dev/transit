@@ -1,0 +1,46 @@
+[
+   {
+      "type":"title",
+      "name":"Helpdesk"
+   },
+   {
+      "type":"phone",
+      "name":"Bhaskar",
+      "phone":"+91 8123 270 965"
+   },
+   {
+      "type":"phone",
+      "name":"Akshata",
+      "phone":"+91 8495 014 656"
+   },
+   {
+      "type":"title",
+      "name":"Logistics"
+   },
+   {
+      "type":"phone",
+      "name":"Pramod",
+      "subtitle":"(airport)",
+      "phone":"+91 9008 858 055"
+   },
+   {
+      "type":"phone",
+      "name":"Karteek",
+      "subtitle":"(local)",
+      "phone":"+91 9449 278 722"
+   },
+   {
+      "type":"title",
+      "name":"Sports/Cultural"
+   },
+   {
+      "type":"phone",
+      "name":"Ankit",
+      "phone":"+91 7625 010 562"
+   },
+   {
+      "type":"phone",
+      "name":"Tanu",
+      "phone":"+91 7349 370 401"
+   }
+]
