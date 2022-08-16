@@ -77,15 +77,14 @@ const QrScanner = (props: Props) => {
           />
         </div>
       )}
-      <button className="button default-button" onClick={closeOverlay}>
-        Close
-      </button>
-      <button
-        className="button primary-button"
-        onClick={() => setShowQrReader(false)}
-      >
-        Enter Code
-      </button>
+      {showQrReader && (
+        <button
+          className="button default-button"
+          onClick={() => setShowQrReader(false)}
+        >
+          Can&#39;t scan? Enter Code
+        </button>
+      )}
       {!showQrReader && (
         <>
           <input name="name" onInput={handleChange} value={state.name} />
@@ -97,6 +96,9 @@ const QrScanner = (props: Props) => {
           </button>
         </>
       )}
+      <button className="button default-button" onClick={closeOverlay}>
+        Close
+      </button>
     </div>
   );
 };
