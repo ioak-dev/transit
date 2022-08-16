@@ -35,16 +35,17 @@ const ParticipantList = (props: Props) => {
   };
 
   useEffect(() => {
-    if (props.eventId && props.trackId) {
-      refreshData();
+    if (props.eventId && props.trackId && props.trackId !== 'NA') {
       getTrackById(props.space, props.trackId).then((response: TrackModel) => {
         setTrack(response);
       });
     }
+    if (props.eventId && props.trackId) {
+      refreshData();
+    }
   }, [props.trackId, props.eventId]);
 
   const refreshData = () => {
-    console.log('((((');
     getCheckin(props.space, props.eventId, props.trackId).then(
       (response: CheckinModel[]) => {
         const _checkinMap: any = {};
@@ -76,17 +77,15 @@ const ParticipantList = (props: Props) => {
           )
           .map((item: ParticipantModel) => (
             <>
-              {track && (
-                <CheckinTile
-                  handleChange={refreshData}
-                  participant={item}
-                  space={props.space}
-                  key={item._id}
-                  checkinMap={checkinMap}
-                  eventId={props.eventId}
-                  track={track}
-                />
-              )}
+              <CheckinTile
+                handleChange={refreshData}
+                participant={item}
+                space={props.space}
+                key={item._id}
+                checkinMap={checkinMap}
+                eventId={props.eventId}
+                track={track}
+              />
             </>
           ))}
       </div>
