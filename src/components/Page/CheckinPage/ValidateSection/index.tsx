@@ -5,7 +5,12 @@ import ParticipantModel from 'src/model/ParticipantModel';
 import EventModel from 'src/model/EventModel';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faChevronRight,
+  faPhone,
+  faPhoneAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { registerIn } from '../service';
 
 interface Props {
@@ -82,6 +87,10 @@ const ValidateSection = (props: Props) => {
       <button className="circle-button" onClick={checkIn}>
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
+      <a href="tel:+91 7676755630" className="call-for-help">
+        <FontAwesomeIcon icon={faPhone} />
+        Helpdesk
+      </a>
     </div>
   );
 };

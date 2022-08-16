@@ -47,3 +47,15 @@
   padding: 0 6px;
   font-size: 12px;
 }
+
+.call-for-help {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 20px 20px 0 20px;
+  padding: 10px;
+  background-color: #cccccc80;
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+}
