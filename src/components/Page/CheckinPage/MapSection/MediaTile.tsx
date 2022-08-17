@@ -27,7 +27,7 @@ const MediaTile = (props: Props) => {
             src={props.media.link}
             alt="Location map"
           />
-          <span onClick={downloadImage}>Download</span>
+          <p onClick={downloadImage}>Download</p>
         </div>
       )}
       {/* {props.media.type === 'video' && (

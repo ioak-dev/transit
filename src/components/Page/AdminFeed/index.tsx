@@ -13,7 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import MessageList from './MessageList';
 import MessageModel from '../../../model/MessageModel';
-import { getFeedMessages, sendFeed } from './service';
+import { getFeedMessages, sendFeed, sendNotification } from './service';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Compose from './Compose';
@@ -87,7 +87,11 @@ const AdminNewsFeed = (props: Props) => {
   const handleNotify = (payload: any) => {
     console.log(payload);
     const _event = { ...event };
-    setEvent({ ...event, notification: payload.description });
+    sendNotification(props.space, params.eventId, {
+      message: payload.description,
+    }).then((response: any) => {
+      fetchEventData();
+    });
   };
 
   return (

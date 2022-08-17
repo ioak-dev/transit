@@ -30,3 +30,17 @@ export const sendFeed = (space: string, payload: any, authorization: any) => {
       return Promise.resolve({});
     });
 };
+
+export const sendNotification = (space: string, eventId: string, payload: any) => {
+  return httpPost(`/event/${space}/${eventId}/notification`, payload, {
+    headers: {},
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+    })
+    .catch((error) => {
+      return Promise.resolve({});
+    });
+};
