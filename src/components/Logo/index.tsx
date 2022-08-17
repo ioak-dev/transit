@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import './style.scss';
-import transitWhiteSmall from '../../images/transit_white_small.svg';
+import transitWhiteSmall from '../../images/logo.png';
+// import transitWhiteSmall from '../../images/transit_white_small.svg';
 import transitWhiteText from '../../images/transit_white_text.svg';
 import transitBlackSmall from '../../images/transit_black_small.svg';
 import transitBlackText from '../../images/transit_black_text.svg';

@@ -9,6 +9,9 @@
   align-content: center;
   align-items: center;
   // margin-top: 100px;
+  // Temporary change
+  padding-bottom: 160px;
+  color: #fff;
   input {
     border-color: transparent;
     color: #fff;
@@ -16,6 +19,7 @@
     height: 50px;
     font-size: 24px;
     text-align: center;
+    border-radius: 50px;
   }
 }
 
@@ -34,8 +38,11 @@
   // border: 2px solid #ccc;
   border-radius: 50%;
   align-self: center;
-  background-color: var(--color-primary-100);
-  color: var(--color-primary-i);
+  // background-color: var(--color-primary-100);
+  // color: var(--color-primary-i);
+  // Temporary change
+  background-color: #fff;
+  color: #000;
   svg {
     height: 16px;
   }
@@ -54,7 +61,9 @@
   right: 20px;
   border-radius: 20px 20px 0 20px;
   padding: 10px;
-  background-color: #cccccc80;
+  // Temporary change
+  // background-color: #cccccc80;
+  background-color: #00000080;
   display: flex;
   column-gap: 10px;
   align-items: center;

@@ -10,6 +10,7 @@
   align-items: center;
   color: #fff;
   // margin-top: 100px;
+  padding-bottom: 160px;
   input {
     border-color: transparent;
     color: #fff;
@@ -17,6 +18,7 @@
     height: 50px;
     font-size: 24px;
     text-align: center;
+    border-radius: 50px;
   }
 }
 
@@ -35,8 +37,11 @@
   // border: 2px solid #ccc;
   border-radius: 50%;
   align-self: center;
-  background-color: var(--color-primary-100);
-  color: var(--color-primary-i);
+  // background-color: var(--color-primary-100);
+  // color: var(--color-primary-i);
+  // Temporary change
+  background-color: #fff;
+  color: #000;
   svg {
     height: 16px;
   }
