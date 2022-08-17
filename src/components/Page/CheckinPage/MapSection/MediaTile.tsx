@@ -8,7 +8,6 @@ interface Props {
 }
 
 const MediaTile = (props: Props) => {
-  console.log(props.media);
   const downloadImage = () => {
     saveAs(props.media.link, props.media.link.split('/').pop()); // Put your image url here.
   };

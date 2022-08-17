@@ -103,9 +103,8 @@ const GroupSection = (props: Props) => {
               if (search === '') {
                 return item;
               } else if (
-                item.firstName
-                  .toLocaleLowerCase()
-                  .includes(search.toLowerCase())
+                item.firstName.toLowerCase().includes(search.toLowerCase()) ||
+                item.lastName.toLowerCase().includes(search.toLowerCase())
               ) {
                 return item;
               }

@@ -41,7 +41,6 @@ const People = (props: Props) => {
       console.log(_labels);
     });
     setLabels(_labels);
-    console.log(labels);
   };
 
   const selected = (label: any) => {
@@ -61,10 +60,10 @@ const People = (props: Props) => {
             return (
               (search === '' ||
                 item.firstName
-                  .toLocaleLowerCase()
+                  .toLowerCase()
                   .includes(search.toLowerCase()) ||
                 item.lastName
-                  .toLocaleLowerCase()
+                  .toLowerCase()
                   .includes(search.toLowerCase())) &&
               (selectedLabels.length === 0 ||
                 selectedLabels.includes(item.practice || ''))
