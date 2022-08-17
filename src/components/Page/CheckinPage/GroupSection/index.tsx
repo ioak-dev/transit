@@ -99,16 +99,22 @@ const GroupSection = (props: Props) => {
       {showEvents === 'Members' && (
         <div>
           {participantsByGroup
-            .filter((item) => {
-              if (search === '') {
-                return item;
-              } else if (
+            // .filter((item) => {
+            //   if (search === '') {
+            //     return item;
+            //   } else if (
+            //     item.firstName.toLowerCase().includes(search.toLowerCase()) ||
+            //     item.lastName.toLowerCase().includes(search.toLowerCase())
+            //   ) {
+            //     return item;
+            //   }
+            // })
+            .filter(
+              (item) =>
+                search === '' ||
                 item.firstName.toLowerCase().includes(search.toLowerCase()) ||
                 item.lastName.toLowerCase().includes(search.toLowerCase())
-              ) {
-                return item;
-              }
-            })
+            )
             .map((participant: any) => (
               <ParticipantTile
                 participant={participant}
