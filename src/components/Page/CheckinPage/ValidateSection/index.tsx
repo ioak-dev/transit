@@ -12,6 +12,9 @@ import {
   faPhoneAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { registerIn } from '../service';
+import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
+import { newId } from '../../../../events/MessageService';
+import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
 
 interface Props {
   space: string;
@@ -53,6 +56,8 @@ const ValidateSection = (props: Props) => {
     );
     console.log(participantDate, stateDate);
     if (participantDate === stateDate) {
+      const spinnerTaskId = newId();
+      AddSpinnerCommand.next(spinnerTaskId);
       sessionStorage.setItem('joiningDate', stateDate);
       registerIn(
         props.space,
@@ -60,7 +65,9 @@ const ValidateSection = (props: Props) => {
         props.participant._id || '',
         'NA',
         0
-      ).then((response) => {});
+      ).then((response) => {
+        RemoveSpinnerCommand.next(spinnerTaskId);
+      });
       props.handleValidation();
     } else {
       setshowError(!showError);
