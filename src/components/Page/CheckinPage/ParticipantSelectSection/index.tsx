@@ -14,6 +14,7 @@ interface Props {
   location: any;
   handleValidation: any;
   eventId: string;
+  referenceIdList: any;
 }
 
 const ParticipantSelectSection = (props: Props) => {
@@ -40,7 +41,7 @@ const ParticipantSelectSection = (props: Props) => {
   };
 
   const checkIn = () => {
-    if (state.id) {
+    if (state.id && props.referenceIdList.includes(state.id)) {
       history.push(`/${props.space}/checkin/${props.eventId}/${state.id}`);
     } else {
       setshowError(true);
@@ -54,7 +55,7 @@ const ParticipantSelectSection = (props: Props) => {
   return (
     <div className="participant-select-section">
       <div className="participant-select-section__item__label">
-        Enter your ID
+        Please enter your employee ID
       </div>
       <input
         name="id"
@@ -62,7 +63,7 @@ const ParticipantSelectSection = (props: Props) => {
         onFocus={hideError}
         value={state.id}
       />
-      {showError && <div className="errorText">Please enter your ID</div>}
+      {showError && <div className="errorText">Employee ID does not exist</div>}
       <button className="circle-button" onClick={checkIn}>
         <FontAwesomeIcon icon={faChevronRight} />
       </button>

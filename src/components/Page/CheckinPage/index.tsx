@@ -87,6 +87,7 @@ const CheckinPage = (props: Props) => {
   const [participant, setParticipant] = useState<ParticipantModel>();
   const participantRef = useRef<ParticipantModel>();
   const [participantMap, setParticipantMap] = useState<any>({});
+  const [referenceIdList, setReferenceIdList] = useState<string[]>([]);
   const [participantList, setParticipantList] = useState<ParticipantModel[]>(
     []
   );
@@ -131,8 +132,13 @@ const CheckinPage = (props: Props) => {
       availableTracks.length === 0
     ) {
       fetchParticipantData();
-      fetchParticipantList();
       fetchEventData();
+    }
+  }, [params]);
+
+  useEffect(() => {
+    if (params.eventId && availableTracks.length === 0) {
+      fetchParticipantList();
     }
   }, [params]);
 
@@ -193,18 +199,25 @@ const CheckinPage = (props: Props) => {
   };
 
   const fetchParticipantList = () => {
+    console.log('****load ');
     getParticipantList(props.space, params.eventId).then(
       (response: ParticipantModel[]) => {
-        console.log(response);
         setParticipantList(response);
+        const _referenceIdList: string[] = [];
         const _participantMap: any = {};
         response.forEach((item: ParticipantModel) => {
           _participantMap[item._id || ''] = item;
+          _referenceIdList.push(item.referenceId);
         });
         setParticipantMap(_participantMap);
+        setReferenceIdList(_referenceIdList);
       }
     );
   };
+
+  useEffect(() => {
+    console.log('participantMap', participantMap);
+  }, [participantMap]);
 
   const fetchEventData = () => {
     getEventById(props.space, params.eventId).then((response: EventModel) => {
@@ -465,6 +478,7 @@ const CheckinPage = (props: Props) => {
             location={props.location}
             space={props.space}
             eventId={params?.eventId}
+            referenceIdList={referenceIdList}
           />
         )}
       </div>
