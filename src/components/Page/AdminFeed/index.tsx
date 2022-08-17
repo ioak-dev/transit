@@ -43,6 +43,7 @@ const AdminNewsFeed = (props: Props) => {
 
   const [availableFeeds, setavailableFeeds] = useState<MessageModel[]>([]);
   const [participantMap, setParticipantMap] = useState<any>({});
+  const [validationSuccessful, setValidationSuccessful] = useState(false);
 
   const fetchFeedsData = () => {
     console.log('props.event', params.eventId);
@@ -67,6 +68,12 @@ const AdminNewsFeed = (props: Props) => {
     fetchFeedsData();
     fetchEventData();
   }, []);
+
+  useEffect(() => {
+    getEventById(props.space, params.eventId).then((response: EventModel) => {
+      setValidationSuccessful(response?.adminKey === params.code);
+    });
+  }, [params]);
 
   const fetchEventData = () => {
     getEventById(props.space, params.eventId).then((response: EventModel) => {
@@ -104,16 +111,24 @@ const AdminNewsFeed = (props: Props) => {
       {event?.notification && (
         <div className="checkin-page__notification">{event.notification}</div>
       )}
-      <div className="feed-list">
-        {availableFeeds && (
-          <MessageList
-            messages={availableFeeds}
-            participantMap={participantMap}
-            isAdminMessagePresent={true}
+      {validationSuccessful && (
+        <>
+          <div className="feed-list">
+            {availableFeeds && (
+              <MessageList
+                messages={availableFeeds}
+                participantMap={participantMap}
+                isAdminMessagePresent
+              />
+            )}
+          </div>
+          <Compose
+            handleSendFeed={handleSendFeed}
+            handleNotify={handleNotify}
           />
-        )}
-      </div>
-      <Compose handleSendFeed={handleSendFeed} handleNotify={handleNotify} />
+        </>
+      )}
+      {!validationSuccessful && <div>Unauthorized</div>}
     </>
   );
 };

@@ -50,7 +50,6 @@ const AdminCheckinPage = (props: Props) => {
       }
     );
     getEventById(props.space, params.eventId).then((response: EventModel) => {
-      console.log(response);
       setValidationSuccessful(response?.adminKey === params.code);
     });
   }, [params]);
