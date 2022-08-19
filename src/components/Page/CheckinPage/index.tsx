@@ -244,9 +244,11 @@ const CheckinPage = (props: Props) => {
         new Date(participant?.joiningDate),
         'yyyy-MM-dd'
       );
-      setValidationSuccessful(joiningDate === participantDate);
+      // setValidationSuccessful(joiningDate === participantDate);
+      setValidationSuccessful(true);
     } else {
-      setValidationSuccessful(false);
+      // setValidationSuccessful(false);
+      setValidationSuccessful(true);
     }
   }, [participant]);
 
