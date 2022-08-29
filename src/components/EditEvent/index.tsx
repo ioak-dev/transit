@@ -37,6 +37,7 @@ const EditEvent = (props: Props) => {
     group: '',
     home: '',
     adminKey: '',
+    customFields: '',
   });
 
   useEffect(() => {
@@ -91,6 +92,14 @@ const EditEvent = (props: Props) => {
               name="notification"
               onInput={handleChange}
               value={state.notification}
+            />
+          </div>
+          <div>
+            <label>Custom fields JSON (name, label, datatype)</label>
+            <textarea
+              name="customFields"
+              onInput={handleChange}
+              value={state.customFields}
             />
           </div>
           <div>
