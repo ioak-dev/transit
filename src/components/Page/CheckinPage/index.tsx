@@ -30,6 +30,7 @@ import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import Footer from '../../../components/Footer';
 import {
   getAvailableTracks,
+  getCheckinByEventIdAndParticipantId,
   getEventById,
   getParticipantById,
   getParticipantByReferenceId,
@@ -82,6 +83,7 @@ const CheckinPage = (props: Props) => {
     useState<boolean>(false);
   const validationSuccessfulRef = useRef(false);
   const [availableTracks, setAvailableTracks] = useState<any[]>([]);
+  const [checkinData, setCheckinData] = useState<any[]>([]);
   const [event, setEvent] = useState<EventModel>();
   const eventRef = useRef<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
@@ -159,6 +161,13 @@ const CheckinPage = (props: Props) => {
       participant?._id || ''
     ).then((response: any[]) => {
       setAvailableTracks(response);
+    });
+    getCheckinByEventIdAndParticipantId(
+      props.space,
+      params.eventId,
+      participant?._id || ''
+    ).then((response: any[]) => {
+      setCheckinData(response);
     });
   };
 
@@ -359,6 +368,7 @@ const CheckinPage = (props: Props) => {
               space={props.space}
               participant={participant}
               tracks={availableTracks}
+              checkinData={checkinData}
             />
           )}
         {params?.participantReferenceId !== 'register' &&

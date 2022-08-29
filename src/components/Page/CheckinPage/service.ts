@@ -53,6 +53,24 @@ export const getAvailableTracks = (
   eventId: string,
   participantId: string
 ) => {
+  return httpGet(`/checkin/${space}/${eventId}/${participantId}/track`, {
+    headers: {},
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+    })
+    .catch((error) => {
+      return Promise.resolve({});
+    });
+};
+
+export const getCheckinByEventIdAndParticipantId = (
+  space: string,
+  eventId: string,
+  participantId: string
+) => {
   return httpGet(`/checkin/${space}/${eventId}/${participantId}`, {
     headers: {},
   })
@@ -127,6 +145,23 @@ export const getEventById = (space: string, eventId: string) => {
 
 export const getParticipantsByGroup = (space: string, group: string) => {
   return httpGet(`/participant/${space}/group/${group}`, {
+    headers: {},
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+    })
+    .catch((error) => {
+      return Promise.resolve({});
+    });
+};
+
+export const getCheckinByParticipantId = (
+  space: string,
+  participantId: string
+) => {
+  return httpGet(`/participant/${space}/reference/${participantId}`, {
     headers: {},
   })
     .then((response) => {
