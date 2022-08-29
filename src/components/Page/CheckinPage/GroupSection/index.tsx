@@ -115,10 +115,10 @@ const GroupSection = (props: Props) => {
                 item.firstName.toLowerCase().includes(search.toLowerCase()) ||
                 item.lastName.toLowerCase().includes(search.toLowerCase())
             )
-            .map((participant: any) => (
+            .map((participant: ParticipantModel) => (
               <ParticipantTile
                 participant={participant}
-                key={participant.firstName}
+                key={participant._id}
               ></ParticipantTile>
             ))}
           <SearchInput
