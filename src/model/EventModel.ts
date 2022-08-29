@@ -9,5 +9,5 @@ export default interface EventModel {
   group?: any;
   home?: any;
   adminKey?: string;
-  customFields?: string;
+  customFields?: any;
 }

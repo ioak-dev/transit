@@ -52,6 +52,7 @@ import NewsFeed from './NewsFeed';
 import People from './People';
 import TopbarRightSection from './TopbarRightSection';
 import ParticipantSelectSection from './ParticipantSelectSection';
+import EventSection from './EventSection';
 
 const queryString = require('query-string');
 
@@ -431,6 +432,7 @@ const CheckinPage = (props: Props) => {
           validationSuccessful &&
           event &&
           participant && (
+            <>
             <HelpSection
               event={event}
               handleChange={refreshData}
@@ -439,6 +441,15 @@ const CheckinPage = (props: Props) => {
               participant={participant}
               tracks={availableTracks}
             />
+            <EventSection
+              event={event}
+              handleChange={refreshData}
+              location={props.location}
+              space={props.space}
+              participant={participant}
+              tracks={availableTracks}
+            />
+            </>
           )}
         {params?.participantReferenceId !== 'register' &&
           page === 'News Feed' &&
