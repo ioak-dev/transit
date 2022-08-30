@@ -30,6 +30,7 @@ interface Props {
   event: EventModel;
   tracks: any[];
   handleChange: any;
+  checkinData: any[];
 }
 
 const Agenda = (props: Props) => {
@@ -77,6 +78,9 @@ const Agenda = (props: Props) => {
             day={day}
             key={day}
             participant={props.participant}
+            checkinData={props.checkinData}
+            event={props.event}
+            handleChange={props.handleChange}
           />
         ))}
     </div>

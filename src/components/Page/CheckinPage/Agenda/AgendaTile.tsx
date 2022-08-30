@@ -1,20 +1,35 @@
 import { interval } from 'd3';
 import { intervalToDuration } from 'date-fns';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
-import EventModel from 'src/model/EventModel';
-import ParticipantModel from 'src/model/ParticipantModel';
+import React, { useEffect, useRef, useState } from 'react';
+import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
+import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
+import { newId } from '../../../../events/MessageService';
+import EventModel from '../../../../model/EventModel';
+import ParticipantModel from '../../../../model/ParticipantModel';
 import './AgendaTile.scss';
+import { registerInReg, registerOutReg } from './service';
+import { registerIn, registerOut } from '../service';
+import TrackModel from '../../../../model/TrackModel';
 
 interface Props {
   space: string;
   track: any;
   day: string;
   participant: ParticipantModel;
+  checkinData: any[];
+  event: EventModel;
+  handleChange: any;
 }
 
 const AgendaTile = (props: Props) => {
   const [duration, setDuration] = useState<string>('');
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isCheckedIn, setIsCheckedIn] = useState(false);
+  const [isCheckedOut, setIsCheckedOut] = useState(false);
+  const [isTrackStarted, setIsTrackStarted] = useState(false);
+  const [isTrackEnded, setIsTrackEnded] = useState(false);
+  const trackRef = useRef<TrackModel>();
 
   useEffect(() => {
     const interval = intervalToDuration({
@@ -32,7 +47,106 @@ const AgendaTile = (props: Props) => {
       _duration += `${_duration ? ' ' : ''}${interval.minutes}m`;
     }
     setDuration(_duration);
+    trackRef.current = props.track;
   }, props.track);
+
+  useEffect(() => {
+    refreshData();
+  }, []);
+
+  const refreshData = () => {
+    if (trackRef.current) {
+      setIsTrackStarted(!(new Date(trackRef.current.from) > new Date()));
+      setIsTrackEnded(!(new Date(props.track.to) < new Date()));
+    }
+    setTimeout(() => {
+      if (trackRef.current) {
+        setIsTrackStarted(!(new Date(trackRef.current.from) > new Date()));
+        setIsTrackEnded(!(new Date(props.track.to) < new Date()));
+      }
+      refreshData();
+    }, 1000);
+  };
+
+  useEffect(() => {
+    let _isRegistered = false;
+    let _isCheckedIn = false;
+    let _isCheckedOut = false;
+    if (props.checkinData?.length > 0) {
+      const checkin = props.checkinData.find(
+        (item: any) =>
+          item.trackId === props.track._id &&
+          item.participantId === props.participant._id
+      );
+      _isRegistered = !!checkin?.register;
+      _isCheckedIn = !!checkin?.from;
+      _isCheckedOut = !!checkin?.to;
+    }
+    setIsRegistered(_isRegistered);
+    setIsCheckedIn(_isCheckedIn);
+    setIsCheckedOut(_isCheckedOut);
+  }, [props.checkinData, props.participant, props.track]);
+
+  const handleRegIn = () => {
+    const spinnerId = newId();
+    AddSpinnerCommand.next(spinnerId);
+    registerInReg(
+      props.space,
+      props.event?._id || '',
+      props.participant?._id || '',
+      props.track._id || ''
+    ).then((response: any) => {
+      RemoveSpinnerCommand.next(spinnerId);
+      props.handleChange();
+    });
+  };
+
+  const handleRegOut = () => {
+    const spinnerId = newId();
+    AddSpinnerCommand.next(spinnerId);
+    registerOutReg(
+      props.space,
+      props.event?._id || '',
+      props.participant?._id || '',
+      props.track._id || ''
+    ).then((response: any) => {
+      RemoveSpinnerCommand.next(spinnerId);
+      props.handleChange();
+    });
+  };
+
+  const handleCheckIn = () => {
+    if (props.event.code || props.track.code) {
+      setShowQrReader(true);
+    } else {
+      const spinnerId = newId();
+      AddSpinnerCommand.next(spinnerId);
+      registerIn(
+        props.space,
+        props.event?._id || '',
+        props.participant?._id || '',
+        props.track._id || '',
+        123
+      ).then((response: any) => {
+        RemoveSpinnerCommand.next(spinnerId);
+        props.handleChange();
+      });
+    }
+  };
+
+  const handleCheckOut = () => {
+    const spinnerId = newId();
+    AddSpinnerCommand.next(spinnerId);
+    registerOut(
+      props.space,
+      props.event?._id || '',
+      props.participant?._id || '',
+      props.track._id || ''
+    ).then((response: any) => {
+      RemoveSpinnerCommand.next(spinnerId);
+      props.handleChange();
+    });
+  };
 
   return (
     <div
@@ -48,11 +162,65 @@ const AgendaTile = (props: Props) => {
       <div className="agenda-tile__description">{props.track.description}</div>
       <div className="agenda-tile__time">
         <div>
-          {moment(props.track.from).format('h:mm a')}
-          {/* {moment(props.track.from).format('h:mm a') || '-'}&nbsp;to&nbsp;
-          {moment(props.track.to).format('MMMM Do, h:mm a') || '-'} */}
+          {moment(props.track.from).format('h:mm a')} ({duration})
         </div>
-        <div>{duration}</div>
+        {/* <div>{duration}</div> */}
+      </div>
+      <div className="agenda-tile__action">
+        <div className="agenda-tile__action__labels">
+          {isRegistered && (
+            <div className="agenda-tile__action__labels__label">Registered</div>
+          )}
+          {isCheckedIn &&
+            !isCheckedOut &&
+            new Date(props.track.to) > new Date() && (
+              <div className="agenda-tile__action__labels__label">
+                Attending
+              </div>
+            )}
+          {isCheckedIn && (isCheckedOut || !isTrackEnded) && (
+            <div className="agenda-tile__action__labels__label">Attended</div>
+          )}
+        </div>
+        <div className="agenda-tile__action_actions">
+          {!isTrackStarted && !isRegistered && (
+            <button
+              className="button agenda-tile__action_actions__button agenda-tile__action_actions__button--primary"
+              onClick={handleRegIn}
+            >
+              Register
+            </button>
+          )}
+          {!isTrackStarted && isRegistered && (
+            <button
+              className="button agenda-tile__action_actions__button"
+              onClick={handleRegOut}
+            >
+              Deregister
+            </button>
+          )}
+          {new Date(props.track.from) <= new Date() &&
+            new Date(props.track.to) > new Date() &&
+            !isCheckedIn && (
+              <button
+                className="button agenda-tile__action_actions__button agenda-tile__action_actions__button--primary"
+                onClick={handleCheckIn}
+              >
+                Check in
+              </button>
+            )}
+          {new Date(props.track.from) <= new Date() &&
+            new Date(props.track.to) > new Date() &&
+            isCheckedIn &&
+            !isCheckedOut && (
+              <button
+                className="button agenda-tile__action_actions__button"
+                onClick={handleCheckOut}
+              >
+                Check out
+              </button>
+            )}
+        </div>
       </div>
     </div>
   );

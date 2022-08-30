@@ -10,6 +10,9 @@ interface Props {
   trackList: any[];
   day: string;
   participant: ParticipantModel;
+  checkinData: any[];
+  event: EventModel;
+  handleChange: any;
 }
 
 const AgendaTileGroup = (props: Props) => {
@@ -26,6 +29,9 @@ const AgendaTileGroup = (props: Props) => {
             key={track._id}
             day={props.day}
             participant={props.participant}
+            checkinData={props.checkinData}
+            event={props.event}
+            handleChange={props.handleChange}
           />
         ))}
       </div>

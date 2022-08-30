@@ -19,8 +19,6 @@ const CustomField = (props: Props) => {
     DisableContextBarCommand.next(true);
   }, []);
 
-  console.log(props.customField);
-
   return (
     <>
       {(props.customField.datatype === 'number' ||
