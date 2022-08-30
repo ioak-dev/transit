@@ -1,7 +1,7 @@
 import { interval } from 'd3';
 import { intervalToDuration } from 'date-fns';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
 import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
 import { newId } from '../../../../events/MessageService';
@@ -10,6 +10,7 @@ import ParticipantModel from '../../../../model/ParticipantModel';
 import './AgendaTile.scss';
 import { registerInReg, registerOutReg } from './service';
 import { registerIn, registerOut } from '../service';
+import TrackModel from '../../../../model/TrackModel';
 
 interface Props {
   space: string;
@@ -26,7 +27,9 @@ const AgendaTile = (props: Props) => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [isCheckedOut, setIsCheckedOut] = useState(false);
-  const [from, setFrom] = useState(new Date());
+  const [isTrackStarted, setIsTrackStarted] = useState(false);
+  const [isTrackEnded, setIsTrackEnded] = useState(false);
+  const trackRef = useRef<TrackModel>();
 
   useEffect(() => {
     const interval = intervalToDuration({
@@ -44,8 +47,26 @@ const AgendaTile = (props: Props) => {
       _duration += `${_duration ? ' ' : ''}${interval.minutes}m`;
     }
     setDuration(_duration);
-    setFrom(new Date(props.track.from));
+    trackRef.current = props.track;
   }, props.track);
+
+  useEffect(() => {
+    refreshData();
+  }, []);
+
+  const refreshData = () => {
+    if (trackRef.current) {
+      setIsTrackStarted(!(new Date(trackRef.current.from) > new Date()));
+      setIsTrackEnded(!(new Date(props.track.to) < new Date()));
+    }
+    setTimeout(() => {
+      if (trackRef.current) {
+        setIsTrackStarted(!(new Date(trackRef.current.from) > new Date()));
+        setIsTrackEnded(!(new Date(props.track.to) < new Date()));
+      }
+      refreshData();
+    }, 1000);
+  };
 
   useEffect(() => {
     let _isRegistered = false;
@@ -157,13 +178,12 @@ const AgendaTile = (props: Props) => {
                 Attending
               </div>
             )}
-          {isCheckedIn &&
-            (isCheckedOut || new Date(props.track.to) < new Date()) && (
-              <div className="agenda-tile__action__labels__label">Attended</div>
-            )}
+          {isCheckedIn && (isCheckedOut || !isTrackEnded) && (
+            <div className="agenda-tile__action__labels__label">Attended</div>
+          )}
         </div>
         <div className="agenda-tile__action_actions">
-          {new Date(props.track.from) > new Date() && !isRegistered && (
+          {!isTrackStarted && !isRegistered && (
             <button
               className="button agenda-tile__action_actions__button agenda-tile__action_actions__button--primary"
               onClick={handleRegIn}
@@ -171,7 +191,7 @@ const AgendaTile = (props: Props) => {
               Register
             </button>
           )}
-          {new Date(props.track.from) > new Date() && isRegistered && (
+          {!isTrackStarted && isRegistered && (
             <button
               className="button agenda-tile__action_actions__button"
               onClick={handleRegOut}

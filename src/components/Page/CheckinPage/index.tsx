@@ -90,6 +90,7 @@ const CheckinPage = (props: Props) => {
   const [participant, setParticipant] = useState<ParticipantModel>();
   const participantRef = useRef<ParticipantModel>();
   const [participantMap, setParticipantMap] = useState<any>({});
+  const [isCheckinDataLoaded, setIsCheckinDataLoaded] = useState(false);
   const [referenceIdList, setReferenceIdList] = useState<string[]>([]);
   const [participantList, setParticipantList] = useState<ParticipantModel[]>(
     []
@@ -169,6 +170,7 @@ const CheckinPage = (props: Props) => {
       participant?._id || ''
     ).then((response: any[]) => {
       setCheckinData(response);
+      setIsCheckinDataLoaded(true);
     });
   };
 
@@ -361,7 +363,8 @@ const CheckinPage = (props: Props) => {
           page === 'Agenda' &&
           validationSuccessful &&
           event &&
-          participant && (
+          participant &&
+          isCheckinDataLoaded && (
             <Agenda
               event={event}
               handleChange={refreshData}
@@ -433,22 +436,22 @@ const CheckinPage = (props: Props) => {
           event &&
           participant && (
             <>
-            <HelpSection
-              event={event}
-              handleChange={refreshData}
-              location={props.location}
-              space={props.space}
-              participant={participant}
-              tracks={availableTracks}
-            />
-            <EventSection
-              event={event}
-              handleChange={refreshData}
-              location={props.location}
-              space={props.space}
-              participant={participant}
-              tracks={availableTracks}
-            />
+              <HelpSection
+                event={event}
+                handleChange={refreshData}
+                location={props.location}
+                space={props.space}
+                participant={participant}
+                tracks={availableTracks}
+              />
+              <EventSection
+                event={event}
+                handleChange={refreshData}
+                location={props.location}
+                space={props.space}
+                participant={participant}
+                tracks={availableTracks}
+              />
             </>
           )}
         {params?.participantReferenceId !== 'register' &&
