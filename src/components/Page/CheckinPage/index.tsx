@@ -166,8 +166,8 @@ const CheckinPage = (props: Props) => {
       const _checkin = checkinData.find(
         (item: any) =>
           item.participantId === participant._id &&
-          item.eventIt === event._id &&
-          item.trackId === 'NA'
+          item.eventId === event._id &&
+          item.trackId === null
       );
       setIsRegistered(!!_checkin?.register);
       setIsCheckedIn(!!_checkin?.from);

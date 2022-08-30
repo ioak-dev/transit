@@ -15,6 +15,7 @@ import { registerIn } from '../service';
 import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
 import { newId } from '../../../../events/MessageService';
 import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
+import { registerInReg } from '../Agenda/service';
 
 interface Props {
   space: string;
@@ -54,35 +55,38 @@ const ValidateSection = (props: Props) => {
   };
 
   const checkIn = () => {
-    const stateDate = format(new Date(state.date), 'yyyy-MM-dd');
-    const participantDate = format(
-      new Date(props.participant?.joiningDate),
-      'yyyy-MM-dd'
-    );
-    if (participantDate === stateDate) {
-      const spinnerTaskId = newId();
-      AddSpinnerCommand.next(spinnerTaskId);
-      sessionStorage.setItem('joiningDate', stateDate);
-      registerIn(
-        props.space,
-        props.event._id || '',
-        props.participant._id || '',
-        'NA',
-        0
-      ).then((response) => {
-        RemoveSpinnerCommand.next(spinnerTaskId);
-      });
-      props.handleValidation();
-    } else {
-      setshowError(!showError);
-    }
+    const spinnerTaskId = newId();
+    AddSpinnerCommand.next(spinnerTaskId);
+    registerInReg(
+      props.space,
+      props.event._id || '',
+      props.participant._id || '',
+      'NA'
+    ).then((response) => {
+      RemoveSpinnerCommand.next(spinnerTaskId);
+    });
+    props.handleValidation();
   };
 
   const hideError = () => {
     setshowError(false);
   };
 
-  return <div className="validate-section">validate</div>;
+  return (
+    <div className="validate-section">
+      {!props.isEventStarted && !props.isRegistered && (
+        <div className="validate-section__register">
+          <div>Event details</div>
+          <button
+            className="button validate-section__register__button"
+            onClick={checkIn}
+          >
+            Register
+          </button>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default ValidateSection;
