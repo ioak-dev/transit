@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import './style.scss';
-import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
-import ParticipantModel from 'src/model/ParticipantModel';
-import EventModel from 'src/model/EventModel';
+import React, { useEffect, useRef, useState } from 'react';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,6 +7,10 @@ import {
   faPhone,
   faPhoneAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import './style.scss';
+import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
+import ParticipantModel from '../../../../model/ParticipantModel';
+import EventModel from '../../../../model/EventModel';
 import { registerIn } from '../service';
 import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
 import { newId } from '../../../../events/MessageService';
@@ -23,6 +23,12 @@ interface Props {
   event: EventModel;
   tracks: any[];
   handleValidation: any;
+  checkinData: any[];
+  isEventStarted: boolean;
+  isEventEnded: boolean;
+  isRegistered: boolean;
+  isCheckedIn: boolean;
+  isCheckedOut: boolean;
 }
 
 const ValidateSection = (props: Props) => {
@@ -48,13 +54,11 @@ const ValidateSection = (props: Props) => {
   };
 
   const checkIn = () => {
-    console.log(props.participant?.joiningDate, state.date);
     const stateDate = format(new Date(state.date), 'yyyy-MM-dd');
     const participantDate = format(
       new Date(props.participant?.joiningDate),
       'yyyy-MM-dd'
     );
-    console.log(participantDate, stateDate);
     if (participantDate === stateDate) {
       const spinnerTaskId = newId();
       AddSpinnerCommand.next(spinnerTaskId);
@@ -78,28 +82,7 @@ const ValidateSection = (props: Props) => {
     setshowError(false);
   };
 
-  return (
-    <div className="validate_section">
-      <div className="validate_section__item__label">
-        When did you join Westernacher?
-      </div>
-      <input
-        type="date"
-        name="date"
-        onInput={handleChange}
-        onFocus={hideError}
-        value={state.date}
-      />
-      {showError && <div className="errorText">Joining date is Incorrect!</div>}
-      <button className="circle-button" onClick={checkIn}>
-        <FontAwesomeIcon icon={faChevronRight} />
-      </button>
-      <a href="tel:+91 7676755630" className="call-for-help">
-        <FontAwesomeIcon icon={faPhone} />
-        Helpdesk
-      </a>
-    </div>
-  );
+  return <div className="validate-section">validate</div>;
 };
 
 export default ValidateSection;

@@ -80,9 +80,15 @@ const CheckinPage = (props: Props) => {
     | 'News Feed'
   >('Home');
 
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isCheckedIn, setIsCheckedIn] = useState(false);
+  const [isCheckedOut, setIsCheckedOut] = useState(false);
+  const [isEventStarted, setIsEventStarted] = useState(false);
+  const [isEventEnded, setIsEventEnded] = useState(false);
   const [validationSuccessful, setValidationSuccessful] =
     useState<boolean>(false);
   const validationSuccessfulRef = useRef(false);
+
   const [availableTracks, setAvailableTracks] = useState<any[]>([]);
   const [checkinData, setCheckinData] = useState<any[]>([]);
   const [event, setEvent] = useState<EventModel>();
@@ -156,6 +162,38 @@ const CheckinPage = (props: Props) => {
     }
   }, [params, participant]);
 
+  useEffect(() => {
+    if (checkinData && participant && event) {
+      const _checkin = checkinData.find(
+        (item: any) =>
+          item.participantId === participant._id &&
+          item.eventIt === event._id &&
+          item.trackId === 'NA'
+      );
+      setIsRegistered(!!_checkin?.register);
+      setIsCheckedIn(!!_checkin?.from);
+      setIsCheckedOut(!!_checkin?.to);
+    }
+  }, [checkinData, participant, event]);
+
+  useEffect(() => {
+    refreshEventStatusData();
+  }, []);
+
+  const refreshEventStatusData = () => {
+    // if (eventRef.current) {
+    //   setIsEventStarted(!(new Date(eventRef.current?.) > new Date()));
+    //   setIsEventEnded(!(new Date(eventRef.current?.to) < new Date()));
+    // }
+    // setTimeout(() => {
+    //   if (eventRef.current) {
+    //     setIsTrackStarted(!(new Date(trackRef.current.from) > new Date()));
+    //     setIsTrackEnded(!(new Date(props.track.to) < new Date()));
+    //   }
+    //   refreshEventStatusData();
+    // }, 1000);
+  };
+
   const refreshData = () => {
     getAvailableTracks(
       props.space,
@@ -175,7 +213,6 @@ const CheckinPage = (props: Props) => {
   };
 
   const pollData = () => {
-    console.log('**poll');
     if (
       validationSuccessfulRef.current &&
       eventRef.current &&
@@ -250,19 +287,14 @@ const CheckinPage = (props: Props) => {
   const [state, setState] = useState<any>({});
 
   useEffect(() => {
-    if (participant) {
-      const joiningDate = sessionStorage.getItem('joiningDate');
-      const participantDate = format(
-        new Date(participant?.joiningDate),
-        'yyyy-MM-dd'
-      );
-      // setValidationSuccessful(joiningDate === participantDate);
-      setValidationSuccessful(true);
-    } else {
-      // setValidationSuccessful(false);
-      setValidationSuccessful(true);
+    let _outcome = false;
+    if (isEventStarted && isCheckedIn) {
+      _outcome = true;
+    } else if (!isEventStarted && isRegistered) {
+      _outcome = true;
     }
-  }, [participant]);
+    setValidationSuccessful(_outcome);
+  }, [isCheckedIn, isCheckedOut, isRegistered, isEventStarted, isEventEnded]);
 
   const goToPage = (
     page:
@@ -491,11 +523,17 @@ const CheckinPage = (props: Props) => {
           participant && (
             <ValidateSection
               event={event}
-              handleValidation={() => setValidationSuccessful(true)}
               location={props.location}
               space={props.space}
               participant={participant}
               tracks={availableTracks}
+              checkinData={checkinData}
+              isEventStarted={isEventStarted}
+              isEventEnded={isEventEnded}
+              isRegistered={isRegistered}
+              isCheckedIn={isCheckedIn}
+              isCheckedOut={isCheckedOut}
+              handleValidation={() => setValidationSuccessful(true)}
             />
           )}
         {params?.participantReferenceId === 'register' && (
