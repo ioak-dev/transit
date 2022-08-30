@@ -14,6 +14,7 @@ import EventModel from '../../../../model/EventModel';
 import moment from 'moment';
 import { saveRoom } from './service';
 import { formatDateTimeText } from '../../../../components/Lib/DateUtils';
+import CustomField from './CustomField';
 // import mapImage from '../../../../assets/map.png';
 
 const queryString = require('query-string');
@@ -77,6 +78,8 @@ const MyDetail = (props: Props) => {
   const refreshData = () => {
     props.handleChange();
   };
+
+  const customFields = JSON.parse(props.event.customFields);
 
   return (
     <div className="my-detail">
@@ -202,6 +205,9 @@ const MyDetail = (props: Props) => {
         </div>
       )}
       {/* <img src={mapImage} alt="Location map" /> */}
+      {customFields?.map((customField: any) => (
+        <CustomField customField={customField} key={customField.name} />
+      ))}
     </div>
   );
 };
