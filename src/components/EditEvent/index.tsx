@@ -24,6 +24,15 @@ const EditEvent = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const getDateTimeString = (_date: Date) => {
+    console.log(_date);
+    return format(_date, "yyyy-MM-dd'T'HH:mm");
+  };
+
+  const getDateString = (_date: Date) => {
+    return format(_date, 'yyyy-MM-dd');
+  };
+
   const authorization = useSelector((state: any) => state.authorization);
   const eventList = useSelector((state: any) => state.event.items);
 
@@ -38,13 +47,25 @@ const EditEvent = (props: Props) => {
     home: '',
     adminKey: '',
     customFields: '',
+    registrationFrom: getDateTimeString(new Date()),
+    registrationTo: getDateTimeString(new Date()),
+    eventFrom: getDateTimeString(new Date()),
   });
 
   useEffect(() => {
     if (props.id && eventList) {
       const event = eventList.find((item: EventModel) => item._id === props.id);
       if (event) {
-        setState({ ...event });
+        const registrationFrom = getDateTimeString(
+          new Date(event.registrationfFom || new Date())
+        );
+        const registrationTo = getDateTimeString(
+          new Date(event.registrationTo || new Date())
+        );
+        const eventFrom = getDateTimeString(
+          new Date(event.eventFrom || new Date())
+        );
+        setState({ ...event, registrationFrom, registrationTo, eventFrom });
       }
     }
   }, [props.id, eventList]);
@@ -84,6 +105,33 @@ const EditEvent = (props: Props) => {
               name="description"
               onInput={handleChange}
               value={state.description}
+            />
+          </div>
+          <div>
+            <label>Registration open from</label>
+            <input
+              type="datetime-local"
+              name="registrationFrom"
+              onInput={handleChange}
+              value={state.registrationFrom}
+            />
+          </div>
+          <div>
+            <label>Registration open upto</label>
+            <input
+              type="datetime-local"
+              name="registrationTo"
+              onInput={handleChange}
+              value={state.registrationTo}
+            />
+          </div>
+          <div>
+            <label>Event starts from</label>
+            <input
+              type="datetime-local"
+              name="eventFrom"
+              onInput={handleChange}
+              value={state.eventFrom}
             />
           </div>
           <div>

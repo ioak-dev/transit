@@ -44,7 +44,6 @@ const EditParticipantPage = (props: Props) => {
     return format(_date, "yyyy-MM-dd'T'HH:mm");
   };
   const getDateString = (_date: Date) => {
-    console.log(_date);
     return format(_date, 'yyyy-MM-dd');
   };
 

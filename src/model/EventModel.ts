@@ -2,6 +2,9 @@ export default interface EventModel {
   _id?: string;
   name: string;
   description: string;
+  registrationFrom?: any;
+  registrationTo?: any;
+  eventFrom?: any;
   notification?: string;
   media?: any;
   code: string;

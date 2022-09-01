@@ -28,7 +28,7 @@ interface Props {
   handleValidation: any;
   checkinData: any[];
   isEventStarted: boolean;
-  isEventEnded: boolean;
+  isRegistrationOpen: boolean;
   isRegistered: boolean;
   isCheckedIn: boolean;
   isCheckedOut: boolean;
@@ -73,14 +73,14 @@ const ValidateSection = (props: Props) => {
   const hideError = () => {
     setshowError(false);
   };
-  [];
+
   return (
     <div className="validate-section">
       {!props.isEventStarted && !props.isRegistered && (
         <>
           <div className="validate-section__register">
-            <h2>Westernacher US Meet 2022</h2>
-            <h5>Registration for the event will begin shortly...!</h5>
+            <h2>{props.event.name}</h2>
+            <div>{props.event.description}</div>
             <div className="event-duration">
               <FontAwesomeIcon icon={faCalendar} />
               <p>
@@ -100,7 +100,9 @@ const ValidateSection = (props: Props) => {
             >
               Register
             </button>
-            <span className='validate_section__deadline'>Deadline: September 10th, 2022 @ 12:00PM CST</span>
+            <div className="validate_section__deadline">
+              Deadline: September 10th, 2022 @ 12:00PM CST
+            </div>
           </div>
         </>
       )}

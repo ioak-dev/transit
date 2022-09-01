@@ -83,7 +83,7 @@ const CheckinPage = (props: Props) => {
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [isCheckedOut, setIsCheckedOut] = useState(false);
   const [isEventStarted, setIsEventStarted] = useState(false);
-  const [isEventEnded, setIsEventEnded] = useState(false);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const [validationSuccessful, setValidationSuccessful] =
     useState<boolean>(false);
   const validationSuccessfulRef = useRef(false);
@@ -172,6 +172,9 @@ const CheckinPage = (props: Props) => {
       setIsRegistered(!!_checkin?.register);
       setIsCheckedIn(!!_checkin?.from);
       setIsCheckedOut(!!_checkin?.to);
+      setIsRegistrationOpen(
+        event.registrationFrom < new Date() && event.registrationTo > new Date()
+      );
     }
   }, [checkinData, participant, event]);
 
@@ -182,7 +185,7 @@ const CheckinPage = (props: Props) => {
   const refreshEventStatusData = () => {
     // if (eventRef.current) {
     //   setIsEventStarted(!(new Date(eventRef.current?.) > new Date()));
-    //   setIsEventEnded(!(new Date(eventRef.current?.to) < new Date()));
+    //   setIsRegistrationOpen(!(new Date(eventRef.current?.to) < new Date()));
     // }
     // setTimeout(() => {
     //   if (eventRef.current) {
@@ -287,13 +290,19 @@ const CheckinPage = (props: Props) => {
 
   useEffect(() => {
     let _outcome = false;
-    if (isEventStarted && isCheckedIn) {
+    if (isCheckedIn) {
       _outcome = true;
     } else if (!isEventStarted && isRegistered) {
       _outcome = true;
     }
     setValidationSuccessful(_outcome);
-  }, [isCheckedIn, isCheckedOut, isRegistered, isEventStarted, isEventEnded]);
+  }, [
+    isCheckedIn,
+    isCheckedOut,
+    isRegistered,
+    isEventStarted,
+    isRegistrationOpen,
+  ]);
 
   const goToPage = (
     page:
@@ -518,7 +527,7 @@ const CheckinPage = (props: Props) => {
               tracks={availableTracks}
               checkinData={checkinData}
               isEventStarted={isEventStarted}
-              isEventEnded={isEventEnded}
+              isRegistrationOpen={isRegistrationOpen}
               isRegistered={isRegistered}
               isCheckedIn={isCheckedIn}
               isCheckedOut={isCheckedOut}
