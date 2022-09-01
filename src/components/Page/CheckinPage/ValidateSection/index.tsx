@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faCalendar,
   faCheck,
   faChevronRight,
+  faLocationDot,
   faPhone,
   faPhoneAlt,
 } from '@fortawesome/free-solid-svg-icons';
@@ -71,19 +73,36 @@ const ValidateSection = (props: Props) => {
   const hideError = () => {
     setshowError(false);
   };
-
+  [];
   return (
     <div className="validate-section">
       {!props.isEventStarted && !props.isRegistered && (
-        <div className="validate-section__register">
-          <div>Event details</div>
-          <button
-            className="button validate-section__register__button"
-            onClick={checkIn}
-          >
-            Register
-          </button>
-        </div>
+        <>
+          <div className="validate-section__register">
+            <h2>Westernacher US Meet 2022</h2>
+            <h5>Registration for the event will begin shortly...!</h5>
+            <div className="event-duration">
+              <FontAwesomeIcon icon={faCalendar} />
+              <p>
+                01-09-2022 <b>to</b> 15-09-2022
+              </p>
+            </div>
+            <div className="event-duration">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <p>
+                <b>Lorem Ipsum</b> <br />
+                Lorem ipsum dolor sit amet
+              </p>
+            </div>
+            <button
+              className="button validate-section__register__button"
+              onClick={checkIn}
+            >
+              Register
+            </button>
+            <span className='validate_section__deadline'>Deadline: September 10th, 2022 @ 12:00PM CST</span>
+          </div>
+        </>
       )}
     </div>
   );

@@ -23,6 +23,39 @@
   }
 }
 
+.validate-section__register {
+  margin: 20px 20px;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
+  color: var(--color-primary-i);
+  h2 {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 1.33;
+  }
+  h5 {
+    font-size: 24px;
+  }
+  .event-duration {
+    display: grid;
+    grid-template-columns: 30px auto;
+    align-items: center;
+    column-gap: 10px;
+    svg {
+      color: var(--color-primary-100);
+      font-size: 30px;
+    }
+  }
+  .validate_section__deadline {
+    font-size: 10px;
+    font-style: italic;
+    text-align: center;
+    margin: -15px 0 0;
+  }
+}
+
+
 .validate_section__item {
   display: grid;
   grid-auto-flow: row;
