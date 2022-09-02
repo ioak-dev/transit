@@ -37,10 +37,11 @@ const CustomField = (props: Props) => {
             {props.customField.label}
           </div>
           <div>
-            {formatDateText(
-              props.participant?.customFields[props.customField.name] ||
-                new Date()
-            ) || '-'}
+            {props.participant?.customFields[props.customField.name]
+              ? formatDateText(
+                  props.participant?.customFields[props.customField.name]
+                )
+              : '-'}
           </div>
         </div>
       )}
@@ -50,10 +51,11 @@ const CustomField = (props: Props) => {
             {props.customField.label}
           </div>
           <div>
-            {formatDateTimeText(
-              props.participant?.customFields[props.customField.name] ||
-                new Date()
-            ) || '-'}
+            {props.participant?.customFields[props.customField.name]
+              ? formatDateTimeText(
+                  props.participant?.customFields[props.customField.name]
+                )
+              : '-'}
           </div>
         </div>
       )}

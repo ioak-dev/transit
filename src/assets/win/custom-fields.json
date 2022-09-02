@@ -13,5 +13,15 @@
     "name": "hotelCheckOut",
     "datatype": "date",
     "label": "Hotel check out"
+  },
+  {
+    "name": "flightArrivalTime",
+    "datatype": "datetime",
+    "label": "Flight arrival time"
+  },
+  {
+    "name": "flightDepartureTime",
+    "datatype": "datetime",
+    "label": "Flight departure time"
   }
 ]
