@@ -119,7 +119,7 @@ const AgendaTile = (props: Props) => {
 
   const handleCheckIn = () => {
     if (props.event.code || props.track.code) {
-      setShowQrReader(true);
+      // setShowQrReader(true);
     } else {
       const spinnerId = newId();
       AddSpinnerCommand.next(spinnerId);

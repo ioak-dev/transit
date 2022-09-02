@@ -29,6 +29,7 @@ interface Props {
   tracks: any[];
   handleChange: any;
   group: string;
+  checkinData: any[];
 }
 
 const GroupSection = (props: Props) => {
@@ -137,6 +138,9 @@ const GroupSection = (props: Props) => {
               key={item._id}
               day={''}
               participant={props.participant}
+              checkinData={props.checkinData}
+              event={props.event}
+              handleChange={props.handleChange}
             />
           ))}
       {showEvents === 'About' && <div>{groupDetail?.description}</div>}
