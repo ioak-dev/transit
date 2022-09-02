@@ -113,24 +113,24 @@ const CheckinTile = (props: Props) => {
                   className="button admin-checkin-tile__right__action"
                   onClick={handleCheckIn}
                 >
-                  <FontAwesomeIcon icon={faPersonWalkingDashedLineArrowRight} />
+                  Check in
                 </button>
               </div>
             )}
             {checkin && !checkin.to && (
               <div className="admin-checkin-tile__right__indicator--active">
                 <button
-                  className="button admin-checkin-tile__right__action"
+                  className="button admin-checkin-tile__right__action admin-checkin-tile__right__action--checkout"
                   onClick={handleCheckOut}
                 >
-                  <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                  Check out
                 </button>
               </div>
             )}
             {checkin && (
               <div className="admin-checkin-tile__right__indicator--active">
                 <button
-                  className="button admin-checkin-tile__right__action"
+                  className="button admin-checkin-tile__right__action admin-checkin-tile__right__action--delete"
                   onClick={handleDelete}
                 >
                   <FontAwesomeIcon icon={faTimes} />

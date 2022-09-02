@@ -5,4 +5,5 @@ export default interface CheckinModel {
   trackId: string;
   from?: Date;
   to?: Date;
+  register?: Date;
 }

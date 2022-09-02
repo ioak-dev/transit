@@ -11,6 +11,8 @@ import './AgendaTile.scss';
 import { registerInReg, registerOutReg } from './service';
 import { registerIn, registerOut } from '../service';
 import TrackModel from '../../../../model/TrackModel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRss } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   space: string;
@@ -158,6 +160,17 @@ const AgendaTile = (props: Props) => {
       }`}
       key={props.track._id}
     >
+      {new Date(props.track.from) <= new Date() &&
+        new Date(props.track.to) > new Date() && (
+          <div className="agenda-tile__live">
+            <div className="agenda-tile__live__container">
+              <div>
+                <FontAwesomeIcon icon={faRss} />
+              </div>
+              <div>LIVE</div>
+            </div>
+          </div>
+        )}
       <div className="agenda-tile__name">{props.track.name}</div>
       <div className="agenda-tile__description">{props.track.description}</div>
       <div className="agenda-tile__time">

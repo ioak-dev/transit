@@ -25,10 +25,12 @@ interface Props {
 const ParticipantList = (props: Props) => {
   const history = useHistory();
   const [checkinMap, setCheckinMap] = useState<any>({});
-  const [isIn, setIsIn] = useState(false);
-  const [isNotIn, setIsNotIn] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isAttended, setIsAttended] = useState(false);
   const [searchText, setSearchText] = useState<string>('');
   const [track, setTrack] = useState<TrackModel>();
+  const [registered, setRegistered] = useState(0);
+  const [attended, setAttended] = useState(0);
 
   const handleChange = (event: any) => {
     setSearchText(event.currentTarget.value);
@@ -49,9 +51,19 @@ const ParticipantList = (props: Props) => {
     getCheckin(props.space, props.eventId, props.trackId).then(
       (response: CheckinModel[]) => {
         const _checkinMap: any = {};
+        let _registered = 0;
+        let _attended = 0;
         response.forEach((item) => {
           _checkinMap[item.participantId] = item;
+          if (item.register) {
+            _registered += 1;
+          }
+          if (item.from) {
+            _attended += 1;
+          }
         });
+        setRegistered(_registered);
+        setAttended(_attended);
         setCheckinMap(_checkinMap);
       }
     );
@@ -70,10 +82,10 @@ const ParticipantList = (props: Props) => {
           )
           .filter(
             (item) =>
-              (!isIn && !isNotIn) ||
-              (isIn && isNotIn) ||
-              (isIn && checkinMap[item._id || '']) ||
-              (isNotIn && !checkinMap[item._id || ''])
+              (!isRegistered && !isAttended) ||
+              (isRegistered && isAttended) ||
+              (isRegistered && checkinMap[item._id || '']?.register) ||
+              (isAttended && checkinMap[item._id || '']?.from)
           )
           .map((item: ParticipantModel) => (
             <>
@@ -92,19 +104,18 @@ const ParticipantList = (props: Props) => {
       <div className="participant-list-quickfilter">
         <div>
           <button
-            className={`button ${isIn ? 'active' : ''}`}
-            onClick={() => setIsIn(!isIn)}
+            className={`button ${isRegistered ? 'active' : ''}`}
+            onClick={() => setIsRegistered(!isRegistered)}
           >
-            IN ({Object.keys(checkinMap).length})
+            Registered ({registered})
           </button>
         </div>
         <div>
           <button
-            className={`button ${isNotIn ? 'active' : ''}`}
-            onClick={() => setIsNotIn(!isNotIn)}
+            className={`button ${isAttended ? 'active' : ''}`}
+            onClick={() => setIsAttended(!isAttended)}
           >
-            NOT IN ({props.participants.length - Object.keys(checkinMap).length}
-            )
+            Attended ({attended})
           </button>
         </div>
       </div>

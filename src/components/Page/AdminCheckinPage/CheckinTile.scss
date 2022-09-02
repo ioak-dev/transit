@@ -82,23 +82,34 @@
 .admin-checkin-tile__right {
   display: grid;
   grid-auto-flow: column;
-  column-gap: 20px;
+  column-gap: 12px;
 }
 
 .admin-checkin-tile__right__action {
-  font-size: 30px;
+  font-size: 14px;
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-i);
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 4px;
   // &:hover {
   //   color: var(--color-primary-i);
   // }
 }
+.admin-checkin-tile__right__action--checkout {
+  background-color: #ffffff50;
+}
+.admin-checkin-tile__right__action--delete {
+  background-color: var(--color-failure-i);
+}
 
 .admin-checkin-tile__right__indicator {
-  font-size: 30px;
+  // font-size: 30px;
 }
 
 .admin-checkin-tile__right__indicator--active,
 .admin-checkin-tile__right__indicator--inactive {
-  width: 30px;
+  // width: 30px;
   display: flex;
   justify-content: center;
 }

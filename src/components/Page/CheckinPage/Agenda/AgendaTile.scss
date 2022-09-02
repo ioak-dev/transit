@@ -85,3 +85,39 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+.agenda-tile__live {
+  display: grid;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+}
+
+.agenda-tile__live__container {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  background-color: #cfba60;
+  color: #000;
+  padding: 0 10px;
+  border-radius: 4px;
+  align-items: center;
+  align-content: center;
+  font-size: 12px;
+  opacity: 0.1;
+  animation-name: appear_disappear;
+  animation-duration: 2s; /* or: Xms */
+  animation-iteration-count: infinite;
+  animation-direction: alternate; /* or: normal */
+  animation-timing-function: ease-in-out; /* or: ease, ease-in, ease-in-out, linear, cubic-bezier(x1, y1, x2, y2) */
+  animation-fill-mode: forwards;
+}
+
+@keyframes appear_disappear {
+  0% {
+    opacity: 0.1;
+  }
+  0% {
+    opacity: 1;
+  }
+}

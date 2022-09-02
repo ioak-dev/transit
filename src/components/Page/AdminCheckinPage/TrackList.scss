@@ -11,7 +11,8 @@
 .dark .track-list__item {
   background-color: var(--color-base-200);
 }
-.track-list__item--active {
+.track-list__item--active,
+.dark .track-list__item--active {
   background-color: var(--color-primary-100);
 }
 .track-list__item__container {
