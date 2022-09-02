@@ -59,7 +59,7 @@ const EditEvent = (props: Props) => {
       const event = eventList.find((item: EventModel) => item._id === props.id);
       if (event) {
         const registrationFrom = getDateTimeString(
-          new Date(event.registrationfFom || new Date())
+          new Date(event.registrationFrom || new Date())
         );
         const registrationTo = getDateTimeString(
           new Date(event.registrationTo || new Date())

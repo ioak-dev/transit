@@ -173,7 +173,8 @@ const CheckinPage = (props: Props) => {
       setIsCheckedIn(!!_checkin?.from);
       setIsCheckedOut(!!_checkin?.to);
       setIsRegistrationOpen(
-        event.registrationFrom < new Date() && event.registrationTo > new Date()
+        new Date(event.registrationFrom) < new Date() &&
+          new Date(event.registrationTo) > new Date()
       );
     }
   }, [checkinData, participant, event]);
