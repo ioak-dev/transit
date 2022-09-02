@@ -18,6 +18,7 @@ import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
 import { newId } from '../../../../events/MessageService';
 import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
 import { registerInReg } from '../Agenda/service';
+import { formatDateTimeText } from '../../../../components/Lib/DateUtils';
 
 interface Props {
   space: string;
@@ -93,18 +94,22 @@ const ValidateSection = (props: Props) => {
     <div className="validate-section">
       <div className="validate-section__register">
         <h2>{props.event.name}</h2>
-        <div>{props.event.description}</div>
+        <h5>{props.event.description}</h5>
         <div className="event-duration">
-          <FontAwesomeIcon icon={faCalendar} />
-          <p>
-            01-09-2022 <b>to</b> 15-09-2022
-          </p>
-        </div>
-        <div className="event-duration">
-          <FontAwesomeIcon icon={faLocationDot} />
-          <div>
-            <div>{props.event.venueTitle}</div>
-            <div>{props.event.venueDescription}</div>
+          <div className="event-duration-content">
+            <FontAwesomeIcon icon={faCalendar} />
+            <p>{formatDateTimeText(props.event.eventFrom)}</p>
+          </div>
+          <div className="event-duration-content">
+            <FontAwesomeIcon icon={faLocationDot} />
+            <div>
+              <div className="validate-section__venuetitle">
+                {props.event.venueTitle}
+              </div>
+              <div className="validate-section__venuedesc">
+                {props.event.venueDescription}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -117,12 +122,18 @@ const ValidateSection = (props: Props) => {
           >
             Register
           </button>
-          <div className="validate_section__deadline">
-            Registration open from date
-          </div>
-          <div className="validate_section__deadline">
-            Registration closes by date
-          </div>
+          {!props.isRegistrationOpen && (
+            <div className="validate_section__deadline">
+              Registration opens from &nbsp;
+              {formatDateTimeText(props.event.registrationFrom)}
+            </div>
+          )}
+          {props.isRegistrationOpen && (
+            <div className="validate_section__deadline">
+              Registration closes by &nbsp;
+              {formatDateTimeText(props.event.registrationTo)}
+            </div>
+          )}
         </div>
       )}
       {props.isEventStarted && !props.isCheckedIn && (

@@ -161,7 +161,13 @@ const CheckinPage = (props: Props) => {
     }
   }, [params, participant]);
 
+  const getDateTimeString = (_date: Date) => {
+    console.log(_date);
+    return format(_date, "yyyy-MM-dd'T'HH:mm");
+  };
+
   useEffect(() => {
+    const today = getDateTimeString(new Date());
     if (checkinData && participant && event) {
       const _checkin = checkinData.find(
         (item: any) =>
@@ -173,7 +179,7 @@ const CheckinPage = (props: Props) => {
       setIsCheckedIn(!!_checkin?.from);
       setIsCheckedOut(!!_checkin?.to);
       setIsRegistrationOpen(
-        event.registrationFrom < new Date() && event.registrationTo > new Date()
+        event.registrationFrom < today && event.registrationTo > today
       );
     }
   }, [checkinData, participant, event]);
@@ -513,6 +519,7 @@ const CheckinPage = (props: Props) => {
               space={props.space}
               participant={participant}
               tracks={availableTracks}
+              checkinData={checkinData}
             />
           )}
         {params?.participantReferenceId !== 'register' &&
