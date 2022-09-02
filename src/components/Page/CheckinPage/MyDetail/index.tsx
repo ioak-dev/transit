@@ -13,7 +13,11 @@ import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActi
 import EventModel from '../../../../model/EventModel';
 import moment from 'moment';
 import { saveRoom } from './service';
-import { formatDateTimeText } from '../../../../components/Lib/DateUtils';
+import {
+  formatDate,
+  formatDateText,
+  formatDateTimeText,
+} from '../../../../components/Lib/DateUtils';
 import CustomField from './CustomField';
 // import mapImage from '../../../../assets/map.png';
 
@@ -91,12 +95,14 @@ const MyDetail = (props: Props) => {
         <div className="my-detail__item__label">e-mail</div>
         <div>{props.participant.email || '-'}</div>
       </div>
-      {/* <div className="my-detail__item">
+      <div className="my-detail__item">
         <div className="my-detail__item__label">Birth date</div>
         <div>
-          {moment(props.participant.birthDate).format('DD-MM-YYYY') || '-'}
+          {props.participant.birthDate
+            ? formatDateText(props.participant.birthDate)
+            : '-'}
         </div>
-      </div> */}
+      </div>
       {/* <div className="my-detail__item">
         <div className="my-detail__item__label">Joining date</div>
         <div>{moment(props.participant.joiningDate).format("DD-MM-YYYY") || '-'}</div>
@@ -126,87 +132,12 @@ const MyDetail = (props: Props) => {
         <div className="my-detail__item__label">Practice</div>
         <div>{props.participant.practice || '-'}</div>
       </div>
-      <div className="my-detail__item">
-        <div className="my-detail__item__label">Food preference</div>
-        <div>{props.participant.food || '-'}</div>
-      </div>
-      <div className="my-detail__item">
-        <div className="my-detail__item__label">Drink preference</div>
-        <div>{props.participant.drink || '-'}</div>
-      </div>
-      <div className="my-detail__item">
-        <div className="my-detail__item__label">Sports</div>
-        <div>{props.participant.sports || '-'}</div>
-      </div>
-      <div className="my-detail__item">
-        <div className="my-detail__item__label">
-          Distance traveled to reach here
-        </div>
-        <div>{`${props.participant.distanceTravelled} km` || '-'}</div>
-      </div>
-      <div className="my-detail__item">
-        <div className="my-detail__item__label">Travel mode</div>
-        <div>{props.participant.travelMode || '-'}</div>
-      </div>
-      {props.participant.flightNoIn && (
-        <div className="my-detail__item">
-          <div className="my-detail__item__label">Onward flight#</div>
-          <div>{props.participant.flightNoIn || '-'}</div>
-        </div>
-      )}
-      {props.participant.startBaseIn && (
-        <div className="my-detail__item">
-          <div className="my-detail__item__label">
-            Onward {props.participant.travelMode?.toLowerCase()} departure
-          </div>
-          <div>
-            {formatDateTimeText(props.participant.startBaseIn || new Date()) ||
-              '-'}
-          </div>
-        </div>
-      )}
-      {props.participant.landBaseIn && (
-        <div className="my-detail__item">
-          <div className="my-detail__item__label">
-            Onward {props.participant.travelMode?.toLowerCase()} arrival
-          </div>
-          <div>
-            {formatDateTimeText(props.participant.landBaseIn || new Date()) ||
-              '-'}
-          </div>
-        </div>
-      )}
-      {props.participant.flightNoOut && (
-        <div className="my-detail__item">
-          <div className="my-detail__item__label">Return flight#</div>
-          <div>{props.participant.flightNoOut || '-'}</div>
-        </div>
-      )}
-      {props.participant.startBaseOut && (
-        <div className="my-detail__item">
-          <div className="my-detail__item__label">
-            Return {props.participant.travelMode?.toLowerCase()} departure
-          </div>
-          <div>
-            {formatDateTimeText(props.participant.startBaseOut || new Date()) ||
-              '-'}
-          </div>
-        </div>
-      )}
-      {props.participant.landBaseOut && (
-        <div className="my-detail__item">
-          <div className="my-detail__item__label">
-            Return {props.participant.travelMode?.toLowerCase()} arrival
-          </div>
-          <div>
-            {formatDateTimeText(props.participant.landBaseOut || new Date()) ||
-              '-'}
-          </div>
-        </div>
-      )}
-      {/* <img src={mapImage} alt="Location map" /> */}
       {customFields?.map((customField: any) => (
-        <CustomField customField={customField} key={customField.name} />
+        <CustomField
+          customField={customField}
+          key={customField.name}
+          participant={props.participant}
+        />
       ))}
     </div>
   );

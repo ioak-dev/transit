@@ -1,47 +1,17 @@
 [
-    {
-        "name": "567",
-        "datatype": "number",
-        "label": "Distance travelled"
-    },
-    {
-        "name": "drink",
-        "datatype": "string",
-        "label": "Soft drink"
-    },
-    {
-        "name": "Non-Veg",
-        "datatype": "string",
-        "label": "Food"
-    },
-    {
-        "name": 202208180900,
-        "datatype": "date",
-        "label": "Land Base-In"
-    },
-    {
-        "name": 202208211200,
-        "datatype": "date",
-        "label": "Land Base-Out"
-    },
-    {
-        "name": "Cricket",
-        "datatype": "string",
-        "label": "Sports"
-    },
-    {
-        "name": 202208180700,
-        "datatype": "date",
-        "label": "Start Base-In"
-    },
-    {
-        "name": 202208211000,
-        "datatype": "date",
-        "label": "Start Base-Out"
-    },
-    {
-        "name": "Cab",
-        "datatype": "string",
-        "label": "Travel Mode"
-    }
+  {
+    "name": "hotelConfirmationNumber",
+    "datatype": "number",
+    "label": "Hotel confirmation#"
+  },
+  {
+    "name": "hotelCheckIn",
+    "datatype": "date",
+    "label": "Hotel check in"
+  },
+  {
+    "name": "hotelCheckOut",
+    "datatype": "date",
+    "label": "Hotel check out"
+  }
 ]

@@ -6,12 +6,13 @@ import EventModel from 'src/model/EventModel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
-import { formatDateTimeText } from '../../../Lib/DateUtils';
+import { formatDateText, formatDateTimeText } from '../../../Lib/DateUtils';
 
 const queryString = require('query-string');
 
 interface Props {
   customField: any;
+  participant: ParticipantModel;
 }
 
 const CustomField = (props: Props) => {
@@ -27,7 +28,7 @@ const CustomField = (props: Props) => {
           <div className="my-detail__item__label">
             {props.customField.label}
           </div>
-          <div>{props.customField.name}</div>
+          <div>{props.participant?.customFields[props.customField.name]}</div>
         </div>
       )}
       {props.customField.datatype === 'date' && (
@@ -36,8 +37,23 @@ const CustomField = (props: Props) => {
             {props.customField.label}
           </div>
           <div>
-            {/* {formatDateTimeText(props.customField.name || new Date()) || '-'} */}
-            {moment(props.customField.name).format('MMMM Do, h:mm a') || '-'}
+            {formatDateText(
+              props.participant?.customFields[props.customField.name] ||
+                new Date()
+            ) || '-'}
+          </div>
+        </div>
+      )}
+      {props.customField.datatype === 'datetime' && (
+        <div className="my-detail__item">
+          <div className="my-detail__item__label">
+            {props.customField.label}
+          </div>
+          <div>
+            {formatDateTimeText(
+              props.participant?.customFields[props.customField.name] ||
+                new Date()
+            ) || '-'}
           </div>
         </div>
       )}

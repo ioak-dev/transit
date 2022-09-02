@@ -22,4 +22,5 @@ export default interface ParticipantModel {
   landBaseIn?: Date;
   landBaseOut?: Date;
   distanceTravelled?: number;
+  customFields?: any;
 }

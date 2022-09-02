@@ -16,6 +16,7 @@ import {
   faMapPin,
   faMessage,
   faPeopleGroup,
+  faPerson,
   faPlus,
   faQuestion,
   faTimes,
@@ -569,21 +570,6 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
-            onClick={() => goToPage('Schedule')}
-            className={`button checkin-page__footer__button ${
-              !page || page === 'Schedule'
-                ? 'checkin-page__footer__button--active'
-                : ''
-            }`}
-          >
-            <div className="checkin-page__footer__button__label">
-              <FontAwesomeIcon icon={faCalendarCheck} />
-              <div className="checkin-page__footer__button__label__text">
-                My Schedule
-              </div>
-            </div>
-          </button>
-          <button
             onClick={() => goToPage('People')}
             className={`button checkin-page__footer__button ${
               page === 'People' ? 'checkin-page__footer__button--active' : ''
@@ -613,11 +599,24 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
+            onClick={() => goToPage('User')}
+            className={`button checkin-page__footer__button ${
+              !page || page === 'User'
+                ? 'checkin-page__footer__button--active'
+                : ''
+            }`}
+          >
+            <div className="checkin-page__footer__button__label">
+              <FontAwesomeIcon icon={faUser} />
+              <div className="checkin-page__footer__button__label__text">
+                My detail
+              </div>
+            </div>
+          </button>
+          <button
             onClick={() => goToPage('More')}
             className={`button checkin-page__footer__button ${
-              ['Help', 'More', 'Group', 'User', 'Home', 'News Feed'].includes(
-                page
-              )
+              ['Help', 'More', 'Group', 'Home', 'News Feed'].includes(page)
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}
