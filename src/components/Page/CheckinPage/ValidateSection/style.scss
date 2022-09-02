@@ -29,6 +29,7 @@
   grid-auto-flow: row;
   // row-gap: 20px;
   color: var(--color-primary-i);
+  justify-content: center;
   h2 {
     font-weight: bold;
     font-size: 36px;
@@ -43,16 +44,17 @@
     align-items: center;
     column-gap: 10px;
     svg {
-      color: var(--color-primary-100);
+      color: #cfba60;
       font-size: 30px;
     }
   }
-  .validate_section__deadline {
-    font-size: 10px;
-    font-style: italic;
-    text-align: center;
-    // margin: -15px 0 0;
-  }
+}
+
+.validate_section__deadline {
+  font-size: 10px;
+  font-style: italic;
+  text-align: center;
+  // margin: -15px 0 0;
 }
 
 .validate_section__item {
@@ -101,11 +103,19 @@
   align-items: center;
 }
 
-.validate-section__register__button {
+.validate-section__action__button {
   background-color: var(--color-primary-100);
   color: var(--color-primary-i);
   height: 42px;
   padding: 0 24px;
   border-radius: 50px;
+  width: 80%;
+  max-width: 400px;
   // font-size: 14px;
+}
+
+.validate-section__action {
+  display: grid;
+  grid-auto-flow: row;
+  justify-items: center;
 }

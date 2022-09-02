@@ -56,7 +56,7 @@ const ValidateSection = (props: Props) => {
     });
   };
 
-  const checkIn = () => {
+  const register = () => {
     const spinnerTaskId = newId();
     AddSpinnerCommand.next(spinnerTaskId);
     registerInReg(
@@ -70,41 +70,70 @@ const ValidateSection = (props: Props) => {
     props.handleValidation();
   };
 
+  const checkIn = () => {
+    const spinnerTaskId = newId();
+    AddSpinnerCommand.next(spinnerTaskId);
+    registerIn(
+      props.space,
+      props.event._id || '',
+      props.participant._id || '',
+      'NA',
+      123
+    ).then((response) => {
+      RemoveSpinnerCommand.next(spinnerTaskId);
+    });
+    props.handleValidation();
+  };
+
   const hideError = () => {
     setshowError(false);
   };
 
   return (
     <div className="validate-section">
-      {!props.isEventStarted && !props.isRegistered && (
-        <>
-          <div className="validate-section__register">
-            <h2>{props.event.name}</h2>
-            <div>{props.event.description}</div>
-            <div className="event-duration">
-              <FontAwesomeIcon icon={faCalendar} />
-              <p>
-                01-09-2022 <b>to</b> 15-09-2022
-              </p>
-            </div>
-            <div className="event-duration">
-              <FontAwesomeIcon icon={faLocationDot} />
-              <p>
-                <b>Lorem Ipsum</b> <br />
-                Lorem ipsum dolor sit amet
-              </p>
-            </div>
-            <button
-              className="button validate-section__register__button"
-              onClick={checkIn}
-            >
-              Register
-            </button>
-            <div className="validate_section__deadline">
-              Deadline: September 10th, 2022 @ 12:00PM CST
-            </div>
+      <div className="validate-section__register">
+        <h2>{props.event.name}</h2>
+        <div>{props.event.description}</div>
+        <div className="event-duration">
+          <FontAwesomeIcon icon={faCalendar} />
+          <p>
+            01-09-2022 <b>to</b> 15-09-2022
+          </p>
+        </div>
+        <div className="event-duration">
+          <FontAwesomeIcon icon={faLocationDot} />
+          <div>
+            <div>{props.event.venueTitle}</div>
+            <div>{props.event.venueDescription}</div>
           </div>
-        </>
+        </div>
+      </div>
+      {!props.isEventStarted && !props.isRegistered && (
+        <div className="validate-section__action">
+          <button
+            className="button validate-section__action__button"
+            onClick={register}
+            disabled={!props.isRegistrationOpen}
+          >
+            Register
+          </button>
+          <div className="validate_section__deadline">
+            Registration open from date
+          </div>
+          <div className="validate_section__deadline">
+            Registration closes by date
+          </div>
+        </div>
+      )}
+      {props.isEventStarted && !props.isCheckedIn && (
+        <div className="validate-section__action">
+          <button
+            className="button validate-section__action__button"
+            onClick={checkIn}
+          >
+            Check in
+          </button>
+        </div>
       )}
     </div>
   );

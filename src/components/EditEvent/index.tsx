@@ -39,6 +39,8 @@ const EditEvent = (props: Props) => {
   const [state, setState] = useState<EventModel>({
     name: '',
     description: '',
+    venueTitle: '',
+    venueDescription: '',
     notification: '',
     media: '',
     code: '',
@@ -105,6 +107,22 @@ const EditEvent = (props: Props) => {
               name="description"
               onInput={handleChange}
               value={state.description}
+            />
+          </div>
+          <div>
+            <label>Venue title</label>
+            <textarea
+              name="venueTitle"
+              onInput={handleChange}
+              value={state.venueTitle}
+            />
+          </div>
+          <div>
+            <label>Venue description</label>
+            <textarea
+              name="venueDescription"
+              onInput={handleChange}
+              value={state.venueDescription}
             />
           </div>
           <div>

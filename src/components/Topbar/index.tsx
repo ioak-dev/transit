@@ -62,7 +62,7 @@ const Topbar = (props: Props) => {
       <div className="topbar__right">
         {/* <DarkModeIcon /> */}
         {props.children}
-        <LogoAlt variant="short" />
+        {/* <LogoAlt variant="short" /> */}
       </div>
     </div>
   );
