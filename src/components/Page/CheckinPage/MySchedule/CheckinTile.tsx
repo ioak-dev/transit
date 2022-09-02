@@ -63,10 +63,11 @@ const CheckinTile = (props: Props) => {
   }, props.track);
 
   const handleCheckIn = () => {
-    if (props.event.code || props.track.code) {
+    if (props.event || props.track) {
       setShowQrReader(true);
     } else {
-      AddSpinnerCommand.next(newId());
+      const spinnerId = newId();
+      AddSpinnerCommand.next(spinnerId);
       registerIn(
         props.space,
         props.event?._id || '',
@@ -74,6 +75,7 @@ const CheckinTile = (props: Props) => {
         props.track._id || '',
         123
       ).then((response: any) => {
+        RemoveSpinnerCommand.next(spinnerId);
         props.handleChange();
       });
     }
@@ -98,8 +100,8 @@ const CheckinTile = (props: Props) => {
   const handleQrData = (text: any) => {
     console.log(text);
     setShowQrReader(false);
-    const spinnerTaskId = newId();
-    AddSpinnerCommand.next(spinnerTaskId);
+    const spinnerId = newId();
+    AddSpinnerCommand.next(spinnerId);
     registerIn(
       props.space,
       props.event?._id || '',
@@ -108,7 +110,7 @@ const CheckinTile = (props: Props) => {
       text
     ).then((response: any) => {
       console.log(response);
-      RemoveSpinnerCommand.next(spinnerTaskId);
+      RemoveSpinnerCommand.next(spinnerId);
       props.handleChange();
     });
   };
