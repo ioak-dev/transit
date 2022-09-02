@@ -41,14 +41,17 @@
     margin: 10px 0;
   }
   .event-duration {
-    background-color: #00000050;
-    padding: 10px 10px;
-    border-radius: 8px;
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 20px;
     .event-duration-content {
       display: grid;
       grid-template-columns: 30px auto;
       align-items: center;
       column-gap: 10px;
+      background-color: #00000050;
+      padding: 10px 10px;
+      border-radius: 8px;
     }
     svg {
       color: #cfba60;
