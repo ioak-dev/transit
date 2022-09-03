@@ -370,7 +370,7 @@ const CheckinPage = (props: Props) => {
         <Topbar
           alternateView
           // title={event?.name || ''}
-          title={event?.name || ''}
+          // title={event?.name || ''}
         >
           {`${participant?.firstName || ''}`}
         </Topbar>
