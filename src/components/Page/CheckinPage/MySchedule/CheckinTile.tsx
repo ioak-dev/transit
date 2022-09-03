@@ -35,7 +35,7 @@ interface Props {
   space: string;
   track: any;
   handleChange: any;
-  event: EventModel;
+  event: any;
   participant: ParticipantModel;
 }
 
@@ -66,16 +66,16 @@ const CheckinTile = (props: Props) => {
     if (props.event || props.track) {
       setShowQrReader(true);
     } else {
-      const spinnerId = newId();
-      AddSpinnerCommand.next(spinnerId);
+      // const spinnerId = newId();
+      // AddSpinnerCommand.next(spinnerId);
       registerIn(
         props.space,
         props.event?._id || '',
-        props.participant?._id || '',
+        props.participant._id || '',
         props.track._id || '',
         123
       ).then((response: any) => {
-        RemoveSpinnerCommand.next(spinnerId);
+        // RemoveSpinnerCommand.next(spinnerId);
         props.handleChange();
       });
     }
