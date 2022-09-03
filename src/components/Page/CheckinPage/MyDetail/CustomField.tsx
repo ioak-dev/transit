@@ -47,7 +47,7 @@ const CustomField = (props: Props) => {
       )}
       {props.customField.datatype === 'datetime' && (
         <div className="my-detail__item">
-          <div className="my-detail__item__label">
+        <div className="my-detail__item__label">
             {props.customField.label}
           </div>
           <div>
