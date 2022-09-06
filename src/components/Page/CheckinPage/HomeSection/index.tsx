@@ -28,6 +28,7 @@ interface Props {
 const HomeSection = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const profile = useSelector((state: any) => state.profile);
 
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [eventId, setEventId] = useState<string | null>(null);
@@ -76,7 +77,12 @@ const HomeSection = (props: Props) => {
   return (
     <div className="home-section">
       {homeList.map((media: any) => (
-        <HomeTile key={media.title} content={media} />
+        <>
+          {(!media.colorMode ||
+            profile.theme === `theme_${media.colorMode}`) && (
+            <HomeTile key={media.title} content={media} />
+          )}
+        </>
       ))}
     </div>
   );

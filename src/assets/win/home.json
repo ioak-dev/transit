@@ -1,8 +1,23 @@
 [
   {
+    "type": "html",
+    "text": "<br/>"
+  },
+  {
     "type": "image",
-    "text": "development team",
-    "link": "https://iili.io/6jye72.png"
+    "text": "Westernacher",
+    "link": "https://iili.io/6wjTlV.png",
+    "colorMode": "dark"
+  },
+  {
+    "type": "image",
+    "text": "Westernacher",
+    "link": "https://iili.io/6jye72.png",
+    "colorMode": "light"
+  },
+  {
+    "type": "html",
+    "text": "<br/>"
   },
   {
     "type": "text",
