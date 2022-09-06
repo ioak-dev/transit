@@ -71,14 +71,17 @@
   border-radius: 10px;
 }
 .label-list__indicator--offline {
-  background-color: #eee5e9;
+  background-color: transparent;
+  border: 2px solid #bbb;
 }
 
 .label-list__indicator--away {
   background-color: #f2c57c;
+  border: 2px solid #f2c57c;
 }
 .label-list__indicator--online {
-  background-color: #7fb685;
+  background-color: #2BAC76;
+  border: 2px solid #2BAC76;
 }
 
 .label-list__text {

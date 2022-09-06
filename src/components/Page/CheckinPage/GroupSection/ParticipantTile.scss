@@ -32,14 +32,17 @@
 }
 
 .participant-tile__lineone__right__notregistered {
-  background-color: #eee5e9;
+  background-color: transparent;
+  border: 2px solid #bbb;
 }
 
 .participant-tile__lineone__right__registered {
   background-color: #f2c57c;
+  border: 2px solid #f2c57c;
 }
 .participant-tile__lineone__right__attended {
-  background-color: #7fb685;
+  background-color: #2BAC76;
+  border: 2px solid #2BAC76;
 }
 
 // .dark .participant-tile__lineone__left {
