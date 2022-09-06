@@ -3,6 +3,7 @@
   display: grid;
   grid-auto-flow: row;
   padding-bottom: 70px;
+  margin-bottom: 50px;
 }
 
 .my-detail__item {
@@ -39,6 +40,11 @@
     border-radius: 6px;
     font-size: 11px;
     cursor: pointer;
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 10px;
+    align-items: center;
+    height: 32px;
     &.active {
       background-color: var(--color-primary-100);
       color: var(--color-primary-i);
@@ -57,4 +63,24 @@
     background-color: var(--color-primary-100);
     color: var(--color-primary-i);
   }
+}
+
+.label-list__indicator {
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+}
+.label-list__indicator--offline {
+  background-color: #eee5e9;
+}
+
+.label-list__indicator--away {
+  background-color: #f2c57c;
+}
+.label-list__indicator--online {
+  background-color: #7fb685;
+}
+
+.label-list__text {
+  line-height: 1;
 }

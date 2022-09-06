@@ -53,6 +53,7 @@ import NewsFeed from './NewsFeed';
 import People from './People';
 import TopbarRightSection from './TopbarRightSection';
 import ParticipantSelectSection from './ParticipantSelectSection';
+import { getCheckin } from '../AdminCheckinPage/service';
 
 const queryString = require('query-string');
 
@@ -91,6 +92,7 @@ const CheckinPage = (props: Props) => {
 
   const [availableTracks, setAvailableTracks] = useState<any[]>([]);
   const [checkinData, setCheckinData] = useState<any[]>([]);
+  const [eventCheckinData, setEventCheckinData] = useState<any[]>([]);
   const [event, setEvent] = useState<EventModel>();
   const eventRef = useRef<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
@@ -220,6 +222,9 @@ const CheckinPage = (props: Props) => {
       setCheckinData(response);
       setIsCheckinDataLoaded(true);
     });
+    getCheckin(props.space, params.eventId, 'NA').then((response: any[]) => {
+      setEventCheckinData(response);
+    });
   };
 
   const pollData = () => {
@@ -250,6 +255,7 @@ const CheckinPage = (props: Props) => {
   const fetchParticipantData = () => {
     getParticipantByReferenceId(
       props.space,
+      params.eventId,
       params.participantReferenceId
     ).then((response: ParticipantModel) => {
       setParticipant(response);
@@ -258,7 +264,6 @@ const CheckinPage = (props: Props) => {
   };
 
   const fetchParticipantList = () => {
-    console.log('****load ');
     getParticipantList(props.space, params.eventId).then(
       (response: ParticipantModel[]) => {
         setParticipantList(response);
@@ -273,10 +278,6 @@ const CheckinPage = (props: Props) => {
       }
     );
   };
-
-  useEffect(() => {
-    console.log('participantMap', participantMap);
-  }, [participantMap]);
 
   const fetchEventData = () => {
     getEventById(props.space, params.eventId).then((response: EventModel) => {
@@ -370,7 +371,7 @@ const CheckinPage = (props: Props) => {
         <Topbar
           alternateView
           // title={event?.name || ''}
-          // title={event?.name || ''}
+          title=""
         >
           {`${participant?.firstName || ''}`}
         </Topbar>
@@ -448,6 +449,7 @@ const CheckinPage = (props: Props) => {
               space={props.space}
               participantList={participantList}
               tracks={availableTracks}
+              checkinData={eventCheckinData}
             />
           )}
         {params?.participantReferenceId !== 'register' &&

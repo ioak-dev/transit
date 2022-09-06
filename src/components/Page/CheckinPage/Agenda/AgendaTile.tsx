@@ -1,5 +1,5 @@
 import { interval } from 'd3';
-import { intervalToDuration } from 'date-fns';
+import { format, intervalToDuration } from 'date-fns';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
@@ -175,7 +175,7 @@ const AgendaTile = (props: Props) => {
       <div className="agenda-tile__description">{props.track.description}</div>
       <div className="agenda-tile__time">
         <div>
-          {moment(props.track.from).format('h:mm a')} ({duration})
+          {format(new Date(props.track.from), 'h:mm a')} ({duration})
         </div>
         {/* <div>{duration}</div> */}
       </div>

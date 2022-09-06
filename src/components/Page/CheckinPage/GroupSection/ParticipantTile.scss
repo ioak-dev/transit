@@ -14,18 +14,35 @@
   border-bottom: 1px solid var(--color-base-200);
 }
 
-.participant-tile__name__time,
-.participant-tile__phone__time {
+.participant-tile__lineone {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-// .participant-tile__name {
-//   color: #1596d1;
-// }
+.participant-tile__lineone {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
 
-// .dark .participant-tile__name {
+.participant-tile__lineone__right div {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+}
+
+.participant-tile__lineone__right__notregistered {
+  background-color: #eee5e9;
+}
+
+.participant-tile__lineone__right__registered {
+  background-color: #f2c57c;
+}
+.participant-tile__lineone__right__attended {
+  background-color: #7fb685;
+}
+
+// .dark .participant-tile__lineone__left {
 //   color: #72b7e2;
 // }
 

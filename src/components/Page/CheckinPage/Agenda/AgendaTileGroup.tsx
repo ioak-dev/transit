@@ -23,16 +23,21 @@ const AgendaTileGroup = (props: Props) => {
       </div>
       <div className="agenda__tile__group__list">
         {props.trackList.map((track) => (
-          <AgendaTile
-            space={props.space}
-            track={track}
-            key={track._id}
-            day={props.day}
-            participant={props.participant}
-            checkinData={props.checkinData}
-            event={props.event}
-            handleChange={props.handleChange}
-          />
+          <>
+            {(!track.group ||
+              props.participant.groups.includes(track.group)) && (
+              <AgendaTile
+                space={props.space}
+                track={track}
+                key={track._id}
+                day={props.day}
+                participant={props.participant}
+                checkinData={props.checkinData}
+                event={props.event}
+                handleChange={props.handleChange}
+              />
+            )}
+          </>
         ))}
       </div>
     </div>

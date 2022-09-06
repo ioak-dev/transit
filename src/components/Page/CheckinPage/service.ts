@@ -114,11 +114,15 @@ export const getParticipantById = (space: string, participantId: string) => {
 
 export const getParticipantByReferenceId = (
   space: string,
+  eventId: string,
   participantReferenceId: string
 ) => {
-  return httpGet(`/participant/${space}/reference/${participantReferenceId}`, {
-    headers: {},
-  })
+  return httpGet(
+    `/participant/${space}/event/${eventId}/reference/${participantReferenceId}`,
+    {
+      headers: {},
+    }
+  )
     .then((response) => {
       if (response.status === 200) {
         return Promise.resolve(response.data);

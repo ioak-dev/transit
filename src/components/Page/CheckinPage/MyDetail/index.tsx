@@ -103,35 +103,6 @@ const MyDetail = (props: Props) => {
             : '-'}
         </div>
       </div>
-      {/* <div className="my-detail__item">
-        <div className="my-detail__item__label">Joining date</div>
-        <div>{moment(props.participant.joiningDate).format("DD-MM-YYYY") || '-'}</div>
-      </div> */}
-      {props.participant.room && (
-        <div className="my-detail__item">
-          <div className="my-detail__item__label">Room number</div>
-          <div>{props.participant.room || '-'}</div>
-        </div>
-      )}
-      {!props.participant.room && (
-        <div>
-          <label>Add Room Number</label>
-          <div className="edit_room">
-            <input name="room" onInput={handleChange} value={state.room} />
-            <button
-              className="button primary-button"
-              type="submit"
-              onClick={save}
-            >
-              <FontAwesomeIcon icon={faCheck} />
-            </button>
-          </div>
-        </div>
-      )}
-      <div className="my-detail__item">
-        <div className="my-detail__item__label">Practice</div>
-        <div>{props.participant.practice || '-'}</div>
-      </div>
       {customFields?.map((customField: any) => (
         <CustomField
           customField={customField}

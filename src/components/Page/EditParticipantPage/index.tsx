@@ -57,7 +57,6 @@ const EditParticipantPage = (props: Props) => {
     joiningDate: getDateString(new Date()),
     referenceId: '',
     groups: [],
-    room: '',
   });
 
   useEffect(() => {
@@ -181,10 +180,6 @@ const EditParticipantPage = (props: Props) => {
                 onInput={handleChange}
                 value={state.referenceId}
               />
-            </div>
-            <div>
-              <label>Room</label>
-              <input name="room" onInput={handleChange} value={state.room} />
             </div>
             <div>
               <label>Groups</label>

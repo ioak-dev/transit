@@ -48,16 +48,22 @@ const Agenda = (props: Props) => {
 
   useEffect(() => {
     const _tracksAsMap: any = {};
-    props.tracks?.forEach((item: any) => {
-      const _from = format(new Date(item.from), 'yyyy-MM-dd');
-      if (_tracksAsMap[_from]) {
-        _tracksAsMap[_from].push(item);
-      } else {
-        _tracksAsMap[_from] = [item];
-      }
-    });
+    if (props.tracks && props.participant) {
+      props.tracks
+        .filter(
+          (item) => !item.group || props.participant.groups.includes(item.group)
+        )
+        .forEach((item: any) => {
+          const _from = format(new Date(item.from), 'yyyy-MM-dd');
+          if (_tracksAsMap[_from]) {
+            _tracksAsMap[_from].push(item);
+          } else {
+            _tracksAsMap[_from] = [item];
+          }
+        });
+    }
     setTracksAsMap(_tracksAsMap);
-  }, [props.tracks]);
+  }, [props.tracks, props.participant]);
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
