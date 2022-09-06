@@ -1,6 +1,14 @@
 import { interval } from 'd3';
 import { format, intervalToDuration } from 'date-fns';
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faLocationDot,
+  faMap,
+  faMapLocationDot,
+  faRss,
+} from '@fortawesome/free-solid-svg-icons';
+
 import React, { useEffect, useRef, useState } from 'react';
 import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
 import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
@@ -11,8 +19,6 @@ import './AgendaTile.scss';
 import { registerInReg, registerOutReg } from './service';
 import { registerIn, registerOut } from '../service';
 import TrackModel from '../../../../model/TrackModel';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRss } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   space: string;
@@ -172,10 +178,17 @@ const AgendaTile = (props: Props) => {
           </div>
         )}
       <div className="agenda-tile__name">{props.track.name}</div>
+      <div className="agenda-tile__location">
+        <div>
+          <FontAwesomeIcon icon={faLocationDot} />
+        </div>
+        <div>{props.track.location}</div>
+      </div>
       <div className="agenda-tile__description">{props.track.description}</div>
       <div className="agenda-tile__time">
         <div>
-          {format(new Date(props.track.from), 'h:mm a')} ({duration})
+          {format(new Date(props.track.from), 'h:mm a')} to{' '}
+          {format(new Date(props.track.to), 'h:mm a')} ({duration})
         </div>
         {/* <div>{duration}</div> */}
       </div>

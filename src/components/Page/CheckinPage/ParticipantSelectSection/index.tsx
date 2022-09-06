@@ -15,6 +15,7 @@ interface Props {
   handleValidation: any;
   eventId: string;
   referenceIdList: any;
+  emailToReferenceIdMap: any;
 }
 
 const ParticipantSelectSection = (props: Props) => {
@@ -43,6 +44,15 @@ const ParticipantSelectSection = (props: Props) => {
   const checkIn = () => {
     if (state.id && props.referenceIdList.includes(state.id)) {
       history.push(`/${props.space}/checkin/${props.eventId}/${state.id}`);
+    } else if (
+      state.id &&
+      Object.keys(props.emailToReferenceIdMap).indexOf(state.id.toLowerCase())
+    ) {
+      history.push(
+        `/${props.space}/checkin/${props.eventId}/${
+          props.emailToReferenceIdMap[state.id.toLowerCase()]
+        }`
+      );
     } else {
       setshowError(true);
     }

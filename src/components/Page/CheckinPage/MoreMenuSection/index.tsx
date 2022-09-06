@@ -81,6 +81,19 @@ const MoreMenuSection = (props: Props) => {
   return (
     <div className="more-menu-section">
       <button
+        onClick={() => props.goToPage('User')}
+        className={`button more-menu-section__button ${
+          props.page === 'User' ? 'more-menu-section__button--active' : ''
+        }`}
+      >
+        <div className="more-menu-section__button__label">
+          <FontAwesomeIcon icon={faUser} />
+          <div className="more-menu-section__button__label__text">
+            My Profile
+          </div>
+        </div>
+      </button>
+      {/* <button
         onClick={() => props.goToPage('Help')}
         className={`button more-menu-section__button ${
           props.page === 'Help' ? 'more-menu-section__button--active' : ''
@@ -90,7 +103,7 @@ const MoreMenuSection = (props: Props) => {
           <FontAwesomeIcon icon={faQuestion} />
           <div className="more-menu-section__button__label__text">Help</div>
         </div>
-      </button>
+      </button> */}
       {props.participant.groups?.map((item) => (
         <button
           key={item}

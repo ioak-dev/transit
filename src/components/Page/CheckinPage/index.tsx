@@ -100,6 +100,7 @@ const CheckinPage = (props: Props) => {
   const [participantMap, setParticipantMap] = useState<any>({});
   const [isCheckinDataLoaded, setIsCheckinDataLoaded] = useState(false);
   const [referenceIdList, setReferenceIdList] = useState<string[]>([]);
+  const [emailToReferenceIdMap, setEmailToReferenceIdMap] = useState<any>({});
   const [participantList, setParticipantList] = useState<ParticipantModel[]>(
     []
   );
@@ -233,13 +234,13 @@ const CheckinPage = (props: Props) => {
       eventRef.current &&
       participantRef.current
     ) {
-      getAvailableTracks(
-        props.space,
-        paramsRef.current.eventId,
-        participantRef.current?._id || ''
-      ).then((response: any[]) => {
-        setAvailableTracks(response);
-      });
+      // getAvailableTracks(
+      //   props.space,
+      //   paramsRef.current.eventId,
+      //   participantRef.current?._id || ''
+      // ).then((response: any[]) => {
+      //   setAvailableTracks(response);
+      // });
       getEventById(props.space, paramsRef.current.eventId).then(
         (response: EventModel) => {
           setEvent(response);
@@ -249,7 +250,7 @@ const CheckinPage = (props: Props) => {
     }
     setTimeout(() => {
       pollData();
-    }, 300000);
+    }, 120000);
   };
 
   const fetchParticipantData = () => {
@@ -268,13 +269,16 @@ const CheckinPage = (props: Props) => {
       (response: ParticipantModel[]) => {
         setParticipantList(response);
         const _referenceIdList: string[] = [];
+        const _emailToReferenceIdMap: any = {};
         const _participantMap: any = {};
         response.forEach((item: ParticipantModel) => {
           _participantMap[item._id || ''] = item;
           _referenceIdList.push(item.referenceId);
+          _emailToReferenceIdMap[item.email] = item.referenceId;
         });
         setParticipantMap(_participantMap);
         setReferenceIdList(_referenceIdList);
+        setEmailToReferenceIdMap(_emailToReferenceIdMap);
       }
     );
   };
@@ -552,6 +556,7 @@ const CheckinPage = (props: Props) => {
             space={props.space}
             eventId={params?.eventId}
             referenceIdList={referenceIdList}
+            emailToReferenceIdMap={emailToReferenceIdMap}
           />
         )}
       </div>
@@ -601,24 +606,24 @@ const CheckinPage = (props: Props) => {
             </div>
           </button>
           <button
-            onClick={() => goToPage('User')}
+            onClick={() => goToPage('News Feed')}
             className={`button checkin-page__footer__button ${
-              !page || page === 'User'
+              !page || page === 'News Feed'
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}
           >
             <div className="checkin-page__footer__button__label">
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faMessage} />
               <div className="checkin-page__footer__button__label__text">
-                My detail
+                Chat
               </div>
             </div>
           </button>
           <button
             onClick={() => goToPage('More')}
             className={`button checkin-page__footer__button ${
-              ['Help', 'More', 'Group', 'Home', 'News Feed'].includes(page)
+              ['Help', 'More', 'Group', 'Home', 'User'].includes(page)
                 ? 'checkin-page__footer__button--active'
                 : ''
             }`}

@@ -95,14 +95,14 @@ const MyDetail = (props: Props) => {
         <div className="my-detail__item__label">e-mail</div>
         <div>{props.participant.email || '-'}</div>
       </div>
-      <div className="my-detail__item">
+      {/* <div className="my-detail__item">
         <div className="my-detail__item__label">Birth date</div>
         <div>
           {props.participant.birthDate
             ? formatDateText(props.participant.birthDate)
             : '-'}
         </div>
-      </div>
+      </div> */}
       {customFields?.map((customField: any) => (
         <CustomField
           customField={customField}

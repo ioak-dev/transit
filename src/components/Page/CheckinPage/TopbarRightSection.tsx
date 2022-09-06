@@ -29,12 +29,12 @@ const TopbarRightSection = (props: Props) => {
 
   return (
     <div className="checkin-page-topbar">
-      <button
+      {/* <button
         className="button checkin-page-topbar__link"
         onClick={() => handleClick('News Feed')}
       >
         <FontAwesomeIcon icon={faRss} />
-      </button>
+      </button> */}
       <button
         className="button checkin-page-topbar__name"
         onClick={() => handleClick('User')}
