@@ -10,4 +10,5 @@ export default interface TrackModel {
   group: string;
   location: string;
   registration: string;
+  exclusiveGroup?: string;
 }
