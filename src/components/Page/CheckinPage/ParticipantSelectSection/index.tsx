@@ -46,7 +46,7 @@ const ParticipantSelectSection = (props: Props) => {
       history.push(`/${props.space}/checkin/${props.eventId}/${state.id}`);
     } else if (
       state.id &&
-      Object.keys(props.emailToReferenceIdMap).indexOf(state.id.toLowerCase())
+      Object.keys(props.emailToReferenceIdMap).includes(state.id.toLowerCase())
     ) {
       history.push(
         `/${props.space}/checkin/${props.eventId}/${
@@ -65,7 +65,7 @@ const ParticipantSelectSection = (props: Props) => {
   return (
     <div className="participant-select-section">
       <div className="participant-select-section__item__label">
-        Please enter your employee ID
+        Please enter your employee ID or e-mail
       </div>
       <input
         name="id"
@@ -73,7 +73,9 @@ const ParticipantSelectSection = (props: Props) => {
         onFocus={hideError}
         value={state.id}
       />
-      {showError && <div className="errorText">Employee ID does not exist</div>}
+      {showError && (
+        <div className="errorText">Employee ID / e-mail does not exist</div>
+      )}
       <button className="circle-button" onClick={checkIn}>
         <FontAwesomeIcon icon={faChevronRight} />
       </button>

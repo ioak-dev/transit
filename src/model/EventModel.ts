@@ -15,4 +15,5 @@ export default interface EventModel {
   home?: any;
   adminKey?: string;
   customFields?: any;
+  dresscode?: string;
 }

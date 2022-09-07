@@ -18,7 +18,10 @@ import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
 import { newId } from '../../../../events/MessageService';
 import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
 import { registerInReg } from '../Agenda/service';
-import { formatDateTimeText } from '../../../../components/Lib/DateUtils';
+import {
+  formatDateText,
+  formatDateTimeText,
+} from '../../../../components/Lib/DateUtils';
 
 interface Props {
   space: string;
@@ -98,7 +101,7 @@ const ValidateSection = (props: Props) => {
         <div className="event-duration">
           <div className="event-duration-content">
             <FontAwesomeIcon icon={faCalendar} />
-            <p>{formatDateTimeText(props.event.eventFrom)}</p>
+            <p>{formatDateText(props.event.eventFrom)}</p>
           </div>
           <div className="event-duration-content">
             <FontAwesomeIcon icon={faLocationDot} />

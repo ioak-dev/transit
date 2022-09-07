@@ -52,6 +52,7 @@ const EditEvent = (props: Props) => {
     registrationFrom: getDateTimeString(new Date()),
     registrationTo: getDateTimeString(new Date()),
     eventFrom: getDateTimeString(new Date()),
+    dresscode: '',
   });
 
   useEffect(() => {
@@ -123,6 +124,14 @@ const EditEvent = (props: Props) => {
               name="venueDescription"
               onInput={handleChange}
               value={state.venueDescription}
+            />
+          </div>
+          <div>
+            <label>Dresscode</label>
+            <textarea
+              name="dresscode"
+              onInput={handleChange}
+              value={state.dresscode}
             />
           </div>
           <div>

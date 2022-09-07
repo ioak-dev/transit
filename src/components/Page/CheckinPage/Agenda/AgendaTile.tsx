@@ -194,7 +194,8 @@ const AgendaTile = (props: Props) => {
       </div>
       <div className="agenda-tile__action">
         <div className="agenda-tile__action__labels">
-          {isRegistered && (
+          {(isRegistered ||
+            !['required', 'optional'].includes(props.track.registration)) && (
             <div className="agenda-tile__action__labels__label">Registered</div>
           )}
           {isCheckedIn &&
@@ -209,22 +210,26 @@ const AgendaTile = (props: Props) => {
           )}
         </div>
         <div className="agenda-tile__action_actions">
-          {!isTrackStarted && !isRegistered && (
-            <button
-              className="button agenda-tile__action_actions__button agenda-tile__action_actions__button--primary"
-              onClick={handleRegIn}
-            >
-              Register
-            </button>
-          )}
-          {!isTrackStarted && isRegistered && (
-            <button
-              className="button agenda-tile__action_actions__button"
-              onClick={handleRegOut}
-            >
-              Deregister
-            </button>
-          )}
+          {!isTrackStarted &&
+            !isRegistered &&
+            ['required', 'optional'].includes(props.track.registration) && (
+              <button
+                className="button agenda-tile__action_actions__button agenda-tile__action_actions__button--primary"
+                onClick={handleRegIn}
+              >
+                Register
+              </button>
+            )}
+          {!isTrackStarted &&
+            isRegistered &&
+            ['required', 'optional'].includes(props.track.registration) && (
+              <button
+                className="button agenda-tile__action_actions__button"
+                onClick={handleRegOut}
+              >
+                Deregister
+              </button>
+            )}
           {new Date(props.track.from) <= new Date() &&
             new Date(props.track.to) > new Date() &&
             !isCheckedIn && (
