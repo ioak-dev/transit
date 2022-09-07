@@ -24,6 +24,7 @@ import CheckinModel from '../../../../model/CheckinModel';
 interface Props {
   space: string;
   track: any;
+  trackList: any[];
   day: string;
   participant: ParticipantModel;
   checkinData: any[];

@@ -36,6 +36,7 @@ const AgendaTileGroup = (props: Props) => {
                 participant={props.participant}
                 checkinData={props.checkinData}
                 allCheckinData={props.allCheckinData}
+                trackList={props.trackList}
                 event={props.event}
                 handleChange={props.handleChange}
               />
