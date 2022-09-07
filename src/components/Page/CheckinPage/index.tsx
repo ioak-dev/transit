@@ -430,6 +430,7 @@ const CheckinPage = (props: Props) => {
               participant={participant}
               tracks={availableTracks}
               checkinData={checkinData}
+              allCheckinData={allCheckinData}
             />
           )}
         {params?.participantReferenceId !== 'register' &&

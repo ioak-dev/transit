@@ -19,6 +19,7 @@ import './AgendaTile.scss';
 import { registerInReg, registerOutReg } from './service';
 import { registerIn, registerOut } from '../service';
 import TrackModel from '../../../../model/TrackModel';
+import CheckinModel from '../../../../model/CheckinModel';
 
 interface Props {
   space: string;
@@ -26,6 +27,7 @@ interface Props {
   day: string;
   participant: ParticipantModel;
   checkinData: any[];
+  alCheckinData: CheckinModel[];
   event: EventModel;
   handleChange: any;
 }
@@ -37,6 +39,8 @@ const AgendaTile = (props: Props) => {
   const [isCheckedOut, setIsCheckedOut] = useState(false);
   const [isTrackStarted, setIsTrackStarted] = useState(false);
   const [isTrackEnded, setIsTrackEnded] = useState(false);
+  const [isExclusiveTrackRegistered, setIsExclusiveTrackRegistered] =
+    useState(false);
   const trackRef = useRef<TrackModel>();
 
   useEffect(() => {

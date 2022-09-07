@@ -20,6 +20,7 @@ import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActi
 import EventModel from '../../../../model/EventModel';
 import AgendaTile from './AgendaTile';
 import AgendaTileGroup from './AgendaTileGroup';
+import CheckinModel from '../../../../model/CheckinModel';
 
 const queryString = require('query-string');
 
@@ -31,6 +32,7 @@ interface Props {
   tracks: any[];
   handleChange: any;
   checkinData: any[];
+  allCheckinData: CheckinModel[];
 }
 
 const Agenda = (props: Props) => {
@@ -85,6 +87,7 @@ const Agenda = (props: Props) => {
             key={day}
             participant={props.participant}
             checkinData={props.checkinData}
+            allCheckinData={props.allCheckinData}
             event={props.event}
             handleChange={props.handleChange}
           />

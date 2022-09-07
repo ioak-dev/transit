@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import CheckinModel from '../../../../model/CheckinModel';
 import EventModel from 'src/model/EventModel';
 import ParticipantModel from 'src/model/ParticipantModel';
 import AgendaTile from './AgendaTile';
@@ -11,6 +12,7 @@ interface Props {
   day: string;
   participant: ParticipantModel;
   checkinData: any[];
+  alCheckinData: CheckinModel[];
   event: EventModel;
   handleChange: any;
 }
@@ -33,6 +35,7 @@ const AgendaTileGroup = (props: Props) => {
                 day={props.day}
                 participant={props.participant}
                 checkinData={props.checkinData}
+                allCheckinData={props.allCheckinData}
                 event={props.event}
                 handleChange={props.handleChange}
               />
