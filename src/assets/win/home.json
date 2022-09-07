@@ -1,5 +1,10 @@
 [
   {
+    "type": "image",
+    "text": "development team",
+    "link": "https://iili.io/gf3Wfs.png"
+  },
+  {
     "type": "html",
     "text": "<br/>"
   },
@@ -22,6 +27,23 @@
   {
     "type": "text",
     "text": "Living, working, operating in partnership. We are inquisitive, creative thinkers with strong entrepreneurial spirit. We question new ways of working, think differently and are willing to try out new approaches to create value and innovation for our customers. All of this makes us pioneers in our field and keeps us responsive, quality-focused and results-oriented.",
+    "link": ""
+  },
+  {
+    "type": "text",
+    "text": "Welcome to Westernacher Americas Regional Meeting 2022! We are delighted to see you in person! Get ready for an opportunity to meet up with your colleagues from the US, Canada and Mexico. Over the next few days, we will gather together for informative meetings and updates, team building and socializing on beautiful Hilton Head Island.",
+    "link": ""
+  },
+  {
+    "type": "practice",
+    "title": "Location",
+    "text": "The Westin Hilton Head Island Resort & Spa.<br/> Two Grasslawn Ave, Hilton Head Island, SC 29928, United States",
+    "link": ""
+  },
+  {
+    "type": "practice",
+    "title": "Dress code",
+    "text": "Business casual for meetings and evening events; sports clothes for team building events.",
     "link": ""
   }
 ]

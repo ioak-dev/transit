@@ -43,7 +43,9 @@ const HomeTile = (props: Props) => {
         <>
           <div className="home_tile_text practice">
             <h5>{props.content.title}</h5>
-            <img src={props.content.thumbnail} alt="Location map" />
+            {props.content.thumbnail && (
+              <img src={props.content.thumbnail} alt="Location map" />
+            )}
             <p dangerouslySetInnerHTML={{ __html: props.content.text }}></p>
           </div>
         </>

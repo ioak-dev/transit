@@ -8,6 +8,7 @@ import {
   faLocationDot,
   faPhone,
   faPhoneAlt,
+  faShirt,
 } from '@fortawesome/free-solid-svg-icons';
 import './style.scss';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
@@ -112,6 +113,12 @@ const ValidateSection = (props: Props) => {
               <div className="validate-section__venuedesc">
                 {props.event.venueDescription}
               </div>
+            </div>
+          </div>
+          <div className="event-duration-content">
+            <FontAwesomeIcon icon={faShirt} />
+            <div className="validate-section__venuedesc">
+              <p dangerouslySetInnerHTML={{ __html: props.event.dresscode }}></p>
             </div>
           </div>
         </div>
