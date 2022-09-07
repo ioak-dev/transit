@@ -44,6 +44,20 @@ export const getCheckin = (space: string, eventId: string, trackId: string) => {
     });
 };
 
+export const getAllCheckin = (space: string, eventId: string) => {
+  return httpGet(`/checkin/${space}/event/${eventId}`, {
+    headers: {},
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+    })
+    .catch((error) => {
+      return Promise.resolve({});
+    });
+};
+
 export const deleteCheckin = (space: string, id: string) => {
   return httpDelete(`/checkin/${space}/${id}`, {
     headers: {},

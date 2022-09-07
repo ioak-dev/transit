@@ -53,7 +53,7 @@ import NewsFeed from './NewsFeed';
 import People from './People';
 import TopbarRightSection from './TopbarRightSection';
 import ParticipantSelectSection from './ParticipantSelectSection';
-import { getCheckin } from '../AdminCheckinPage/service';
+import { getAllCheckin, getCheckin } from '../AdminCheckinPage/service';
 
 const queryString = require('query-string');
 
@@ -93,6 +93,7 @@ const CheckinPage = (props: Props) => {
   const [availableTracks, setAvailableTracks] = useState<any[]>([]);
   const [checkinData, setCheckinData] = useState<any[]>([]);
   const [eventCheckinData, setEventCheckinData] = useState<any[]>([]);
+  const [allCheckinData, setAllCheckinData] = useState<any[]>([]);
   const [event, setEvent] = useState<EventModel>();
   const eventRef = useRef<EventModel>();
   const [participant, setParticipant] = useState<ParticipantModel>();
@@ -225,6 +226,9 @@ const CheckinPage = (props: Props) => {
     });
     getCheckin(props.space, params.eventId, 'NA').then((response: any[]) => {
       setEventCheckinData(response);
+    });
+    getAllCheckin(props.space, params.eventId).then((response: any[]) => {
+      setAllCheckinData(response);
     });
   };
 
