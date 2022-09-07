@@ -25,11 +25,11 @@ import { isEmptyOrSpaces } from '../../../../components/Utils';
 interface Props {
   space: string;
   track: any;
-  trackList: any[];
+  trackList?: any[];
   day: string;
   participant: ParticipantModel;
   checkinData: any[];
-  allCheckinData: CheckinModel[];
+  allCheckinData?: CheckinModel[];
   event: EventModel;
   handleChange: any;
 }

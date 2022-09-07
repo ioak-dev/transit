@@ -12,7 +12,7 @@ interface Props {
   day: string;
   participant: ParticipantModel;
   checkinData: any[];
-  alCheckinData: CheckinModel[];
+  allCheckinData: CheckinModel[];
   event: EventModel;
   handleChange: any;
 }
