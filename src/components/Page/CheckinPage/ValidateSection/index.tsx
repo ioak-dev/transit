@@ -42,6 +42,12 @@ interface Props {
 
 const ValidateSection = (props: Props) => {
   const [showError, setshowError] = useState(false);
+  const [showDeclarationError, setshowDeclarationError] = useState(false);
+  const [selectedDeclarationRegister, setSelectedDeclarationRegister] =
+    useState<string[]>([]);
+  const [selectedDeclarationCheckin, setSelectedDeclarationCheckin] = useState<
+    string[]
+  >([]);
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
@@ -62,7 +68,29 @@ const ValidateSection = (props: Props) => {
     });
   };
 
+  const validateDeclaration = (
+    declarationDef: any[],
+    declarationData: string[]
+  ) => {
+    let _outcome = true;
+    declarationDef.forEach((item: any) => {
+      if (item.required && !declarationData.includes(item.name)) {
+        _outcome = false;
+      }
+    });
+    return _outcome;
+  };
+
   const register = () => {
+    const validationOutcome = validateDeclaration(
+      registerDeclaration,
+      selectedDeclarationRegister
+    );
+    if (!validationOutcome) {
+      setshowDeclarationError(true);
+      return;
+    }
+    setshowDeclarationError(false);
     const spinnerTaskId = newId();
     AddSpinnerCommand.next(spinnerTaskId);
     registerInReg(
@@ -93,6 +121,20 @@ const ValidateSection = (props: Props) => {
 
   const hideError = () => {
     setshowError(false);
+  };
+
+  const handleRegisterDeclarationChange = (event: any) => {
+    let _selectedDeclarationRegister = [...selectedDeclarationRegister];
+    setshowDeclarationError(false);
+    if (event.currentTarget.checked) {
+      _selectedDeclarationRegister.push(event.currentTarget.name);
+    } else {
+      _selectedDeclarationRegister = _selectedDeclarationRegister.filter(
+        (item) => item !== event.currentTarget.name
+      );
+    }
+
+    setSelectedDeclarationRegister(_selectedDeclarationRegister);
   };
 
   const registerDeclaration = isEmptyOrSpaces(props.event.registerDeclaration)
@@ -140,6 +182,7 @@ const ValidateSection = (props: Props) => {
                   id={item.name}
                   name={item.name}
                   value={item.name}
+                  onInput={handleRegisterDeclarationChange}
                 />
                 <label htmlFor={item.name}>{item.text}</label>
               </div>
@@ -147,6 +190,13 @@ const ValidateSection = (props: Props) => {
           </div>
         )}
       </div>
+      {showDeclarationError && (
+        <div className="errorText-container">
+          <div className="errorText">
+            Read and accept declaration to proceed further
+          </div>
+        </div>
+      )}
       {!props.isEventStarted && !props.isRegistered && (
         <div className="validate-section__action">
           <button

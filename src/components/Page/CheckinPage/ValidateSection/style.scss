@@ -165,3 +165,9 @@ button[disabled] {
     width: 24px;
   }
 }
+
+.errorText-container {
+  display: flex;
+  margin-bottom: 12px;
+  justify-content: center;
+}
