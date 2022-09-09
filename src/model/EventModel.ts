@@ -13,6 +13,8 @@ export default interface EventModel {
   support?: any;
   group?: any;
   home?: any;
+  registerDeclaration?: any;
+  checkinDeclaration?: any;
   adminKey?: string;
   customFields?: any;
   dresscode?: any;

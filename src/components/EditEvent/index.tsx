@@ -170,6 +170,22 @@ const EditEvent = (props: Props) => {
             />
           </div>
           <div>
+            <label>Register declaration JSON (name, text, required)</label>
+            <textarea
+              name="registerDeclaration"
+              onInput={handleChange}
+              value={state.registerDeclaration}
+            />
+          </div>
+          <div>
+            <label>Checkin declaration JSON (name, text, required)</label>
+            <textarea
+              name="checkinDeclaration"
+              onInput={handleChange}
+              value={state.checkinDeclaration}
+            />
+          </div>
+          <div>
             <label>Custom fields JSON (name, label, datatype)</label>
             <textarea
               name="customFields"

@@ -23,6 +23,7 @@ import {
   formatDateText,
   formatDateTimeText,
 } from '../../../../components/Lib/DateUtils';
+import { isEmptyOrSpaces } from '../../../../components/Utils';
 
 interface Props {
   space: string;
@@ -94,6 +95,14 @@ const ValidateSection = (props: Props) => {
     setshowError(false);
   };
 
+  const registerDeclaration = isEmptyOrSpaces(props.event.registerDeclaration)
+    ? []
+    : JSON.parse(props.event.registerDeclaration);
+
+  const checkinDeclaration = isEmptyOrSpaces(props.event.checkinDeclaration)
+    ? []
+    : JSON.parse(props.event.checkinDeclaration);
+
   return (
     <div className="validate-section">
       <div className="validate-section__register">
@@ -118,10 +127,25 @@ const ValidateSection = (props: Props) => {
           <div className="event-duration-content">
             <FontAwesomeIcon icon={faShirt} />
             <div className="validate-section__venuedesc">
-              <p dangerouslySetInnerHTML={{ __html: props.event.dresscode }}></p>
+              <p dangerouslySetInnerHTML={{ __html: props.event.dresscode }} />
             </div>
           </div>
         </div>
+        {!props.isEventStarted && !props.isRegistered && (
+          <div className="validate-section__declaraion">
+            {registerDeclaration.map((item: any) => (
+              <div className="validate-section__declaraion__item">
+                <input
+                  type="checkbox"
+                  id={item.name}
+                  name={item.name}
+                  value={item.name}
+                />
+                <label htmlFor={item.name}>{item.text}</label>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {!props.isEventStarted && !props.isRegistered && (
         <div className="validate-section__action">
