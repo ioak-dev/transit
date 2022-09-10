@@ -10,4 +10,6 @@ export default interface ParticipantModel {
   referenceId: string;
   groups: string[];
   customFields?: any;
+  firstDeclaration?: boolean;
+  secondDeclaration?: boolean;
 }

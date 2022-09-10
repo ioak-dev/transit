@@ -1,7 +1,11 @@
 /* eslint-disable import/prefer-default-export */
-import { httpPost, httpPut } from "../../../Lib/RestTemplate";
+import { httpPost, httpPut } from '../../../Lib/RestTemplate';
 
-export const saveRoom = (space: string, participantId: any, room: any) => {
+export const updateParticipantDeclaration = (
+  space: string,
+  participantId: any,
+  room: any
+) => {
   return httpPost(`/participant/${space}/room/${participantId}/${room}`, '', {
     headers: {},
   })

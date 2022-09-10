@@ -45,5 +45,26 @@
     "title": "Dress code",
     "text": "Business casual for meetings and evening events; sports clothes for team building events.",
     "link": ""
+  },
+  {
+    "type": "practice",
+    "title": "Hotel information",
+    "text": "Room, taxes and resort fees paid directly by Westernacher.  You will need to present your credit card upon check-in for incidentals.",
+    "link": ""
+  },
+  {
+    "type": "text",
+    "text": "Check-in: 4:00pm",
+    "link": ""
+  },
+  {
+    "type": "text",
+    "text": "Check-out: 11:00am",
+    "link": ""
+  },
+  {
+    "type": "html",
+    "text": "<ul><li>Complimentary Self-Parking</li><li>2 Bottled Waters replenished daily</li><li>One-hour complimentary steam room use at Spa (reservation required)</li><li>Guest room wi-fi access</li></ul>",
+    "link": ""
   }
 ]

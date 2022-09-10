@@ -12,6 +12,7 @@ import DisableContextBarCommand from '../../../../events/DisableContextBarComman
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
 import HomeTile from './HomeTile';
+import { updateParticipantDeclaration } from '../MyDetail/service';
 // import mapImage from '../../../../assets/map.png';
 
 const queryString = require('query-string');
@@ -72,6 +73,18 @@ const HomeSection = (props: Props) => {
     props.handleChange();
   };
 
+  const updateDeclaration = (event: any, value?: boolean) => {
+    updateParticipantDeclaration(
+      props.space,
+      props.event._id,
+      props.participant._id,
+      event.currentTarget.name,
+      value ? 'N' : 'Y'
+    ).then((response: any) => {
+      refreshData();
+    });
+  };
+
   const homeList = JSON.parse(props.event.home);
 
   return (
@@ -84,6 +97,41 @@ const HomeSection = (props: Props) => {
           )}
         </>
       ))}
+      <div className="home-section__declaration">
+        <div className="home-section__declaration__item">
+          <input
+            type="checkbox"
+            id="first"
+            name="first"
+            value="first"
+            checked={props.participant.firstDeclaration}
+            onInput={(event) =>
+              updateDeclaration(event, props.participant.firstDeclaration)
+            }
+          />
+          <label htmlFor="first">
+            I hereby confirm that my COVID test taken within a day before travel
+            was NEGATIVE.
+          </label>
+        </div>
+        <div className="home-section__declaration__item">
+          <input
+            type="checkbox"
+            id="second"
+            name="second"
+            value="second"
+            checked={props.participant.secondDeclaration}
+            onInput={(event) =>
+              updateDeclaration(event, props.participant.secondDeclaration)
+            }
+          />
+          <label htmlFor="second">
+            I hereby confirm that my second COVID test taken upon arrival at the
+            hotel was NEGATIVE (test kits provided by Val, Ineke, Janina or in
+            the Grand Ocean Terrace Ballroom).
+          </label>
+        </div>
+      </div>
     </div>
   );
 };

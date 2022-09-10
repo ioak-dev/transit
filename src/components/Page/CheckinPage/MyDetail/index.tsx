@@ -12,7 +12,7 @@ import DisableContextBarCommand from '../../../../events/DisableContextBarComman
 import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
 import moment from 'moment';
-import { saveRoom } from './service';
+import { updateParticipantDeclaration } from './service';
 import {
   formatDate,
   formatDateText,
@@ -59,16 +59,6 @@ const MyDetail = (props: Props) => {
       ...state,
       [participant.currentTarget.name]: participant.currentTarget.value,
     });
-  };
-
-  const save = (event: any) => {
-    event.preventDefault();
-    console.log(state);
-    saveRoom(props.space, props.participant._id, state.room).then(
-      (response: any) => {
-        refreshData();
-      }
-    );
   };
 
   const toggleShowAllTracks = () => {

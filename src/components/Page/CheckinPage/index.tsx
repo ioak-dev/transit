@@ -395,7 +395,7 @@ const CheckinPage = (props: Props) => {
           participant && (
             <HomeSection
               event={event}
-              handleChange={refreshData}
+              handleChange={fetchParticipantData}
               location={props.location}
               space={props.space}
               participant={participant}

@@ -4,3 +4,24 @@
   grid-auto-flow: row;
   // row-gap: 10px;
 }
+
+.home-section__declaration {
+  margin: 20px 20px 50px 20px;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+}
+.home-section__declaration__item {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: flex-start;
+  column-gap: 10px;
+  color: #fff;
+  font-size: 14px;
+  label {
+    font-size: 14px;
+  }
+  input {
+    width: 24px;
+  }
+}

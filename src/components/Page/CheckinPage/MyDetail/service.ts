@@ -1,10 +1,20 @@
 /* eslint-disable import/prefer-default-export */
-import { httpPost, httpPut } from "../../../Lib/RestTemplate";
+import { httpPost, httpPut } from '../../../Lib/RestTemplate';
 
-export const saveRoom = (space: string, participantId: any, room: any) => {
-  return httpPost(`/participant/${space}/room/${participantId}/${room}`, '', {
-    headers: {},
-  })
+export const updateParticipantDeclaration = (
+  space: string,
+  eventId: any,
+  participantId: any,
+  declaration: 'first' | 'second',
+  value: 'Y' | 'N'
+) => {
+  return httpPost(
+    `/participant/${space}/declaration/${eventId}/${participantId}/${declaration}/${value}`,
+    '',
+    {
+      headers: {},
+    }
+  )
     .then((response) => {
       if (response.status === 200) {
         return Promise.resolve(response.data);
