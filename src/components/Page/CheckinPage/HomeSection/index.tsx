@@ -13,6 +13,9 @@ import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActi
 import EventModel from '../../../../model/EventModel';
 import HomeTile from './HomeTile';
 import { updateParticipantDeclaration } from '../MyDetail/service';
+import { newId } from '../../../../events/MessageService';
+import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
+import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
 // import mapImage from '../../../../assets/map.png';
 
 const queryString = require('query-string');
@@ -74,6 +77,8 @@ const HomeSection = (props: Props) => {
   };
 
   const updateDeclaration = (event: any, value?: boolean) => {
+    const spinnerId = newId();
+    AddSpinnerCommand.next(spinnerId);
     updateParticipantDeclaration(
       props.space,
       props.event._id,
@@ -81,6 +86,7 @@ const HomeSection = (props: Props) => {
       event.currentTarget.name,
       value ? 'N' : 'Y'
     ).then((response: any) => {
+      RemoveSpinnerCommand.next(spinnerId);
       refreshData();
     });
   };
