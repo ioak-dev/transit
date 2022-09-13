@@ -1,0 +1,99 @@
+.participant-list {
+  padding: 20px 20px 50px;
+}
+.participant-list__main {
+  padding: 0;
+  display: grid;
+  // grid-template-columns: 1fr 1fr;
+  // row-gap: 20px;
+  // column-gap: 20px;
+}
+
+.participant-list__main__item {
+  // background-color: var(--color-base-200);
+  padding: 10px 20px;
+  // border-radius: 4px;
+  // border: 1px solid var(--color-base-200);
+  border-bottom: 1px solid var(--color-base-200);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-items: flex-start;
+  text-align: start;
+  &:hover,
+  &:focus {
+    background-color: var(--color-base-200);
+  }
+}
+
+.light .participant-list__main__item {
+  border-bottom: 1px solid var(--color-base-400);
+  &:hover,
+  &:focus {
+    background-color: var(--color-base-400);
+  }
+}
+
+.participant-list__main__item__name {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr auto auto;
+  column-gap: 5px;
+  align-items: center;
+}
+
+.declare-list {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  width: 100%;
+  background-color: var(--color-base-200);
+  .declare {
+    padding: 6px;
+    background-color: var(--color-base-400);
+    color: #000;
+    border-radius: 6px;
+    font-size: 11px;
+    cursor: pointer;
+    &.active {
+      background-color: var(--color-primary-100);
+      color: var(--color-primary-i);
+    }
+  }
+}
+
+.dark .declare-list {
+  background-color: var(--color-base-300);
+  border-top: 1px solid var(--color-base-100);
+}
+
+.dark .declare-list .declare {
+  background-color: var(--color-base-200);
+  color: #fff;
+  &.active {
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-i);
+  }
+}
+
+.declare-list__indicator {
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+}
+
+.declare-list__indicator--away {
+  background-color: #c4314b;
+  border: 2px solid #c4314b;
+}
+.declare-list__indicator--online {
+  background-color: #2bac76;
+  border: 2px solid #2bac76;
+}
+
+.declare-list__text {
+  line-height: 1;
+}

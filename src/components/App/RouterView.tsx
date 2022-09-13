@@ -23,6 +23,7 @@ import EditParticipantPage from '../Page/EditParticipantPage';
 import CheckinPage from '../Page/CheckinPage';
 import AdminCheckinPage from '../Page/AdminCheckinPage';
 import AdminNewsFeed from '../Page/AdminFeed';
+import AdminDeclaration from '../Page/AdminDeclaration';
 
 interface Props {
   cookies: any;
@@ -210,6 +211,18 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={BackupAndRestore}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/admin-declaration/:count"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={AdminDeclaration}
             middleware={['authenticate']}
           />
         )}
