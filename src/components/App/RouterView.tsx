@@ -216,7 +216,7 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
-        path="/:space/admin-declaration/:count"
+        path="/:space/admin-declaration/:eventId/:count"
         exact
         render={(propsLocal) => (
           <OakRouteApp
