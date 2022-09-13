@@ -180,6 +180,18 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
+        path="/:space/admin-declaration/:eventId/:declarationType/:code"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={AdminDeclaration}
+            middleware={[]}
+          />
+        )}
+      />
+      <Route
         path="/:space/settings/company"
         exact
         render={(propsLocal) => (
@@ -211,18 +223,6 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={BackupAndRestore}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/admin-declaration/:eventId/:count"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={AdminDeclaration}
             middleware={['authenticate']}
           />
         )}

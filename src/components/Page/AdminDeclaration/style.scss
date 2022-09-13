@@ -85,15 +85,30 @@
   border-radius: 10px;
 }
 
-.declare-list__indicator--away {
+.label-list__indicator--offline {
+  background-color: transparent;
+  border: 2px solid #bbb;
+}
+
+.declare-list__indicator--not-declared {
   background-color: #c4314b;
   border: 2px solid #c4314b;
 }
-.declare-list__indicator--online {
+.declare-list__indicator--declared {
   background-color: #2bac76;
   border: 2px solid #2bac76;
 }
 
 .declare-list__text {
   line-height: 1;
+  align-items: center;
+}
+.declare-list__count {
+  background-color: #333;
+  color: white;
+  padding: 2px 3px;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  align-items: center;
 }

@@ -5,6 +5,7 @@ import EventModel from 'src/model/EventModel';
 import ParticipantModel from 'src/model/ParticipantModel';
 import AgendaTile from './AgendaTile';
 import './AgendaTileGroup.scss';
+import { format } from 'date-fns';
 
 interface Props {
   space: string;
@@ -21,7 +22,7 @@ const AgendaTileGroup = (props: Props) => {
   return (
     <div className="agenda__tile__group">
       <div className="agenda__tile__group__date">
-        {moment(props.day).format('MMMM Do, YYYY') || '-'}
+        {format(new Date(props.day), 'EEEE, MMMM do, yyyy') || '-'}
       </div>
       <div className="agenda__tile__group__list">
         {props.trackList.map((track) => (

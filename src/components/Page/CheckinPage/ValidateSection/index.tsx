@@ -153,7 +153,7 @@ const ValidateSection = (props: Props) => {
         <div className="event-duration">
           <div className="event-duration-content">
             <FontAwesomeIcon icon={faCalendar} />
-            <p>{formatDateText(props.event.eventFrom)}</p>
+            <p>{format(new Date(props.event.eventFrom), 'EEEE, MMMM do, yyyy')}</p>
           </div>
           <div className="event-duration-content">
             <FontAwesomeIcon icon={faLocationDot} />
