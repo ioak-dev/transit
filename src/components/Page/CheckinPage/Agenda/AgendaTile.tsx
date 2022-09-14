@@ -257,6 +257,30 @@ const AgendaTile = (props: Props) => {
             )}
         </div>
       </div>
+
+      {!isTrackStarted &&
+        !isRegistered &&
+        props.track.name === 'Team Building Events - Option 1' && (
+          <div className="temporary-notification-link">
+            If you register for Beach Games, please complete the linked form by
+            Thurs, Sept 15{' '}
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScFp-f2Th-4eue7U_oYB72vtH4aipCe0CobuT2k3Rb5_YnhRw/viewform?usp=sf_link">
+              Beach Games Sign Up Form
+            </a>
+          </div>
+        )}
+
+      {!isTrackStarted &&
+        isRegistered &&
+        props.track.name === 'Team Building Events - Option 1' && (
+          <div className="temporary-notification-link">
+            Please complete the linked form by Thurs, Sept 15
+            <br />
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScFp-f2Th-4eue7U_oYB72vtH4aipCe0CobuT2k3Rb5_YnhRw/viewform?usp=sf_link">
+              Beach Games Sign Up Form
+            </a>
+          </div>
+        )}
     </div>
   );
 };
