@@ -25,7 +25,6 @@ interface Props {
 }
 
 const AdminDeclaration = (props: Props) => {
-  const authorization = useSelector((state: any) => state.authorization);
   const [participantList, setParticipantList] = useState<ParticipantModel[]>(
     []
   );
@@ -37,7 +36,7 @@ const AdminDeclaration = (props: Props) => {
   } = useParams();
 
   const [validationSuccessful, setValidationSuccessful] = useState(false);
-  const [declareCount, setDeclareCount] = useState<string>();
+  const [declareCount, setDeclareCount] = useState<any>();
   const [declare, setDeclare] = useState<boolean>(false);
   const [notDeclare, setNotDeclare] = useState<boolean>(false);
 
@@ -66,13 +65,23 @@ const AdminDeclaration = (props: Props) => {
     DisableContextBarCommand.next(true);
   }, []);
 
+  const handleDeclare = () => {
+    setDeclare(!declare);
+    // const list = participantList.filter((item) => {
+    //   console.log(item.referenceId);
+    //   item.firstDeclaration && item.secondDeclaration;
+    // });
+    // setDeclareCount(list);
+    // console.log(list, declareCount);
+  };
+
   return (
     <>
       <Topbar
         alternateView
-        title={`Declaration - ${
-          params.declarationType === 'before' ? 'Before Travel' : ''
-        }${params.declarationType === 'after' ? 'After Travel' : ''}`}
+        title={`Declaration - 
+        ${params.declarationType === 'before' ? 'Before Travel' : ''}
+        ${params.declarationType === 'after' ? 'After Travel' : ''}`}
       />
       {event?.notification && (
         <div className="checkin-page__notification">{event.notification}</div>
@@ -123,10 +132,13 @@ const AdminDeclaration = (props: Props) => {
           <div className="declare-list">
             <button
               className={`button declare ${declare ? 'active' : ''}`}
-              onClick={() => setDeclare(!declare)}
+              onClick={() => handleDeclare()}
             >
               <div className="declare-list__text">
-                Declared <span className="declare-list__count">{participantList.length}</span>
+                Declared
+                {/* <span className="declare-list__count">
+                  {participantList.length - declareCount}
+                </span> */}
               </div>
             </button>
             <button
@@ -134,7 +146,10 @@ const AdminDeclaration = (props: Props) => {
               onClick={() => setNotDeclare(!notDeclare)}
             >
               <div className="declare-list__text">
-                Not Declared <span className="declare-list__count">{participantList.length}</span>
+                Not Declared
+                {/* <span className="declare-list__count">
+                  {participantList.length}
+                </span> */}
               </div>
             </button>
           </div>
