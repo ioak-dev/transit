@@ -60,7 +60,7 @@ const NewsFeed = (props: Props) => {
         participantMap={props.participantMap}
         isAdminMessagePresent
       />
-      <Compose handleChange={handleChange} />
+      <Compose handleChange={handleChange} handleRefresh={refreshMessages} />
     </div>
   );
 };

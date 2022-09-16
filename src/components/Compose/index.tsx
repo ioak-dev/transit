@@ -3,12 +3,18 @@ import './style.scss';
 import ParticipantModel from 'src/model/ParticipantModel';
 import EventModel from 'src/model/EventModel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane, faPhone } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPaperPlane,
+  faPhone,
+  faRefresh,
+} from '@fortawesome/free-solid-svg-icons';
+import { isEmptyOrSpaces } from '../Utils';
 
 const queryString = require('query-string');
 
 interface Props {
   handleChange: any;
+  handleRefresh: any;
 }
 
 const Compose = (props: Props) => {
@@ -19,8 +25,14 @@ const Compose = (props: Props) => {
   };
 
   const send = () => {
-    props.handleChange(state);
-    setState('');
+    if (!isEmptyOrSpaces(state)) {
+      props.handleChange(state);
+      setState('');
+    }
+  };
+
+  const refresh = () => {
+    props.handleRefresh();
   };
 
   return (
@@ -34,6 +46,9 @@ const Compose = (props: Props) => {
       />
       <button className="button" onClick={send}>
         <FontAwesomeIcon icon={faPaperPlane} />
+      </button>
+      <button className="compose__refresh button" onClick={refresh}>
+        <FontAwesomeIcon icon={faRefresh} />
       </button>
     </div>
   );

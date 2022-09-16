@@ -5,7 +5,7 @@
   right: 0;
   padding: 10px;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   align-content: center;
   align-items: center;
   column-gap: 10px;
@@ -22,6 +22,11 @@
     justify-items: center;
     background-color: var(--color-primary-100);
     color: var(--color-primary-i);
+  }
+
+  .compose__refresh {
+    background-color: var(--color-base-100);
+    color: var(--color-base-i);
   }
 
   input {

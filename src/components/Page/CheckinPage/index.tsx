@@ -188,6 +188,7 @@ const CheckinPage = (props: Props) => {
           new Date(event.registrationTo) > new Date()
       );
     }
+    setIsEventStarted(new Date(event?.eventFrom) < new Date());
   }, [checkinData, participant, event]);
 
   useEffect(() => {
@@ -312,6 +313,7 @@ const CheckinPage = (props: Props) => {
     } else if (!isEventStarted && isRegistered) {
       _outcome = true;
     }
+    console.log('********', isEventStarted, isCheckedIn, _outcome);
     setValidationSuccessful(_outcome);
   }, [
     isCheckedIn,

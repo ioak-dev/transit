@@ -31,7 +31,7 @@ const GroupNewsFeed = (props: Props) => {
       eventId: props.event._id,
       admin: false,
       userId: '',
-      group: props.group
+      group: props.group,
     }).then(() => {
       refreshMessages();
     });
@@ -61,7 +61,7 @@ const GroupNewsFeed = (props: Props) => {
         participantMap={props.participantMap}
         isAdminMessagePresent
       />
-      <Compose handleChange={handleChange} />
+      <Compose handleChange={handleChange} handleRefresh={refreshMessages} />
     </div>
   );
 };

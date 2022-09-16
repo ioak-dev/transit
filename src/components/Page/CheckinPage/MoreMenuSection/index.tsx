@@ -13,6 +13,7 @@ import {
   faQuestion,
   faUser,
   fas,
+  faHome,
   faLocationDot,
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -91,6 +92,17 @@ const MoreMenuSection = (props: Props) => {
           <div className="more-menu-section__button__label__text">
             My Profile
           </div>
+        </div>
+      </button>
+      <button
+        onClick={() => props.goToPage('Home')}
+        className={`button more-menu-section__button ${
+          props.page === 'Home' ? 'more-menu-section__button--active' : ''
+        }`}
+      >
+        <div className="more-menu-section__button__label">
+          <FontAwesomeIcon icon={faHome} />
+          <div className="more-menu-section__button__label__text">Home</div>
         </div>
       </button>
       {/* <button
