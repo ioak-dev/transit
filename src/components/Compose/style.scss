@@ -25,7 +25,7 @@
   }
 
   .compose__refresh {
-    background-color: var(--color-base-100);
+    background-color: var(--color-base-400);
     color: var(--color-base-i);
   }
 
@@ -43,4 +43,9 @@
 
 .dark .compose {
   background-color: var(--color-base-300);
+}
+
+.dark .compose__refresh {
+  background-color: var(--color-base-100);
+  color: var(--color-base-i);
 }
