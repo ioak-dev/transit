@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import './style.scss';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 import ParticipantModel from 'src/model/ParticipantModel';
@@ -20,7 +20,7 @@ interface Props {
 
 const ParticipantSelectSection = (props: Props) => {
   const [showError, setshowError] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
@@ -43,12 +43,12 @@ const ParticipantSelectSection = (props: Props) => {
 
   const checkIn = () => {
     if (state.id && props.referenceIdList.includes(state.id)) {
-      history.push(`/${props.space}/checkin/${props.eventId}/${state.id}`);
+      navigate(`/${props.space}/checkin/${props.eventId}/${state.id}`);
     } else if (
       state.id &&
       Object.keys(props.emailToReferenceIdMap).includes(state.id.toLowerCase())
     ) {
-      history.push(
+      navigate(
         `/${props.space}/checkin/${props.eventId}/${
           props.emailToReferenceIdMap[state.id.toLowerCase()]
         }`

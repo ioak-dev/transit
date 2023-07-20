@@ -9,8 +9,6 @@ import MessageList from './MessageList';
 import MessageModel from '../../../../../model/MessageModel';
 import { getGroupFeedMessages, sendGroupFeedAsUser } from './service';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;

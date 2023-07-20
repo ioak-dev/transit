@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
+import {useNavigate} from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import {
   faCalendarCheck,
@@ -37,7 +38,6 @@ import {
   getParticipantByReferenceId,
   getParticipantList,
 } from './service';
-import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions';
 import EventModel from '../../../model/EventModel';
 import TrackModel from '../../../model/TrackModel';
 import MySchedule from './MySchedule';
@@ -54,8 +54,7 @@ import People from './People';
 import TopbarRightSection from './TopbarRightSection';
 import ParticipantSelectSection from './ParticipantSelectSection';
 import { getAllCheckin, getCheckin } from '../AdminCheckinPage/service';
-
-const queryString = require('query-string');
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
   space: string;
@@ -63,11 +62,8 @@ interface Props {
 }
 
 const CheckinPage = (props: Props) => {
-  const history = useHistory();
-  const dispatch = useDispatch();
 
   const [participantId, setParticipantId] = useState<string | null>(null);
-  const [queryParam, setQueryParam] = useState<any>({});
   const [page, setPage] = useState<
     | 'Home'
     | 'Schedule'
@@ -79,6 +75,7 @@ const CheckinPage = (props: Props) => {
     | 'More'
     | 'Group'
     | 'News Feed'
+    | string
   >('Home');
 
   const [isRegistered, setIsRegistered] = useState(false);
@@ -105,10 +102,9 @@ const CheckinPage = (props: Props) => {
   const [participantList, setParticipantList] = useState<ParticipantModel[]>(
     []
   );
-  const params: {
-    eventId: string;
-    participantReferenceId: string;
-  } = useParams();
+  const params: any = useParams();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const paramsRef = useRef({ eventId: '', participantReferenceId: '' });
 
   useEffect(() => {
@@ -132,10 +128,8 @@ const CheckinPage = (props: Props) => {
   }, [validationSuccessful]);
 
   useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setPage(query.page || 'Home');
-    setQueryParam(query);
-  }, [props.location.search]);
+    setPage(searchParams.get('page') || 'Home');
+  }, [searchParams]);
 
   const [showAllTracks, setShowAllTracks] = useState(false);
 
@@ -337,7 +331,7 @@ const CheckinPage = (props: Props) => {
       | 'News Feed',
     group?: string
   ) => {
-    history.push(
+    navigate(
       `/${props.space}/checkin/${params.eventId}/${
         params.participantReferenceId
       }?page=${page}${group ? `&group=${group}` : ''}`
@@ -359,10 +353,8 @@ const CheckinPage = (props: Props) => {
     >
       {params?.participantReferenceId !== 'register' && validationSuccessful && (
         <Topbar
-          alternateView
           // title={event?.name || ''}
-          title={page === 'Group' ? queryParam.group : page}
-          handleClick={() => goToPage('Home')}
+          title={page === 'Group' ? (searchParams.get('group') || '') : page}
         >
           {participant && event && (
             <TopbarRightSection
@@ -379,7 +371,6 @@ const CheckinPage = (props: Props) => {
         !participant ||
         !validationSuccessful) && (
         <Topbar
-          alternateView
           // title={event?.name || ''}
           title=""
         >
@@ -525,9 +516,9 @@ const CheckinPage = (props: Props) => {
           validationSuccessful &&
           event &&
           participant &&
-          queryParam?.group && (
+          searchParams.has('group') && (
             <GroupSection
-              group={queryParam.group}
+              group={searchParams.get('group') || ''}
               event={event}
               handleChange={refreshData}
               location={props.location}

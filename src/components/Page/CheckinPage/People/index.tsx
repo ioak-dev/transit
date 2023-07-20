@@ -8,8 +8,6 @@ import SearchInput from './SearchInput';
 import { isEmptyOrSpaces } from '../../../../components/Utils';
 import CheckinModel from '../../../../model/CheckinModel';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;

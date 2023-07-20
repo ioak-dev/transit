@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,10 +11,8 @@ import Topbar from '../../../components/Topbar';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import Footer from '../../../components/Footer';
 import { saveTrack } from './service';
-import { fetchAndSetTrackItems } from '../../../actions/TrackActions';
+import { fetchAndSetTrackItems } from '../../../store/actions/TrackActions';
 import EventModel from '../../../model/EventModel';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -22,18 +20,11 @@ interface Props {
 }
 
 const TrackListPage = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
 
-  const [id, setId] = useState<string | null>(null);
-  const [eventId, setEventId] = useState<string | null>(null);
   const [event, setEvent] = useState<EventModel | null>(null);
-
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setId(query.id);
-    setEventId(query.eventId);
-  }, [props.location.search]);
 
   const authorization = useSelector((state: any) => state.authorization);
   const eventList = useSelector((state: any) => state.event.items);
@@ -57,9 +48,9 @@ const TrackListPage = (props: Props) => {
   });
 
   useEffect(() => {
-    if (id && trackList) {
+    if (searchParams.has('id') && trackList) {
       const track: TrackModel = trackList.find(
-        (item: TrackModel) => item._id === id
+        (item: TrackModel) => item._id === searchParams.get('id')
       );
       if (track) {
         const from = getDateTimeString(new Date(track.from || new Date()));
@@ -67,24 +58,24 @@ const TrackListPage = (props: Props) => {
         setState({ ...track, from, to });
       }
     }
-  }, [id, trackList]);
+  }, [searchParams, trackList]);
 
   useEffect(() => {
-    console.log(eventId, eventList);
-    if (eventId && eventList) {
-      const _event = eventList.find((item: TrackModel) => item._id === eventId);
+    console.log(searchParams.get('eventId'), eventList);
+    if (searchParams.has('eventId') && eventList) {
+      const _event = eventList.find((item: TrackModel) => item._id === searchParams.get('eventId'));
       if (_event) {
         setEvent(_event);
       }
     }
-  }, [eventId, eventList]);
+  }, [searchParams, eventList]);
 
   const goToCreateTrackPage = () => {
-    history.push(`/${props.space}/track/new`);
+    navigate(`/${props.space}/track/new`);
   };
 
   const goToCompanyPage = (trackId: string) => {
-    history.push(`/${props.space}/track/${trackId}`);
+    navigate(`/${props.space}/track/${trackId}`);
   };
 
   const handleChange = (track: any) => {
@@ -98,16 +89,16 @@ const TrackListPage = (props: Props) => {
     event.preventDefault();
     console.log(state);
     console.log(new Date(state.from));
-    saveTrack(props.space, { ...state, eventId }, authorization).then(
+    saveTrack(props.space, { ...state, eventId: searchParams.get('eventId') }, authorization).then(
       (response: any) => {
         console.log(response);
         dispatch(fetchAndSetTrackItems(props.space, authorization));
-        history.goBack();
+        navigate(-1);
       }
     );
   };
 
-  const cancel = () => history.goBack();
+  const cancel = () => navigate(-1);
 
   useEffect(() => {
     DisableContextBarCommand.next(true);

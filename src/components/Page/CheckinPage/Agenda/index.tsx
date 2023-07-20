@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,13 +16,10 @@ import {
   getParticipantById,
   getParticipantByReferenceId,
 } from './service';
-import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
 import AgendaTile from './AgendaTile';
 import AgendaTileGroup from './AgendaTileGroup';
 import CheckinModel from '../../../../model/CheckinModel';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -36,14 +33,13 @@ interface Props {
 }
 
 const Agenda = (props: Props) => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [eventId, setEventId] = useState<string | null>(null);
   const [tracksAsMap, setTracksAsMap] = useState<any>({});
 
-  const params: { eventId: string; participantReferenceId: string } =
+  const params: any =
     useParams();
 
   const [state, setState] = useState<any>({});

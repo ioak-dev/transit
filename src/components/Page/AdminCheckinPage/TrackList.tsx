@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import './TrackList.scss';
-import ParticipantModel from '../../../model/ParticipantModel';
-import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
-import EventModel from '../../../model/EventModel';
-import { isEmptyOrSpaces } from '../../Utils';
-import Topbar from '../../Topbar';
-import { getTracks } from './service';
 import TrackModel from '../../../model/TrackModel';
-import { formatDateTimeText } from '../../../components/Lib/DateUtils';
-
-const queryString = require('query-string');
+import { formatDateTimeText } from '../../Lib/DateUtils';
 
 interface Props {
   space: string;
@@ -21,10 +13,10 @@ interface Props {
 }
 
 const TrackList = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const goToCheckin = (trackId: string) => {
-    history.push(
+    navigate(
       `/${props.space}/admin-checkin/${props.eventId}/${props.code}?trackId=${trackId}`
     );
   };

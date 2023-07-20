@@ -21,8 +21,6 @@ import Topbar from '../../../components/Topbar';
 import { sendMessage } from '../../../events/MessageService';
 import { getEventById } from '../CheckinPage/service';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;

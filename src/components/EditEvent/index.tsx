@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,9 +10,8 @@ import Topbar from '../../components/Topbar';
 import DisableContextBarCommand from '../../events/DisableContextBarCommand';
 import Footer from '../../components/Footer';
 import { saveEvent } from './service';
-import { fetchAndSetEventItems } from '../../actions/EventActions';
-
-const queryString = require('query-string');
+import { fetchAndSetEventItems } from '../../store/actions/EventActions';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   space: string;
@@ -21,7 +19,7 @@ interface Props {
 }
 
 const EditEvent = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const getDateTimeString = (_date: Date) => {
@@ -84,11 +82,11 @@ const EditEvent = (props: Props) => {
     event.preventDefault();
     saveEvent(props.space, state, authorization).then((response: any) => {
       dispatch(fetchAndSetEventItems(props.space, authorization));
-      history.goBack();
+      navigate(-1);
     });
   };
 
-  const cancel = () => history.goBack();
+  const cancel = () => navigate(-1);
 
   useEffect(() => {
     DisableContextBarCommand.next(true);

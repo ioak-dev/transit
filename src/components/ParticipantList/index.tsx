@@ -1,30 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { addDays, format } from 'date-fns';
-import {
-  faCheck,
-  faPen,
-  faPlus,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 import './style.scss';
 import ReceiptModel from '../../model/ReceiptModel';
 import ParticipantModel from '../../model/ParticipantModel';
 import Topbar from '../../components/Topbar';
 import DisableContextBarCommand from '../../events/DisableContextBarCommand';
 import EventModel from '../../model/EventModel';
-
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   eventId?: string | null;
 }
 
 const ParticipantList = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const authorization = useSelector((state: any) => state.authorization);
   const eventList = useSelector((state: any) => state.event.items);
@@ -44,21 +33,21 @@ const ParticipantList = (props: Props) => {
   }, [eventList, props.eventId]);
 
   const goToCreateParticipantPage = () => {
-    history.push(`/${props.space}/participant?eventId=${event?._id || ''}`);
+    navigate(`/${props.space}/participant?eventId=${event?._id || ''}`);
   };
 
   const goToEditParticipantPage = (participant: ParticipantModel) => {
-    history.push(
+    navigate(
       `/${props.space}/participant?eventId=${participant.eventId}&id=${participant._id}`
     );
   };
 
   const goToEditEventPage = () => {
-    history.push(`/${props.space}/event?id=${props.eventId}`);
+    navigate(`/${props.space}/event?id=${props.eventId}`);
   };
 
   const goToCompanyPage = (participantId: string) => {
-    history.push(`/${props.space}/participant/${participantId}`);
+    navigate(`/${props.space}/participant/${participantId}`);
   };
 
   useEffect(() => {

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { addDays, format } from 'date-fns';
 import {
   faCheck,
   faCircleExclamation,
@@ -15,17 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Compose.scss';
-import ReceiptModel from '../../model/ReceiptModel';
-import TrackModel from '../../model/TrackModel';
-import Topbar from '../../components/Topbar';
-import DisableContextBarCommand from '../../events/DisableContextBarCommand';
-import { getFeedsBySpace, sendFeed } from './service';
-import MessageList from '../Page/CheckinPage/NewsFeed/MessageList';
 import MessageModel from '../../model/MessageModel';
-import ParticipantModel from '../../model/ParticipantModel';
-import { getFeedMessages } from '../Page/CheckinPage/NewsFeed/service';
-
-const queryString = require('query-string');
 
 interface Props {
   handleChange: any;

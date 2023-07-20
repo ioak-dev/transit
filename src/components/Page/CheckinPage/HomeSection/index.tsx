@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,7 +9,6 @@ import ReceiptModel from '../../../../model/ReceiptModel';
 import ParticipantModel from '../../../../model/ParticipantModel';
 import Topbar from '../../../../components/Topbar';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
-import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
 import HomeTile from './HomeTile';
 import { updateParticipantDeclaration } from '../MyDetail/service';
@@ -17,8 +16,6 @@ import { newId } from '../../../../events/MessageService';
 import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
 import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
 // import mapImage from '../../../../assets/map.png';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -30,7 +27,6 @@ interface Props {
 }
 
 const HomeSection = (props: Props) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const profile = useSelector((state: any) => state.profile);
 
@@ -45,11 +41,11 @@ const HomeSection = (props: Props) => {
   const [state, setState] = useState<any>({});
 
   const goToCreateParticipantPage = () => {
-    history.push(`/${props.space}/participant/new`);
+    navigate(`/${props.space}/participant/new`);
   };
 
   const goToCompanyPage = (participantId: string) => {
-    history.push(`/${props.space}/participant/${participantId}`);
+    navigate(`/${props.space}/participant/${participantId}`);
   };
 
   const handleChange = (participant: any) => {

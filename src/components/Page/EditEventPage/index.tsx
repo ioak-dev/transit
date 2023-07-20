@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,10 +11,8 @@ import Topbar from '../../../components/Topbar';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import Footer from '../../../components/Footer';
 import { saveEvent } from './service';
-import { fetchAndSetEventItems } from '../../../actions/EventActions';
+import { fetchAndSetEventItems } from '../../../store/actions/EventActions';
 import EditEvent from '../../../components/EditEvent';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -22,15 +20,9 @@ interface Props {
 }
 
 const EventListPage = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [id, setId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setId(query.id);
-  }, [props.location.search]);
+  const [searchParams] = useSearchParams();
 
   const authorization = useSelector((state: any) => state.authorization);
   const eventList = useSelector((state: any) => state.event.items);
@@ -42,21 +34,21 @@ const EventListPage = (props: Props) => {
   });
 
   useEffect(() => {
-    console.log(id, eventList);
-    if (id && eventList) {
-      const event = eventList.find((item: EventModel) => item._id === id);
+    console.log(searchParams.get('id'), eventList);
+    if (searchParams.has('id') && eventList) {
+      const event = eventList.find((item: EventModel) => item._id === searchParams.get('id'));
       if (event) {
         setState({ ...event });
       }
     }
-  }, [id, eventList]);
+  }, [searchParams, eventList]);
 
   const goToCreateEventPage = () => {
-    history.push(`/${props.space}/event/new`);
+    navigate(`/${props.space}/event/new`);
   };
 
   const goToCompanyPage = (eventId: string) => {
-    history.push(`/${props.space}/event/${eventId}`);
+    navigate(`/${props.space}/event/${eventId}`);
   };
 
   const handleChange = (event: any) => {
@@ -70,11 +62,11 @@ const EventListPage = (props: Props) => {
     event.preventDefault();
     saveEvent(props.space, state, authorization).then((response: any) => {
       dispatch(fetchAndSetEventItems(props.space, authorization));
-      history.goBack();
+      navigate(-1);
     });
   };
 
-  const cancel = () => history.goBack();
+  const cancel = () => navigate(-1);
 
   useEffect(() => {
     DisableContextBarCommand.next(true);
@@ -83,7 +75,7 @@ const EventListPage = (props: Props) => {
   return (
     <div className="edit-event-page">
       <Topbar title="Edit event" />
-      <EditEvent id={id} space={props.space} />
+      <EditEvent id={searchParams.get('id')} space={props.space} />
       <div className="edit-event-page__main">
         <form className="form" onSubmit={save}>
           <div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,8 +9,6 @@ import ReceiptModel from '../../../model/ReceiptModel';
 import ExpenseModel from '../../../model/ExpenseModel';
 import Topbar from '../../../components/Topbar';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
-
-const queryString = require('query-string');
 
 const EMPTY_EXPENSE: ExpenseModel = {
   amount: undefined,
@@ -34,17 +32,17 @@ interface Props {
 }
 
 const LandingPage = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const authorization = useSelector((state: any) => state.authorization);
   const companyList = useSelector((state: any) => state.company.items);
 
   const goToCreateCompanyPage = () => {
-    history.push('/company/edit');
+    navigate('/company/edit');
   };
 
   const goToCompanyPage = (companyReference: number) => {
-    history.push(`/${companyReference}/eventlist`);
+    navigate(`/${companyReference}/eventlist`);
   };
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import {
   faCalendar,
@@ -19,14 +20,11 @@ import EventModel from '../../../model/EventModel';
 import Topbar from '../../../components/Topbar';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import Footer from '../../../components/Footer';
-import { fetchAndSetEventItems } from '../../../actions/EventActions';
 import EditEventPage from '../EditEventPage';
 import EditEvent from '../../../components/EditEvent';
 import TrackList from '../../../components/TrackList';
 import ParticipantList from '../../../components/ParticipantList';
 import FeedList from '../../../components/FeedList';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -34,21 +32,21 @@ interface Props {
 }
 
 const ManageEventPage = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
 
-  const [view, setView] = useState<'details' | 'tracklist' | 'users' | 'feed'>(
+  const [view, setView] = useState<'details' | 'tracklist' | 'users' | 'feed' | string>(
     'details'
   );
-  const params: { id: string } = useParams();
+  const params: any = useParams();
   useEffect(() => {
     console.log(params);
   }, [params]);
 
   useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setView(query.view || 'details');
-  }, [props.location.search]);
+    setView(searchParams.get('view') || 'details');
+  }, [searchParams]);
 
   const authorization = useSelector((state: any) => state.authorization);
   const eventList = useSelector((state: any) => state.event.items);
@@ -72,17 +70,17 @@ const ManageEventPage = (props: Props) => {
   }, [params.id, eventList]);
 
   const goToCreateEventPage = () => {
-    history.push(`/${props.space}/event/new`);
+    navigate(`/${props.space}/event/new`);
   };
 
   const goToCompanyPage = (eventId: string) => {
-    history.push(`/${props.space}/event/${eventId}`);
+    navigate(`/${props.space}/event/${eventId}`);
   };
 
-  const cancel = () => history.goBack();
+  const cancel = () => navigate(-1);
 
   const changeView = (_view: 'details' | 'tracklist' | 'users' | 'feed') => {
-    history.push(`/${props.space}/event/${params.id}?view=${_view}`);
+    navigate(`/${props.space}/event/${params.id}?view=${_view}`);
   };
 
   useEffect(() => {
@@ -91,34 +89,7 @@ const ManageEventPage = (props: Props) => {
 
   return (
     <div className="manage-event-page">
-      <Topbar title={`Manage event > ${view}`}>
-        <div className="topbar-action-group">
-          <button
-            className={`button ${view === 'details' ? 'active' : ''}`}
-            onClick={() => changeView('details')}
-          >
-            <FontAwesomeIcon icon={faPen} />
-          </button>
-          <button
-            className={`button ${view === 'tracklist' ? 'active' : ''}`}
-            onClick={() => changeView('tracklist')}
-          >
-            <FontAwesomeIcon icon={faCalendar} />
-          </button>
-          <button
-            className={`button ${view === 'users' ? 'active' : ''}`}
-            onClick={() => changeView('users')}
-          >
-            <FontAwesomeIcon icon={faUsers} />
-          </button>
-          <button
-            className={`button ${view === 'feed' ? 'active' : ''}`}
-            onClick={() => changeView('feed')}
-          >
-            <FontAwesomeIcon icon={faRss} />
-          </button>
-        </div>
-      </Topbar>
+      <Topbar title={`Manage event > ${view}`} />
       <div className="manage-event-page__main">
         {view === 'details' && <EditEvent space={props.space} id={params.id} />}
         {view === 'tracklist' && (

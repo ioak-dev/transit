@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,15 +9,13 @@ import { newId } from '../../../events/MessageService';
 import { getUserInvite, sendUserInvite } from './service';
 import Topbar from '../../../components/Topbar';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;
 }
 
 const Permissions = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const users = useSelector((state: any) => state.user.items);
   const [userInviteList, setUserInviteList] = useState<any[]>([]);

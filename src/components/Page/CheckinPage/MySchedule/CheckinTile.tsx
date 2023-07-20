@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { addDays, format, intervalToDuration } from 'date-fns';
 import {
   faArrowRightFromBracket,
@@ -17,9 +17,6 @@ import Topbar from '../../../../components/Topbar';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
 import Footer from '../../../../components/Footer';
 import { getAvailableTracks, registerIn, registerOut } from './service';
-import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
-import EventModel from '../../../../model/EventModel';
-import TrackModel from '../../../../model/TrackModel';
 import {
   formatDateText,
   formatDateTimeText,
@@ -28,8 +25,6 @@ import QrScanner from '../../../QrScanner';
 import AddSpinnerCommand from '../../../../events/AddSpinnerCommand';
 import { newId } from '../../../../events/MessageService';
 import RemoveSpinnerCommand from '../../../../events/RemoveSpinnerCommand';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -11,33 +11,31 @@ import EventModel from '../../../model/EventModel';
 import Topbar from '../../../components/Topbar';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;
 }
 
 const EditEventPage = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const authorization = useSelector((state: any) => state.authorization);
   const eventList = useSelector((state: any) => state.event.items);
 
   const goToCreateEventPage = () => {
-    history.push(`/${props.space}/event`);
+    navigate(`/${props.space}/event`);
   };
 
   const goToEditEventPage = (event: EventModel) => {
-    history.push(`/${props.space}/event?id=${event._id}`);
+    navigate(`/${props.space}/event?id=${event._id}`);
   };
 
   const goToTrackListPage = (event: EventModel) => {
-    history.push(`/${props.space}/tracklist?eventId=${event._id}`);
+    navigate(`/${props.space}/tracklist?eventId=${event._id}`);
   };
 
   const goToManageEventPage = (event: EventModel) => {
-    history.push(`/${props.space}/event/${event._id}`);
+    navigate(`/${props.space}/event/${event._id}`);
   };
 
   useEffect(() => {

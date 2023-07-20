@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { addDays, format } from 'date-fns';
 import {
   faCheck,
@@ -17,8 +17,6 @@ import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
 import EventModel from '../../../model/EventModel';
 import { getEventById, getParticipantList } from '../CheckinPage/service';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   eventId?: string | null;
@@ -29,11 +27,7 @@ const AdminDeclaration = (props: Props) => {
     []
   );
   const [event, setEvent] = useState<any>();
-  const params: {
-    eventId: string;
-    code: string;
-    declarationType: string;
-  } = useParams();
+  const params: any = useParams();
 
   const [validationSuccessful, setValidationSuccessful] = useState(false);
   const [declareCount, setDeclareCount] = useState<any>();
@@ -78,7 +72,6 @@ const AdminDeclaration = (props: Props) => {
   return (
     <>
       <Topbar
-        alternateView
         title={`Declaration - 
         ${params.declarationType === 'before' ? 'Before Travel' : ''}
         ${params.declarationType === 'after' ? 'After Travel' : ''}`}

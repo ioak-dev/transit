@@ -8,8 +8,6 @@ import Compose from '../../../components/Compose';
 import MessageModel from '../../../model/MessageModel';
 import { formatDateTimeText } from '../../../components/Lib/DateUtils';
 
-const queryString = require('query-string');
-
 interface Props {
   message: MessageModel;
   participant?: ParticipantModel;

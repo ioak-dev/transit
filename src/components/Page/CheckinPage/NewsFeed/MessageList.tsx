@@ -8,8 +8,6 @@ import Compose from '../../../../components/Compose';
 import MessageModel from '../../../../model/MessageModel';
 import MessageItem from './MessageItem';
 
-const queryString = require('query-string');
-
 interface Props {
   participant?: ParticipantModel;
   messages: MessageModel[];

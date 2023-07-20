@@ -1,5 +1,5 @@
 .checkin-page {
-  min-height: calc(100vh - var(--oak-app-layout-topbar-height));
+  min-height: calc(100vh - var(--app-layout-topbar-height));
 }
 .checkin-page--notvalidated {
   // background-color: #1596d1;
@@ -21,7 +21,7 @@
 }
 .checkin-page__main {
   padding-bottom: 50px;
-  min-height: calc(100vh - var(--oak-app-layout-topbar-height));
+  min-height: calc(100vh - var(--app-layout-topbar-height));
 }
 
 .checkin-page__footer {

@@ -8,8 +8,6 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { formatDateText, formatDateTimeText } from '../../../Lib/DateUtils';
 
-const queryString = require('query-string');
-
 interface Props {
   customField: any;
   participant: ParticipantModel;

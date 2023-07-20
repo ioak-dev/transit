@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './MessageItem.scss';
 import ParticipantModel from 'src/model/ParticipantModel';
-import EventModel from 'src/model/EventModel';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
-import Compose from '../../../../components/Compose';
 import MessageModel from '../../../../model/MessageModel';
 import { formatDateTimeText } from '../../../../components/Lib/DateUtils';
-
-const queryString = require('query-string');
 
 interface Props {
   message: MessageModel;

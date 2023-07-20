@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,19 +10,9 @@ import ReceiptModel from '../../../../model/ReceiptModel';
 import ParticipantModel from '../../../../model/ParticipantModel';
 import Topbar from '../../../../components/Topbar';
 import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
-import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
-import moment from 'moment';
-import { updateParticipantDeclaration } from './service';
-import {
-  formatDate,
-  formatDateText,
-  formatDateTimeText,
-} from '../../../../components/Lib/DateUtils';
 import CustomField from './CustomField';
 // import mapImage from '../../../../assets/map.png';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -33,7 +24,7 @@ interface Props {
 }
 
 const MyDetail = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [participantId, setParticipantId] = useState<string | null>(null);
@@ -47,11 +38,11 @@ const MyDetail = (props: Props) => {
   const [state, setState] = useState<any>({});
 
   const goToCreateParticipantPage = () => {
-    history.push(`/${props.space}/participant/new`);
+    navigate(`/${props.space}/participant/new`);
   };
 
   const goToCompanyPage = (participantId: string) => {
-    history.push(`/${props.space}/participant/${participantId}`);
+    navigate(`/${props.space}/participant/${participantId}`);
   };
 
   const handleChange = (participant: any) => {

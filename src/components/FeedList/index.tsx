@@ -1,18 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { addDays, format } from 'date-fns';
-import {
-  faCheck,
-  faCircleExclamation,
-  faClose,
-  faPaperPlane,
-  faPen,
-  faPlus,
-  faTimes,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
 import DisableContextBarCommand from '../../events/DisableContextBarCommand';
 import { getFeedsBySpace, sendFeed } from './service';
@@ -21,8 +8,6 @@ import MessageModel from '../../model/MessageModel';
 import ParticipantModel from '../../model/ParticipantModel';
 import { getFeedMessages } from '../Page/CheckinPage/NewsFeed/service';
 import Compose from './Compose';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;

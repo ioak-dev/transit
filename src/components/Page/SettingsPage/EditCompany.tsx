@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './EditCompany.scss';
@@ -9,8 +9,6 @@ import CompanyModel from '../../../model/CompanyModel';
 import { saveCompany } from '../EditCompanyPage/service';
 import Topbar from '../../../components/Topbar';
 import Footer from '../../../components/Footer';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -25,7 +23,7 @@ const EMPTY_COMPANY: CompanyModel = {
 };
 
 const EditCompany = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const company = useSelector((state: any) =>
     state.company.items.find(
@@ -57,7 +55,7 @@ const EditCompany = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1);
   };
 
   return (

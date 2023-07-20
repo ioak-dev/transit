@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { addDays, format } from 'date-fns';
-import {
-  faCheck,
-  faPen,
-  faPlus,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 import './style.scss';
 import ReceiptModel from '../../model/ReceiptModel';
 import TrackModel from '../../model/TrackModel';
@@ -17,15 +9,13 @@ import DisableContextBarCommand from '../../events/DisableContextBarCommand';
 import EventModel from '../../model/EventModel';
 import { formatDateTimeText } from '../Lib/DateUtils';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   eventId?: string | null;
 }
 
 const TrackList = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const authorization = useSelector((state: any) => state.authorization);
   const eventList = useSelector((state: any) => state.event.items);
@@ -45,21 +35,21 @@ const TrackList = (props: Props) => {
   }, [eventList, props.eventId]);
 
   const goToCreateTrackPage = () => {
-    history.push(`/${props.space}/track?eventId=${event?._id || ''}`);
+    navigate(`/${props.space}/track?eventId=${event?._id || ''}`);
   };
 
   const goToEditTrackPage = (track: TrackModel) => {
-    history.push(
+    navigate(
       `/${props.space}/track?eventId=${track.eventId}&id=${track._id}`
     );
   };
 
   const goToEditEventPage = () => {
-    history.push(`/${props.space}/event?id=${props.eventId}`);
+    navigate(`/${props.space}/event?id=${props.eventId}`);
   };
 
   const goToCompanyPage = (trackId: string) => {
-    history.push(`/${props.space}/track/${trackId}`);
+    navigate(`/${props.space}/track/${trackId}`);
   };
 
   useEffect(() => {

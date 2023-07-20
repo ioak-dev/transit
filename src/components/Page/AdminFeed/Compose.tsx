@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { addDays, format } from 'date-fns';
 import {
   faBell,
   faCheck,
@@ -17,8 +15,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Compose.scss';
 import MessageModel from '../../../model/MessageModel';
-
-const queryString = require('query-string');
 
 interface Props {
   handleSendFeed: any;

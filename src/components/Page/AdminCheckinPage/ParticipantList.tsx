@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
 import './ParticipantList.scss';
 import ParticipantModel from '../../../model/ParticipantModel';
 import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
@@ -11,8 +10,6 @@ import TrackModel from '../../../model/TrackModel';
 import CheckinTile from './CheckinTile';
 import CheckinModel from '../../../model/CheckinModel';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;
@@ -23,7 +20,6 @@ interface Props {
 }
 
 const ParticipantList = (props: Props) => {
-  const history = useHistory();
   const [checkinMap, setCheckinMap] = useState<any>({});
   const [isRegistered, setIsRegistered] = useState(false);
   const [isAttended, setIsAttended] = useState(false);

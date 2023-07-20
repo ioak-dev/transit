@@ -76,14 +76,11 @@ const SideNavLink = (props: Props) => {
       {!props.children && (
         <NavLink
           to={props.link}
-          className="side-navbar-link__action text-gray-200"
-          activeClassName="side-navbar-link__action--active"
+          className="side-navbar-link__action"
         >
-          {profile.sidebar && (
-            <div className="side-navbar-link__action__icon">
-              <FontAwesomeIcon icon={props.icon} />
-            </div>
-          )}
+          <div className="side-navbar-link__action__icon">
+            <FontAwesomeIcon icon={props.icon} />
+          </div>
           {profile.sidebar && (
             <div className="side-navbar-link__action__label">{props.label}</div>
           )}

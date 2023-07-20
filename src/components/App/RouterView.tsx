@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './RouterView.scss';
-import OaLogin from '../Auth/OaLogin';
-import OakRouteApp from '../Auth/OakRouteApp';
-import OakRouteGraph from '../Auth/OakRouteGraph';
-import Login from '../Login';
-import ExternLogin from '../Auth/ExternLogin';
-import OneAuth from '../Login/OneAuth';
+import Home from '../Home';
+import { loginPageSubject } from '../../events/LoginPageEvent';
+import ProtectedRouteApp from '../ProtectedRouteApp';
 import LandingPage from '../Page/LandingPage';
+import OaLogin from '../Auth/OaLogin';
 import EditCompanyPage from '../Page/EditCompanyPage';
 import SettingsPage from '../Page/SettingsPage';
 import UnauthorizedPage from '../Page/UnauthorizedPage';
@@ -24,209 +22,175 @@ import CheckinPage from '../Page/CheckinPage';
 import AdminCheckinPage from '../Page/AdminCheckinPage';
 import AdminNewsFeed from '../Page/AdminFeed';
 import AdminDeclaration from '../Page/AdminDeclaration';
+import LoginPage from '../Page/LoginPage';
 
 interface Props {
-  cookies: any;
 }
 
 const RouterView = (props: Props) => {
+  const [loginPage, setLoginPage] = useState(true);
+
+  useEffect(() => {
+    loginPageSubject.subscribe((message) => {
+      setLoginPage(message.state);
+    });
+  }, []);
+
   return (
-    <div className="router-view">
-      <Route
-        path="/login"
-        render={(propsLocal) => (
-          <OakRouteApp {...propsLocal} {...props} component={OaLogin} />
-        )}
-      />
-      <Route
-        path="/home"
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={LandingPage}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/company/edit"
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={EditCompanyPage}
-            middleware={[]}
-          />
-        )}
-      />
-      <Route
-        path="/:space/unauthorized"
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={UnauthorizedPage}
-            middleware={['isAuthenticated']}
-          />
-        )}
-      />
-      <Route
-        path="/"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={LandingPage}
-            middleware={[]}
-          />
-        )}
-      />
-      <Route
-        path="/:space/eventlist"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={EventListPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/event/:id"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={ManageEventPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/event"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={ManageEventPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/track"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={EditTrackPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/participant"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={EditParticipantPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/checkin/:eventId/:participantReferenceId"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={CheckinPage}
-            middleware={[]}
-          />
-        )}
-      />
-      <Route
-        path="/:space/admin-checkin/:eventId/:code"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={AdminCheckinPage}
-            middleware={[]}
-          />
-        )}
-      />
-      <Route
-        path="/:space/admin-feed/:eventId/:code"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={AdminNewsFeed}
-            middleware={[]}
-          />
-        )}
-      />
-      <Route
-        path="/:space/admin-declaration/:eventId/:declarationType/:code"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={AdminDeclaration}
-            middleware={[]}
-          />
-        )}
-      />
-      <Route
-        path="/:space/settings/company"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={EditCompany}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/settings/user"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={Permissions}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/settings/backup"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={BackupAndRestore}
-            middleware={['authenticate']}
-          />
-        )}
-      />
+    <div
+      className={`router-view ${loginPage ? 'on-login-page' : 'not-on-login-page'}`}
+    >
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={LandingPage} />
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={LandingPage} />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRouteApp
+              middleware={[]} component={LoginPage} />}
+        />
+        <Route
+          path="/company/edit"
+          element={
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={EditCompanyPage} />}
+        />
+        <Route
+          path="/:space/unauthorized"
+          element={
+            <ProtectedRouteApp
+              middleware={['isAuthenticated']} component={UnauthorizedPage} />}
+        />
+        <Route
+          path="/"
+          element={
+            <ProtectedRouteApp
+              component={LandingPage}
+              middleware={[]}
+            />
+          }
+        />
+        <Route
+          path="/:space/eventlist"
+          element={
+            <ProtectedRouteApp
+              component={EventListPage}
+              middleware={['authenticate']}
+            />
+          }
+        />
+        <Route
+          path="/:space/event/:id"
+          element={
+            <ProtectedRouteApp
+              component={ManageEventPage}
+              middleware={['authenticate']}
+            />
+          }
+        />
+        <Route
+          path="/:space/event"
+          element={
+            <ProtectedRouteApp
+              component={ManageEventPage}
+              middleware={['authenticate']}
+            />
+          }
+        />
+        <Route
+          path="/:space/track"
+          element={
+            <ProtectedRouteApp
+              component={EditTrackPage}
+              middleware={['authenticate']}
+            />
+          }
+        />
+        <Route
+          path="/:space/participant"
+          element={
+            <ProtectedRouteApp
+              component={EditParticipantPage}
+              middleware={['authenticate']}
+            />
+          }
+        />
+        <Route
+          path="/:space/checkin/:eventId/:participantReferenceId"
+          element={
+            <ProtectedRouteApp
+              component={CheckinPage}
+              middleware={[]}
+            />
+          }
+        />
+        <Route
+          path="/:space/admin-checkin/:eventId/:code"
+          element={
+            <ProtectedRouteApp
+              component={AdminCheckinPage}
+              middleware={[]}
+            />
+          }
+        />
+        <Route
+          path="/:space/admin-feed/:eventId/:code"
+          element={
+            <ProtectedRouteApp
+              component={AdminNewsFeed}
+              middleware={[]}
+            />
+          }
+        />
+        <Route
+          path="/:space/admin-declaration/:eventId/:declarationType/:code"
+          element={
+            <ProtectedRouteApp
+              component={AdminDeclaration}
+              middleware={[]}
+            />
+          }
+        />
+        <Route
+          path="/:space/settings/company"
+          element={
+            <ProtectedRouteApp
+              component={EditCompany}
+              middleware={['authenticate']}
+            />
+          }
+        />
+        <Route
+          path="/:space/settings/user"
+          element={
+            <ProtectedRouteApp
+              component={Permissions}
+              middleware={['authenticate']}
+            />
+          }
+        />
+        <Route
+          path="/:space/settings/backup"
+          element={
+            <ProtectedRouteApp
+              component={BackupAndRestore}
+              middleware={['authenticate']}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 };

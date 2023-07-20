@@ -1,36 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
-import { addDays, format } from 'date-fns';
 import {
-  faArrowRightFromBracket,
-  faCheck,
-  faPersonWalkingDashedLineArrowRight,
-  faPlus,
-  faTimes,
-  faTrash,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './CheckinTile.scss';
-import ReceiptModel from '../../../model/ReceiptModel';
-import ParticipantModel from '../../../model/ParticipantModel';
-import Topbar from '../../../components/Topbar';
-import DisableContextBarCommand from '../../../events/DisableContextBarCommand';
-import Footer from '../../../components/Footer';
-import { fetchAndSetParticipantItems } from '../../../actions/ParticipantActions';
-import EventModel from '../../../model/EventModel';
 import TrackModel from '../../../model/TrackModel';
-import {
-  formatDateText,
-  formatDateTimeText,
-} from '../../../components/Lib/DateUtils';
-import AddSpinnerCommand from '../../../events/AddSpinnerCommand';
-import { newId } from '../../../events/MessageService';
-import RemoveSpinnerCommand from '../../../events/RemoveSpinnerCommand';
 import CheckinModel from '../../../model/CheckinModel';
 import { deleteCheckin, registerInAdmin, registerOutAdmin } from './service';
-
-const queryString = require('query-string');
+import ParticipantModel from '../../../model/ParticipantModel';
 
 interface Props {
   space: string;

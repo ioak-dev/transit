@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DisableContextBarCommand from '../../events/DisableContextBarCommand';
-import { setProfile } from '../../actions/ProfileActions';
 import './style.scss';
 
 interface Props {

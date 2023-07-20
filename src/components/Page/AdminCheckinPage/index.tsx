@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
 import ParticipantModel from '../../../model/ParticipantModel';
@@ -13,7 +14,6 @@ import ParticipantList from './ParticipantList';
 import { getEventById, getParticipantList } from '../CheckinPage/service';
 import TrackModel from '../../../model/TrackModel';
 
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -21,18 +21,10 @@ interface Props {
 }
 
 const AdminCheckinPage = (props: Props) => {
-  const history = useHistory();
-  const params: {
-    eventId: string;
-    code: string;
-  } = useParams();
-  const [queryParam, setQueryParam] = useState<any>();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const params: any = useParams();
   const [validationSuccessful, setValidationSuccessful] = useState(false);
-
-  useEffect(() => {
-    const queryParam = queryString.parse(props.location.search);
-    setQueryParam(queryParam);
-  }, [props.location.search]);
 
   const [tracks, setTracks] = useState<TrackModel[]>([]);
   const [participants, setParticipants] = useState<ParticipantModel[]>([]);
@@ -55,7 +47,7 @@ const AdminCheckinPage = (props: Props) => {
   }, [params]);
 
   const goToEventCheckin = () => {
-    history.push(
+    navigate(
       `/${props.space}/admin-checkin/${params.eventId}/${params.code}?trackId=NA`
     );
   };
@@ -63,11 +55,10 @@ const AdminCheckinPage = (props: Props) => {
   return (
     <div className="admin-checkin-page">
       <Topbar
-        alternateView
         // title={event?.name || ''}
         title="Administrator"
       />
-      {validationSuccessful && !queryParam?.trackId && (
+      {validationSuccessful && !searchParams.get('trackId') && (
         <div className="admin-checkin-page__event">
           <button
             className="button track-list__item"
@@ -84,7 +75,7 @@ const AdminCheckinPage = (props: Props) => {
           </button>
         </div>
       )}
-      {validationSuccessful && !queryParam?.trackId && (
+      {validationSuccessful && !searchParams.get('trackId') && (
         <TrackList
           tracks={tracks}
           eventId={params.eventId}
@@ -93,14 +84,14 @@ const AdminCheckinPage = (props: Props) => {
           code={params.code}
         />
       )}
-      {validationSuccessful && queryParam?.trackId && (
+      {validationSuccessful && searchParams.get('trackId') && (
         <ParticipantList
           participants={participants}
           eventId={params.eventId}
           location={props.location}
           space={props.space}
           code={params.code}
-          trackId={queryParam.trackId}
+          trackId={searchParams.get('trackId') || ''}
         />
       )}
       {!validationSuccessful && <div>Unauthorized</div>}

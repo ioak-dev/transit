@@ -1,14 +1,15 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from '../../store';
+import store from '../../store/store';
+import Content from './Content';
+import '@oakui/core-stage';
 import './style.scss';
 import './metric.scss';
-import Content from './Content';
 
 const App = (props: any) => {
   return (
     <Provider store={store}>
-      <Content {...props} />
+        <Content />
     </Provider>
   );
 };

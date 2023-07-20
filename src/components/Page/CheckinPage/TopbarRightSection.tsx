@@ -2,13 +2,11 @@ import { faPeopleGroup, faRss } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import EventModel from 'src/model/EventModel';
 import ParticipantModel from 'src/model/ParticipantModel';
 
 import './TopbarRightSection.scss';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -18,11 +16,11 @@ interface Props {
 }
 
 const TopbarRightSection = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleClick = (page: string) => {
-    history.push(
+    navigate(
       `/${props.space}/checkin/${props.event._id}/${props.participant.referenceId}?page=${page}`
     );
   };

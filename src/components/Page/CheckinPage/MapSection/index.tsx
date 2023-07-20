@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,8 +15,6 @@ import EventModel from '../../../../model/EventModel';
 import MediaTile from './MediaTile';
 // import mapImage from '../../../../assets/map.png';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;
@@ -26,7 +25,7 @@ interface Props {
 }
 
 const MapSection = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [participantId, setParticipantId] = useState<string | null>(null);
@@ -40,11 +39,11 @@ const MapSection = (props: Props) => {
   const [state, setState] = useState<any>({});
 
   const goToCreateParticipantPage = () => {
-    history.push(`/${props.space}/participant/new`);
+    navigate(`/${props.space}/participant/new`);
   };
 
   const goToCompanyPage = (participantId: string) => {
-    history.push(`/${props.space}/participant/${participantId}`);
+    navigate(`/${props.space}/participant/${participantId}`);
   };
 
   const handleChange = (participant: any) => {

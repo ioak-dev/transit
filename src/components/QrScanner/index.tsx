@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 // import QrReader from 'react-qr-scanner';
-import QrReader from 'react-qr-reader';
+import { QrReader, } from 'react-qr-reader';
 
 interface Props {
   handleChange: any;
@@ -12,7 +12,7 @@ const QrScanner = (props: Props) => {
   const [state, setState] = useState<any>({});
   const [qrData, setQrData] = useState('');
   const [showQrReader, setShowQrReader] = useState(true);
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const handleQrResult = (event: any) => {
     console.log(event);

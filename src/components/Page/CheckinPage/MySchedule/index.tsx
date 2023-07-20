@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,12 +17,9 @@ import {
   getParticipantById,
   getParticipantByReferenceId,
 } from './service';
-import { fetchAndSetParticipantItems } from '../../../../actions/ParticipantActions';
 import EventModel from '../../../../model/EventModel';
 import TrackModel from '../../../../model/TrackModel';
 import CheckinTile from './CheckinTile';
-
-const queryString = require('query-string');
 
 interface Props {
   space: string;
@@ -33,13 +31,13 @@ interface Props {
 }
 
 const MySchedule = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [eventId, setEventId] = useState<string | null>(null);
 
-  const params: { eventId: string; participantReferenceId: string } =
+  const params: any =
     useParams();
 
   const [showAllTracks, setShowAllTracks] = useState(false);
@@ -47,11 +45,11 @@ const MySchedule = (props: Props) => {
   const [state, setState] = useState<any>({});
 
   const goToCreateParticipantPage = () => {
-    history.push(`/${props.space}/participant/new`);
+    navigate(`/${props.space}/participant/new`);
   };
 
   const goToCompanyPage = (participantId: string) => {
-    history.push(`/${props.space}/participant/${participantId}`);
+    navigate(`/${props.space}/participant/${participantId}`);
   };
 
   const handleChange = (participant: any) => {

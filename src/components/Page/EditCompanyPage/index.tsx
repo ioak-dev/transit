@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Topbar from '../../../components/Topbar';
@@ -8,8 +8,6 @@ import './style.scss';
 import { newId } from '../../../events/MessageService';
 import CompanyModel from '../../../model/CompanyModel';
 import { saveCompany } from './service';
-
-const queryString = require('query-string');
 
 interface Props {
   history: any;
@@ -24,17 +22,12 @@ const EMPTY_COMPANY: CompanyModel = {
 };
 
 const EditCompanyPage = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const authorization = useSelector((state: any) => state.authorization);
   const companyList = useSelector((state: any) => state.company.items);
-  const [queryParam, setQueryParam] = useState<any>({});
   const [formId, setFormId] = useState(newId());
   const [state, setState] = useState<CompanyModel>({ ...EMPTY_COMPANY });
-
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setQueryParam(query);
-  }, [props.location.search]);
 
   const handleChange = (event: any) => {
     setState({
@@ -50,12 +43,12 @@ const EditCompanyPage = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1);
   };
 
   return (
     <div className="edit-company-page">
-      <Topbar title={queryParam.id ? 'Edit company' : 'New company'}>
+      <Topbar title={searchParams.has('id') ? 'Edit company' : 'New company'}>
         right
       </Topbar>
       <div className="edit-company-page__main main-section content-section page-width">
@@ -100,7 +93,7 @@ const EditCompanyPage = (props: Props) => {
         <div className="footer-right">
           <button type="submit" onClick={save}>
             <FontAwesomeIcon icon={faCheck} />
-            {queryParam.id ? 'Save' : 'Save and go back'}
+            {searchParams.has('id') ? 'Save' : 'Save and go back'}
           </button>
           <button onClick={goBack}>
             <FontAwesomeIcon icon={faTimes} />

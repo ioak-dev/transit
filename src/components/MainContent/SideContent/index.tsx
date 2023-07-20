@@ -1,12 +1,11 @@
 import {
   faBalanceScaleRight,
-  faCalendar,
   faCalendarAlt,
   faChartArea,
   faChartBar,
   faChevronLeft,
   faChevronRight,
-  faCircleDot,
+  faCircleNodes,
   faClone,
   faCog,
   faCogs,
@@ -17,22 +16,23 @@ import {
   faFileImport,
   faFingerprint,
   faFolderOpen,
-  faFolderPlus,
   faHome,
+  faListUl,
   faMagnifyingGlass,
   faMoneyBillWave,
   faMoneyBillWaveAlt,
+  faPalette,
+  faPlus,
   faReceipt,
-  faRunning,
   faShoppingBag,
   faShoppingCart,
   faSignOutAlt,
+  faStrikethrough,
   faTable,
   faTag,
   faTags,
   faTh,
   faThLarge,
-  faThumbTack,
   faUniversity,
   faUserShield,
   faWallet,
@@ -40,56 +40,28 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
-import { Subject } from 'rxjs';
 import DarkModeIcon from '../../../components/Navigation/DarkModeIcon';
 import NavAccountIcon from '../../../components/Navigation/NavAccountIcon';
 import Logo from '../../../components/Logo';
 import SideNavLink from '../SideNavLink';
 
 import './style.scss';
-import { removeAuth } from '../../../actions/AuthActions';
+import { removeAuth } from '../../../store/actions/AuthActions';
 import { sendMessage } from '../../../events/MessageService';
 import SideNavSubHeading from '../SideNavSubHeading';
-import { setProfile } from '../../../actions/ProfileActions';
-
-const queryString = require('query-string');
+import { removeSessionValue } from '../../../utils/SessionUtils';
+import { useNavigate } from 'react-router-dom';
+import { setProfile } from '../../../store/actions/ProfileActions';
 
 interface Props {
-  cookies: any;
   space: string;
 }
 
 const SideContent = (props: Props) => {
-  const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const profile = useSelector((state: any) => state.profile);
   const authorization = useSelector((state: any) => state.authorization);
   const dispatch = useDispatch();
-  const [queryParam, setQueryParam] = useState({
-    id: '',
-  });
-  const [view, setView] = useState<'file' | 'search' | 'pin'>('file');
-  const [addFolderCommand, setAddFolderCommand] = useState(0);
-  const [locateFolderCommand, setLocateFolderCommand] = useState(0);
-
-  const [searchText, setSearchText] = useState<string>('');
-
-  const [searchResults, setSearchResults] = useState<any>({
-    results: [],
-    words: [
-      {
-        name: [],
-        path: [],
-        content: [],
-      },
-    ],
-  });
-
-  useEffect(() => {
-    const queryParam = queryString.parse(location.search);
-    setQueryParam(queryParam);
-  }, [location]);
 
   const logout = (
     event: any,
@@ -97,37 +69,21 @@ const SideContent = (props: Props) => {
     message = 'You have been logged out'
   ) => {
     dispatch(removeAuth());
-    props.cookies.remove(
-      `transit_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
+    removeSessionValue(
+      `transit-access_token`
     );
-    history.push(`/`);
-    sendMessage('notification', true, {
-      type,
-      message,
-      duration: 3000,
-    });
+    removeSessionValue(
+      `transit-refresh_token`
+    );
+    navigate(`/`);
   };
 
   const login = (type: string) => {
-    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
-  };
-
-  const handleAddFolder = () => {
-    setAddFolderCommand(addFolderCommand + 1);
-  };
-
-  const handleLocateFolder = () => {
-    setLocateFolderCommand(locateFolderCommand + 1);
-  };
-
-  const changeToFileView = () => {
-    setAddFolderCommand(0);
-    setLocateFolderCommand(0);
-    setView('file');
+    navigate('/login');
   };
 
   const chooseCompany = () => {
-    history.push('/home');
+    navigate('/home');
   };
 
   const toggleSidebar = () => {
@@ -141,16 +97,17 @@ const SideContent = (props: Props) => {
 
   return (
     <div
-      className={`side-content ${
-        profile.sidebar
+      className={`side-content ${profile.sidebar
           ? 'side-content__sidebar-active'
           : 'side-content__sidebar-inactive'
-      } bg-light-300 dark:bg-dark-400`}
+        } ${profile.theme === 'basicui-dark'
+          ? 'side-content__theme-dark'
+          : 'side-content__theme-light'
+        }`}
     >
       <div className="side-content__header">
         <div className="side-content__header__logo">
-          {/* <Logo variant={profile.sidebar ? 'full' : 'short'} /> */}
-          {/* <FontAwesomeIcon icon={faRunning} /> */}
+          <Logo variant={profile.sidebar ? 'full' : 'short'} />
         </div>
         {profile.sidebar && (
           <div className="side-content__header__button">
@@ -161,58 +118,86 @@ const SideContent = (props: Props) => {
         )}
       </div>
       <div className="side-content__menu">
-        <div
-          className={`side-content__menu__toggle__button ${
-            profile.sidebar ? 'side-content__menu__toggle__button--flip' : ''
-          }`}
-        >
-          <button className="button" onClick={toggleSidebar}>
-            <FontAwesomeIcon icon={faChevronRight} />
-          </button>
-        </div>
+        <button className='side-content__menu__toggle' onClick={toggleSidebar}>
+          {profile.sidebar && <FontAwesomeIcon icon={faChevronLeft} />}
+          {!profile.sidebar && <FontAwesomeIcon icon={faChevronRight} />}
+        </button>
         {props.space && (
           <>
-            {/* <SideNavSubHeading short="Record" long="Record" /> */}
+            <SideNavSubHeading short="Notes" long="Notes" />
             <SideNavLink
-              link={`/${props.space}/dashboard`}
-              icon={faChartBar}
-              label="Dashboard"
+              link={`/${props.space}/new-note`}
+              icon={faPlus}
+              label="New note"
             />
             <SideNavLink
-              link={`/${props.space}/eventlist`}
-              icon={faCalendar}
-              label="Event list"
+              link={`/${props.space}/browse`}
+              icon={faFolderOpen}
+              label="Browse"
+            />
+            <SideNavLink
+              link={`/${props.space}/graph`}
+              icon={faCircleNodes}
+              label="Graph"
             />
             <SideNavSubHeading short="System" long="System" />
+            <SideNavLink
+              link={`/${props.space}/color-filter`}
+              icon={faPalette}
+              label="Color filter"
+            />
+            <SideNavLink
+              link={`/${props.space}/metadata-definition`}
+              icon={faListUl}
+              label="Metadata"
+            />
+            <SideNavLink
+              link={`/${props.space}/stopwords`}
+              icon={faStrikethrough}
+              label="Stopwords"
+            />
             <SideNavLink
               link={`/${props.space}/settings/company`}
               icon={faCogs}
               label="Company setting"
             />
+            <SideNavLink
+              link={`/${props.space}/settings/user`}
+              icon={faUserShield}
+              label="User"
+            />
+            <SideNavLink
+              link={`/${props.space}/settings/backup`}
+              icon={faDatabase}
+              label="Backup and restore"
+            />
+            {/* <SideNavLink
+              link={`/${props.space}/settings?link=backup`}
+              icon={faFileImport}
+              label="Export and import"
+            /> */}
           </>
         )}
       </div>
       <div className="side-content__footer">
         <div className="side-content__footer__left">
-          <div className="side-content__footer__right">
-            <DarkModeIcon />
-          </div>
+          {authorization.isAuth && (
+            <button className="button" onClick={logout}>
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </button>
+          )}
+          {!authorization.isAuth && (
+            <button className="button" onClick={() => login('signin')}>
+              <FontAwesomeIcon icon={faFingerprint} />
+            </button>
+          )}
+          {profile.sidebar && (
+            <div>{`${authorization.given_name} ${authorization.family_name}`}</div>
+          )}
         </div>
         {profile.sidebar && (
           <div className="side-content__footer__right">
-            {profile.sidebar && (
-              <div>{`${authorization.given_name} ${authorization.family_name}`}</div>
-            )}
-            {authorization.isAuth && (
-              <button className="button" onClick={logout}>
-                <FontAwesomeIcon icon={faSignOutAlt} />
-              </button>
-            )}
-            {!authorization.isAuth && (
-              <button className="button" onClick={() => login('signin')}>
-                <FontAwesomeIcon icon={faFingerprint} />
-              </button>
-            )}
+            <DarkModeIcon />
           </div>
         )}
         {/* <NavAccountIcon logout={logout} login={login} /> */}

@@ -10,8 +10,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { isEmptyOrSpaces } from '../Utils';
 
-const queryString = require('query-string');
-
 interface Props {
   handleChange: any;
   handleRefresh: any;
