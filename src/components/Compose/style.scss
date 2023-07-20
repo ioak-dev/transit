@@ -20,7 +20,7 @@
     align-content: center;
     align-items: center;
     justify-items: center;
-    background-color: var(--color-primary-100);
+    background-color: var(--theme-primary-500);
     color: var(--color-primary-i);
   }
 
@@ -37,15 +37,15 @@
   }
 }
 
-.dark .compose input {
+.basicui-dark .compose input {
   background-color: var(--color-base-200);
 }
 
-.dark .compose {
+.basicui-dark .compose {
   background-color: var(--color-base-300);
 }
 
-.dark .compose__refresh {
+.basicui-dark .compose__refresh {
   background-color: var(--color-base-100);
   color: var(--color-base-i);
 }

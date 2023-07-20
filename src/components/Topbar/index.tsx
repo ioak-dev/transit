@@ -6,6 +6,7 @@ import { setProfile } from '../../store/actions/ProfileActions';
 import MobileSidebar from '../MobileSidebar';
 import './style.scss';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../Logo';
 
 interface Props {
   title: string;
@@ -45,10 +46,10 @@ const Topbar = (props: Props) => {
       <div className="topbar">
         <div className="topbar__left">
           <button className="button desktop-only" onClick={toggleSidebar}>
-            <FontAwesomeIcon icon={faBars} />
+            <Logo variant='short'/>
           </button>
           <button className="button mobile-only" onClick={toggleMobileSidebar}>
-            <FontAwesomeIcon icon={faBars} />
+            <Logo variant='short'/>
           </button>
           {/* <button className="button topbar__left__nav" onClick={openNewNotePage}>
             <FontAwesomeIcon icon={faPlus} /> New note

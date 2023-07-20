@@ -30,25 +30,27 @@
   flex-wrap: wrap;
   padding: 10px 10px 0 10px;
   width: 100%;
+  // background-color: var(--theme-white-100);
+  // border-top: 1px solid var(--theme-white-700);
   .label {
     padding: 6px;
-    background-color: var(--color-base-400);
+    background-color: var(--theme-white-400);
     color: #000;
     border-radius: 6px;
     font-size: 11px;
     cursor: pointer;
     &.active {
-      background-color: var(--color-primary-100);
-      color: var(--color-primary-i);
+      background-color: var(--theme-primary-500);
+      color: var(--color-primary-500i);
     }
   }
 }
 
-.dark .label-list .label {
-  background-color: var(--color-base-200);
+.basicui-dark .label-list .label {
+  background-color: var(--theme-black-50);
   color: #fff;
   &.active {
-    background-color: var(--color-primary-100);
+    background-color: var(--theme-primary-500);
     color: var(--color-primary-i);
   }
 }

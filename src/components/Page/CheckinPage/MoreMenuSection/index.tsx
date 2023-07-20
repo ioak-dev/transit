@@ -31,16 +31,16 @@ interface Props {
   goToPage: any;
   event: any;
   page:
-    | 'Home'
-    | 'Schedule'
-    | 'Agenda'
-    | 'Map'
-    | 'User'
-    | 'People'
-    | 'Help'
-    | 'More'
-    | 'Group'
-    | 'News Feed';
+  | 'Home'
+  | 'Schedule'
+  | 'Agenda'
+  | 'Map'
+  | 'User'
+  | 'People'
+  | 'Help'
+  | 'More'
+  | 'Group'
+  | 'News Feed';
   participant: ParticipantModel;
 }
 
@@ -56,13 +56,13 @@ const MoreMenuSection = (props: Props) => {
   const toggleMode = () => {
     dispatch(
       setProfile({
-        theme: profile.theme === 'theme_dark' ? 'theme_light' : 'theme_dark',
+        theme: profile.theme === 'basicui-dark' ? 'basicui-light' : 'basicui-dark',
       })
     );
 
     sessionStorage.setItem(
       'transit_pref_profile_colormode',
-      profile.theme === 'theme_dark' ? 'theme_light' : 'theme_dark'
+      profile.theme === 'basicui-dark' ? 'basicui-light' : 'basicui-dark'
     );
   };
 
@@ -81,9 +81,8 @@ const MoreMenuSection = (props: Props) => {
     <div className="more-menu-section">
       <button
         onClick={() => props.goToPage('User')}
-        className={`button more-menu-section__button ${
-          props.page === 'User' ? 'more-menu-section__button--active' : ''
-        }`}
+        className={`button more-menu-section__button ${props.page === 'User' ? 'more-menu-section__button--active' : ''
+          }`}
       >
         <div className="more-menu-section__button__label">
           <FontAwesomeIcon icon={faUser} />
@@ -94,9 +93,8 @@ const MoreMenuSection = (props: Props) => {
       </button>
       <button
         onClick={() => props.goToPage('Home')}
-        className={`button more-menu-section__button ${
-          props.page === 'Home' ? 'more-menu-section__button--active' : ''
-        }`}
+        className={`button more-menu-section__button ${props.page === 'Home' ? 'more-menu-section__button--active' : ''
+          }`}
       >
         <div className="more-menu-section__button__label">
           <FontAwesomeIcon icon={faHome} />
@@ -118,9 +116,8 @@ const MoreMenuSection = (props: Props) => {
         <button
           key={item}
           onClick={() => props.goToPage('Group', item)}
-          className={`button more-menu-section__button ${
-            props.page === 'Help' ? 'more-menu-section__button--active' : ''
-          }`}
+          className={`button more-menu-section__button ${props.page === 'Help' ? 'more-menu-section__button--active' : ''
+            }`}
         >
           <div className="more-menu-section__button__label">
             <FontAwesomeIcon
@@ -137,20 +134,19 @@ const MoreMenuSection = (props: Props) => {
       ))}
       <button
         onClick={toggleMode}
-        className={`button more-menu-section__button ${
-          props.page === 'Help' ? 'more-menu-section__button--active' : ''
-        }`}
+        className={`button more-menu-section__button ${props.page === 'Help' ? 'more-menu-section__button--active' : ''
+          }`}
       >
         <div className="more-menu-section__button__label">
-          {profile.theme === 'theme_dark' && (
+          {profile.theme === 'basicui-dark' && (
             <WbSunny className="cursor-pointer" />
           )}
-          {profile.theme !== 'theme_dark' && (
+          {profile.theme !== 'basicui-dark' && (
             <NightsStay className="cursor-pointer" />
           )}
           <div className="more-menu-section__button__label__text">
-            {profile.theme === 'theme_dark' && <>Light mode</>}
-            {profile.theme !== 'theme_dark' && <>Dark mode</>}
+            {profile.theme === 'basicui-dark' && <>Light mode</>}
+            {profile.theme !== 'basicui-dark' && <>Dark mode</>}
           </div>
         </div>
       </button>

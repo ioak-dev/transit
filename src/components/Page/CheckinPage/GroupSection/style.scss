@@ -40,11 +40,11 @@
     font-size: 16px;
     color: var(--color-2);
     &.active {
-      border-bottom: 1px dashed var(--color-primary-100);
+      border-bottom: 1px dashed var(--theme-primary-500);
     }
     svg {
       margin: 0 10px 0 0;
-      color: var(--color-primary-100);
+      color: var(--theme-primary-500);
     }
   }
 }

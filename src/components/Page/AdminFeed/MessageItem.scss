@@ -14,7 +14,7 @@
   background-color: var(--color-base-400);
   color: #000;
 }
-.dark .message-item__container {
+.basicui-dark .message-item__container {
   background-color: var(--color-base-100);
   color: #fff;
 }
@@ -31,7 +31,7 @@
 .message-item--admin .message-item__container,
 .message-item--admin-not-possible.message-item--not-own
   .message-item__container {
-  background-color: var(--color-primary-100);
+  background-color: var(--theme-primary-500);
   color: var(--color-primary-i);
 }
 
@@ -44,7 +44,7 @@
 //   color: #fff;
 // }
 
-// .dark .message-item--own .message-item__container {
+// .basicui-dark .message-item--own .message-item__container {
 //   background-color: #5d6a76;
 //   color: #fff;
 // }

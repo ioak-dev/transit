@@ -250,9 +250,9 @@ select {
   }
 }
 
-.dark input,
-.dark textarea,
-.dark select {
+.basicui-dark input,
+.basicui-dark textarea,
+.basicui-dark select {
   border: 1px solid rgb(83, 83, 83);
 
   &:hover:not(:focus) {
@@ -269,7 +269,7 @@ select {
   transition: border-color 250ms ease-in-out;
 
   &:focus {
-    border-color: var(--color-primary-100);
+    border-color: var(--theme-primary-500);
     outline: none;
   }
 

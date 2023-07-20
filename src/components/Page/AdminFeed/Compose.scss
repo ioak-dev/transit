@@ -19,7 +19,7 @@
     align-content: center;
     align-items: center;
     justify-items: center;
-    background-color: var(--color-primary-100);
+    background-color: var(--theme-primary-500);
     color: var(--color-primary-i);
     column-gap: 5px;
   }
@@ -36,21 +36,21 @@
   }
 }
 
-.dark .compose-admin input {
+.basicui-dark .compose-admin input {
   background-color: var(--color-base-200);
 }
 
-.dark .compose-admin {
+.basicui-dark .compose-admin {
   background-color: var(--color-base-300);
 }
 
 button.compose-admin__important {
   background-color: var(--color-base-400);
 }
-.dark button.compose-admin__important {
+.basicui-dark button.compose-admin__important {
   background-color: var(--color-base-200);
 }
 button.compose-admin__important--active,
-.dark button.compose-admin__important--active {
-  background-color: var(--color-primary-100);
+.basicui-dark button.compose-admin__important--active {
+  background-color: var(--theme-primary-500);
 }

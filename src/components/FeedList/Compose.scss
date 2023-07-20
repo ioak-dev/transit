@@ -8,7 +8,7 @@
   grid-template-columns: 1fr 200px auto auto;
   gap: 10px;
   align-items: center;
-  background-color: var(--color-base-200);
+  background-color: var(--theme-white-200);
 
   button {
     height: 50px;
@@ -19,33 +19,33 @@
     align-content: center;
     align-items: center;
     justify-items: center;
-    background-color: var(--color-primary-100);
-    color: var(--color-primary-i);
+    background-color: var(--theme-primary-500);
+    color: var(--color-primary-500i);
   }
 
   input {
-    background-color: var(--color-base-400);
+    background-color: var(--theme-white-200);
     border: none;
     height: 50px;
     border-radius: 50px;
   }
 }
 
-.dark .compose-admin input {
-  background-color: var(--color-base-200);
+.basicui-dark .compose-admin input {
+  background-color: var(--theme-black-200);
 }
 
-.dark .compose-admin {
+.basicui-dark .compose-admin {
   background-color: var(--color-base-300);
 }
 
 button.compose-admin__important {
-  background-color: var(--color-base-400);
+  background-color: var(--theme-white-200);
 }
-.dark button.compose-admin__important {
-  background-color: var(--color-base-200);
+.basicui-dark button.compose-admin__important {
+  background-color: var(--theme-black-200);
 }
 button.compose-admin__important--active,
-.dark button.compose-admin__important--active {
-  background-color: var(--color-primary-100);
+.basicui-dark button.compose-admin__important--active {
+  background-color: var(--theme-primary-500);
 }

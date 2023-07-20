@@ -30,7 +30,7 @@
   color: #fff;
 }
 
-.dark {
+.basicui-dark {
   .admin-checkin-tile {
     background-color: #5d6a76;
     color: #fff;
@@ -52,7 +52,7 @@
     color: #fff;
   }
 }
-.dark2 {
+.basicui-dark2 {
   .admin-checkin-tile {
     background-color: #d5dee6;
     color: #000;
@@ -87,7 +87,7 @@
 
 .admin-checkin-tile__right__action {
   font-size: 14px;
-  background-color: var(--color-primary-100);
+  background-color: var(--theme-primary-500);
   color: var(--color-primary-i);
   height: 36px;
   padding: 0 10px;

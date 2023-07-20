@@ -1,6 +1,6 @@
 .search-input {
   position: fixed;
-  bottom: 58px;
+  bottom: 50px;
   left: 0;
   right: 0;
   padding: 10px;
@@ -8,7 +8,7 @@
   grid-template-columns: 1fr;
   align-content: center;
   align-items: center;
-  background-color: var(--color-base-200);
+  background-color: var(--theme-white-100);
 
   button {
     height: 50px;
@@ -19,22 +19,22 @@
     align-content: center;
     align-items: center;
     justify-items: center;
-    background-color: var(--color-primary-100);
-    color: var(--color-primary-i);
+    background-color: var(--theme-primary-500);
+    color: var(--color-primary-500i);
   }
 
   input {
-    background-color: var(--color-base-400);
+    background-color: var(--theme-white-400);
     border: none;
     height: 50px;
     border-radius: 50px;
   }
 }
 
-.dark .search-input input {
-  background-color: var(--color-base-200);
+.basicui-dark .search-input input {
+  background-color: var(--theme-black-200);
 }
 
-.dark .search-input {
-  background-color: var(--color-base-300);
+.basicui-dark .search-input {
+  background-color: var(--theme-black-300);
 }

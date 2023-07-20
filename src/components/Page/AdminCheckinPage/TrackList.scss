@@ -8,12 +8,12 @@
   border-radius: 6px;
   background-color: var(--color-base-400);
 }
-.dark .track-list__item {
+.basicui-dark .track-list__item {
   background-color: var(--color-base-200);
 }
 .track-list__item--active,
-.dark .track-list__item--active {
-  background-color: var(--color-primary-100);
+.basicui-dark .track-list__item--active {
+  background-color: var(--theme-primary-500);
 }
 .track-list__item__container {
   display: grid;

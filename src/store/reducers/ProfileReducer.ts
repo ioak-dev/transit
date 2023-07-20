@@ -1,11 +1,10 @@
 import { GET_PROFILE, SET_PROFILE } from '../actions/types';
 
 const initialState = {
-  theme: 'theme_light',
+  theme: 'basicui-dark',
   textSize: 'textsize_medium',
   themeColor: 'themecolor1',
-  sidebar: false,
-  // contextbar: false,
+  sidebar: true,
   hideSidebarOnDesktop: true,
 };
 

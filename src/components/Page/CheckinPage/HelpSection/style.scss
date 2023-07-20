@@ -11,7 +11,7 @@
   .help__item__title {
     font-size: 16px;
     font-weight: 600;
-    color: var(--color-primary-100);
+    color: var(--theme-primary-500);
   }
 
   .help__item__phone {
@@ -26,7 +26,7 @@
       column-gap: 10px;
       a {
         &:hover {
-          color: var(--color-primary-100);
+          color: var(--theme-primary-500);
         }
       }
     }

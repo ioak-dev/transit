@@ -20,24 +20,24 @@
   grid-auto-flow: column;
   column-gap: 10px;
   justify-content: flex-start;
-  background-color: var(--color-base-200);
+  background-color: var(--theme-white-200);
   button {
     padding: 6px 12px;
-    background-color: var(--color-base-400);
+    background-color: var(--theme-white-400);
     border-radius: 6px;
     font-size: 11px;
   }
   button.active {
-    background-color: var(--color-primary-100);
+    background-color: var(--theme-primary-500);
   }
 }
 
-.dark .participant-list-quickfilter {
+.basicui-dark .participant-list-quickfilter {
   button {
-    background-color: var(--color-base-100);
+    background-color: var(--theme-black-100);
   }
   button.active {
-    background-color: var(--color-primary-100);
+    background-color: var(--theme-primary-500);
   }
 }
 
@@ -51,22 +51,22 @@
   grid-template-columns: 1fr;
   align-content: center;
   align-items: center;
-  background-color: var(--color-base-200);
+  background-color: var(--theme-white-200);
 
   input {
-    background-color: var(--color-base-400);
+    background-color: var(--theme-white-400);
     border: none;
     height: 50px;
     border-radius: 50px;
   }
 }
 
-.dark .search-input input {
-  background-color: var(--color-base-200);
+.basicui-dark .search-input input {
+  background-color: var(--theme-black-50);
 }
 
-.dark .search-input {
-  background-color: var(--color-base-300);
+.basicui-dark .search-input {
+  background-color: var(--theme-black-200);
 }
 
 .participant-list__footer {
@@ -75,5 +75,5 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: var(--color-base-200);
+  background-color: var(--theme-white-200);
 }
