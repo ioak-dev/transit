@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import './style.scss';
-import ParticipantModel from '../../../../model/ParticipantModel';
-import DisableContextBarCommand from '../../../../events/DisableContextBarCommand';
-import EventModel from '../../../../model/EventModel';
-import ParticipantTile from '../GroupSection/ParticipantTile';
-import SearchInput from './SearchInput';
-import { isEmptyOrSpaces } from '../../../../components/Utils';
-import CheckinModel from '../../../../model/CheckinModel';
+import React, { useEffect, useState } from "react";
+import "./style.scss";
+import ParticipantModel from "../../../../model/ParticipantModel";
+import DisableContextBarCommand from "../../../../events/DisableContextBarCommand";
+import EventModel from "../../../../model/EventModel";
+import ParticipantTile from "../GroupSection/ParticipantTile";
+import SearchInput from "./SearchInput";
+import { isEmptyOrSpaces } from "../../../../components/Utils";
+import CheckinModel from "../../../../model/CheckinModel";
 
 interface Props {
   space: string;
@@ -19,10 +19,11 @@ interface Props {
 
 const People = (props: Props) => {
   const [search, setSearch]: [string, (search: string) => void] =
-    React.useState('');
+    React.useState("");
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
   const [registered, setRegistered] = useState<string[]>([]);
   const [attended, setAttended] = useState<string[]>([]);
+  const [emergency, setEmergency] = useState<boolean>(false);
 
   const handleChange = (payload: any) => {
     setSearch(payload);
@@ -39,7 +40,7 @@ const People = (props: Props) => {
   useEffect(() => {
     const _registered: string[] = [];
     const _attended: string[] = [];
-    console.log('*', props.checkinData);
+    console.log("*", props.checkinData);
     props.checkinData?.forEach((item) => {
       if (!item.trackId && item.register) {
         _registered.push(item.participantId);
@@ -62,19 +63,19 @@ const People = (props: Props) => {
             return (
               selectedLabels.length === 0 ||
               selectedLabels.length === 3 ||
-              (selectedLabels.includes('online') &&
-                attended.includes(item._id || '')) ||
-              (selectedLabels.includes('away') &&
-                registered.includes(item._id || '') &&
-                !attended.includes(item._id || '')) ||
-              (selectedLabels.includes('offline') &&
-                !registered.includes(item._id || '') &&
-                !attended.includes(item._id || ''))
+              (selectedLabels.includes("online") &&
+                attended.includes(item._id || "")) ||
+              (selectedLabels.includes("away") &&
+                registered.includes(item._id || "") &&
+                !attended.includes(item._id || "")) ||
+              (selectedLabels.includes("offline") &&
+                !registered.includes(item._id || "") &&
+                !attended.includes(item._id || ""))
             );
           })
           .filter((item) => {
             return (
-              search === '' ||
+              search === "" ||
               item.firstName.toLowerCase().includes(search.toLowerCase()) ||
               item.lastName.toLowerCase().includes(search.toLowerCase())
             );
@@ -83,39 +84,53 @@ const People = (props: Props) => {
             <ParticipantTile
               participant={participant}
               key={participant._id}
-              isRegistered={registered.includes(participant._id || '')}
-              isAttended={attended.includes(participant._id || '')}
+              isRegistered={registered.includes(participant._id || "")}
+              isAttended={attended.includes(participant._id || "")}
+              showEmergency={emergency}
             />
           ))}
       </div>
       <div className="label-list">
-        <button
-          className={`button label ${
-            selectedLabels.includes('online') ? 'active' : ''
-          }`}
-          onClick={() => selected('online')}
-        >
-          <div className="label-list__indicator label-list__indicator--online" />
-          <div className="label-list__text">Online</div>
-        </button>
-        <button
-          className={`button label ${
-            selectedLabels.includes('away') ? 'active' : ''
-          }`}
-          onClick={() => selected('away')}
-        >
-          <div className="label-list__indicator label-list__indicator--away" />
-          <div className="label-list__text">Away</div>
-        </button>
-        <button
-          className={`button label ${
-            selectedLabels.includes('offline') ? 'active' : ''
-          }`}
-          onClick={() => selected('offline')}
-        >
-          <div className="label-list__indicator label-list__indicator--offline" />
-          <div className="label-list__text">Offline</div>
-        </button>
+        <div className="label-container">
+          <button
+            className={`button label ${
+              selectedLabels.includes("online") ? "active" : ""
+            }`}
+            onClick={() => selected("online")}
+          >
+            <div className="label-list__indicator label-list__indicator--online" />
+            <div className="label-list__text">Online</div>
+          </button>
+          <button
+            className={`button label ${
+              selectedLabels.includes("away") ? "active" : ""
+            }`}
+            onClick={() => selected("away")}
+          >
+            <div className="label-list__indicator label-list__indicator--away" />
+            <div className="label-list__text">Away</div>
+          </button>
+          <button
+            className={`button label ${
+              selectedLabels.includes("offline") ? "active" : ""
+            }`}
+            onClick={() => selected("offline")}
+          >
+            <div className="label-list__indicator label-list__indicator--offline" />
+            <div className="label-list__text">Offline</div>
+          </button>
+        </div>
+        <div className="show-emergency-contact">
+          <input
+            type="checkbox"
+            id="emergency"
+            name="emergency"
+            value="emergency"
+            checked={emergency}
+            onInput={(event) => setEmergency(!emergency)}
+          />
+          <label htmlFor="emergency">Show emergency contact</label>
+        </div>
       </div>
       <div>
         <SearchInput

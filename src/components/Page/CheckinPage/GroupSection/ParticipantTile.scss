@@ -3,10 +3,12 @@
   flex-direction: column;
   // row-gap: 4px;
   padding: 10px 0;
+
   &:hover,
   &:focus {
     background: none;
   }
+
   border-bottom: 1px solid var(--theme-adaptive-400);
 }
 
@@ -40,6 +42,7 @@
   background-color: #f2c57c;
   border: 2px solid #f2c57c;
 }
+
 .participant-tile__lineone__right__attended {
   background-color: #2BAC76;
   border: 2px solid #2BAC76;
@@ -53,7 +56,23 @@
   margin-bottom: 4px;
   display: flex;
   column-gap: 7.5px;
+  align-items: center;
 }
+
+.participant-tile__phone__emergency {
+  font-size: 12px;
+  a {
+    color: #ff0000;
+    display: flex;
+    gap: 7.5px;
+    align-items: center;
+    font-size: 12px;
+  }
+  span {
+    font-size: 11px;
+  }
+}
+
 .participant-tile__phone,
 .participant-tile__time {
   font-size: 12px;

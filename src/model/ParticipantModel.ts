@@ -5,6 +5,7 @@ export default interface ParticipantModel {
   lastName: string;
   email: string;
   telephone: string;
+  emergency?: string;
   birthDate: any;
   joiningDate?: any;
   referenceId: string;

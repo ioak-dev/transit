@@ -25,29 +25,47 @@
 .label-list {
   position: fixed;
   bottom: 120px;
-  display: flex;
-  gap: 5px;
   align-items: center;
-  flex-wrap: wrap;
   padding: 10px 10px 0 10px;
   background-color: var(--theme-white-100);
   border-top: 1px solid var(--theme-white-700);
   width: 100%;
-  .label {
-    padding: 6px;
-    background-color: var(--theme-adaptive-400);
-    color: #000;
-    border-radius: 6px;
-    font-size: 11px;
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  .label-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    .label {
+      padding: 6px;
+      background-color: var(--theme-adaptive-400);
+      color: #000;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      display: grid;
+      grid-auto-flow: column;
+      column-gap: 10px;
+      align-items: center;
+      height: 32px;
+
+      &.active {
+        background-color: var(--theme-primary-500);
+        color: var(--color-primary-i);
+      }
+    }
+  }
+  .show-emergency-contact {
     display: grid;
     grid-auto-flow: column;
-    column-gap: 10px;
-    align-items: center;
-    height: 32px;
-    &.active {
-      background-color: var(--theme-primary-500);
-      color: var(--color-primary-i);
+    justify-content: flex-start;
+    column-gap: 5px;
+    font-size: 14px;
+    label {
+      color: var(--color-danger);
+    }
+    input {
+      margin-bottom: 2px;
     }
   }
 }
@@ -56,9 +74,11 @@
   background-color: var(--theme-black-200);
   border-top: 1px solid var(--theme-black-50);
 }
+
 .basicui-dark .label-list .label {
   background-color: var(--theme-adaptive-200);
   color: #fff;
+
   &.active {
     background-color: var(--theme-primary-500);
     color: var(--color-primary-i);
@@ -70,6 +90,7 @@
   width: 10px;
   border-radius: 10px;
 }
+
 .label-list__indicator--offline {
   background-color: transparent;
   border: 2px solid #bbb;
@@ -79,6 +100,7 @@
   background-color: #f2c57c;
   border: 2px solid #f2c57c;
 }
+
 .label-list__indicator--online {
   background-color: #2BAC76;
   border: 2px solid #2BAC76;

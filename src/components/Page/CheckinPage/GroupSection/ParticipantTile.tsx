@@ -2,17 +2,18 @@ import {
   faBuilding,
   faBuildingUser,
   faPhone,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
-import EventModel from 'src/model/EventModel';
-import ParticipantModel from 'src/model/ParticipantModel';
-import './ParticipantTile.scss';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
+import EventModel from "src/model/EventModel";
+import ParticipantModel from "src/model/ParticipantModel";
+import "./ParticipantTile.scss";
 
 interface Props {
   participant: ParticipantModel;
   isRegistered?: boolean;
   isAttended?: boolean;
+  showEmergency?: boolean;
 }
 
 const ParticipantTile = (props: Props) => {
@@ -45,6 +46,15 @@ const ParticipantTile = (props: Props) => {
         )}
         {!props.participant.telephone && (
           <div className="participant-tile__phone" />
+        )}
+        {props.showEmergency && (
+          <div className="participant-tile__phone participant-tile__phone__emergency">
+            <a href={`tel:${props.participant.telephone}`}>
+              <FontAwesomeIcon icon={faPhone} />
+            </a>
+            {props.participant.telephone}
+            <span>(Emergency)</span>
+          </div>
         )}
       </div>
     </div>
