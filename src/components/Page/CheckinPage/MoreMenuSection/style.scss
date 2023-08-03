@@ -9,13 +9,13 @@
   padding: 40px 0;
   &:hover,
   &:focus {
-    background-color: var(--color-base-400);
+    background-color: var(--theme-adaptive-400);
   }
 }
 
 .basicui-dark .more-menu-section__button:hover,
 .basicui-dark .more-menu-section__button:focus {
-  background-color: var(--color-base-200);
+  background-color: var(--theme-adaptive-200);
 }
 
 .more-menu-section__button__label svg {

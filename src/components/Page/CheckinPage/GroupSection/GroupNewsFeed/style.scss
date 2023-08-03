@@ -20,7 +20,7 @@
   &.user {
     border-bottom-right-radius: 0;
     background-image: linear-gradient(to right, #1596d1, #72b7e2);
-    color: var(--color-base-100);
+    color: var(--theme-adaptive-100);
     justify-self: flex-end;
   }
 }

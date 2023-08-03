@@ -24,7 +24,7 @@
 
 .label-list {
   position: fixed;
-  bottom: 128px;
+  bottom: 120px;
   display: flex;
   gap: 5px;
   align-items: center;
@@ -35,7 +35,7 @@
   width: 100%;
   .label {
     padding: 6px;
-    background-color: var(--color-base-400);
+    background-color: var(--theme-adaptive-400);
     color: #000;
     border-radius: 6px;
     font-size: 11px;
@@ -57,7 +57,7 @@
   border-top: 1px solid var(--theme-black-50);
 }
 .basicui-dark .label-list .label {
-  background-color: var(--color-base-200);
+  background-color: var(--theme-adaptive-200);
   color: #fff;
   &.active {
     background-color: var(--theme-primary-500);

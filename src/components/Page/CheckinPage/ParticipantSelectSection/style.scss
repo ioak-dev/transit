@@ -34,14 +34,11 @@
 .circle-button {
   height: 50px;
   width: 50px;
-  // border: 2px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 50%;
   align-self: center;
-  // background-color: var(--theme-primary-500);
-  // color: var(--color-primary-i);
-  // Temporary change
-  background-color: #fff;
-  color: #000;
+  background-color: var(--theme-primary-500);
+  color: var(--color-primary-i);
   svg {
     height: 16px;
   }
