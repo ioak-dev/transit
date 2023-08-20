@@ -5,11 +5,12 @@ export default interface ParticipantModel {
   lastName: string;
   email: string;
   telephone: string;
-  emergency?: string;
   birthDate: any;
   joiningDate?: any;
   referenceId: string;
   groups: string[];
+  emergencyContactName?: string;
+  emergencyContactTelephone?: string;
   customFields?: any;
   firstDeclaration?: boolean;
   secondDeclaration?: boolean;

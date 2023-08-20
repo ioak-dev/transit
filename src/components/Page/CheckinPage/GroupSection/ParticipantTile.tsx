@@ -52,8 +52,8 @@ const ParticipantTile = (props: Props) => {
             <a href={`tel:${props.participant.telephone}`}>
               <FontAwesomeIcon icon={faPhone} />
             </a>
-            {props.participant.telephone}
-            <span>(Emergency)</span>
+            {props.participant.emergencyContactTelephone}
+            <span>({props.participant.emergencyContactName})</span>
           </div>
         )}
       </div>
